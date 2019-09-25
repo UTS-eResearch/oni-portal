@@ -1,0 +1,11 @@
+{
+  "api": "/solr/ocflcore",
+  "dev": {
+    "proxy": {
+      "/solr/ocflcore": {
+        "target": "http://localhost:8080",
+        "secure": false
+      }
+    }
+  }
+}
