@@ -1,5 +1,5 @@
 const Footer = function (data) {
-  return `
+  return ''/*
   <footer class="footer">
     <div class="container">
       <div class="row">
@@ -11,7 +11,7 @@ const Footer = function (data) {
       </div>
     </div>
   </footer>
-  `
+  `*/
 };
 
 module.exports = Footer;

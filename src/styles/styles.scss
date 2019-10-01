@@ -1,0 +1,52 @@
+
+$enable-rounded: false;
+$body-color: black;
+$menu-color: black;
+$over-color: black;
+$navbar-light-color: rgba($over-color, .5) !default;
+$navbar-light-hover-color: rgba($over-color, .7) !default;
+$navbar-light-active-color: rgba($over-color, .9) !default;
+$background-color: #ebebeb;
+$search-header-background-image: none;
+/*url("../assets/images/search-header-bg.jpg");
+/*url("../assets/images/devon-divine-1348025-unsplash.jpg");*/
+$link-color: #0f4beb;
+$refiner-card-bg-color: #ddd;
+
+$font-family-base: "NB Akademie Std", Helvetica, Helvetica-Nue, Arial, sans-serif;
+
+/**
+ * Computes a top-shadow for a card effect.
+ *
+ * @param {Number} $depth - depth level
+ * @return {List}
+ */
+@function top-shadow($depth) {
+  $primary-offset: nth(1.5 3 10 14 19, $depth) * 1px;
+  $blur: nth(1.5 3 10 14 19, $depth) * 4px;
+  $color: rgba(black, nth(.12 .16 .19 .25 .30, $depth));
+
+  @return 0 $primary-offset $blur $color;
+}
+
+/**
+ * Computes a bottom-shadow for a card effect.
+ *
+ * @param {Number} $depth - depth level
+ * @return {List}
+ */
+@function bottom-shadow($depth) {
+  $primary-offset: nth(1.5 3 6 10 15, $depth) * 1px;
+  $blur: nth(1 3 3 5 6, $depth) * 4px;
+  $color: rgba(black, nth(.24 .23 .23 .22 .22, $depth));
+
+  @return 0 $primary-offset $blur $color;
+}
+
+@import "~bootstrap/scss/bootstrap";
+
+
+@import "./fonts.scss";
+@import "./media.scss";
+@import "./theme.scss";
+@import "./browse.scss";

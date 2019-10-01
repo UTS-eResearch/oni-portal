@@ -1,5 +1,11 @@
 {
   "repo": "http://localhost:8080/repo/",
+  "views": {
+    "view": {
+      "fields": ["name", "author", "description", "publisher", "date"]
+    }
+  },
+  "core": "repo",
   "api": "/solr/ocflcore",
   "dev": {
     "proxy": {

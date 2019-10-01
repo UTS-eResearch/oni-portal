@@ -1,0 +1,92 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+* {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.content {
+  min-height: 100%;
+}
+
+.content-inside {
+  //padding: 20px;
+  padding-bottom: 70px;
+}
+
+.footer {
+  height: 70px;
+  margin-top: -70px;
+  background-color: #000;
+  color: #fff;
+}
+
+.footer p {
+  margin: 0 auto;
+  padding-top: .5em;
+}
+
+.card {
+  border: none;
+}
+
+.card-header{
+  background-color: #ddd;
+}
+
+.header-main {
+  a {
+    color: $menu-color;
+    bottom: 12px;
+    position: absolute;
+    padding: 0 12px;
+    font-size: 40px;
+
+    &:hover {
+      color: $menu-color;
+      text-decoration: none;
+    }
+  }
+}
+
+.mainmenu-area {
+  background: none repeat scroll 0 0 $background-color;
+  width: 100%;
+  z-index: 999;
+  color: $over-color;
+}
+
+.nav-main {
+  background-color: $background-color;
+  color: $over-color;
+}
+
+.container-main {
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.search-header {
+  color: $over-color;
+  background-image: $search-header-background-image;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.search-no-refiner {
+  height: 40em;
+  width: 500px;
+  background-color: $refiner-card-bg-color;
+}
+

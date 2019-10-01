@@ -1,0 +1,30 @@
+@media only screen and (min-width: 576px) {
+  .search-header {
+    background-position: center !important;
+  }
+  .search-header{
+    height: 300px !important;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .search-header{
+    height: 250px !important;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .header-main a {
+    font-size: 23px !important;
+    bottom: 23px !important;
+  }
+
+  .content-inside {
+    padding-bottom: 150px !important;
+  }
+
+  .footer {
+    height: 150px !important;
+    margin-top: -150px !important;
+  }
+}

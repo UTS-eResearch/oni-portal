@@ -25,6 +25,9 @@ module.exports = {
       'Access-Control-Allow-Methods': '*',
     },
     proxy: config.dev.proxy,
+    historyApiFallback: {
+      index: 'index.html'
+    }
   },
   module: {
     rules: [
@@ -39,11 +42,33 @@ module.exports = {
       //   }
       // },
       {
-        test: /\.css$/,
+        test: /\.s[ac]ss$/i,
         use: [
           {loader: 'style-loader'},
-          {loader: 'css-loader'}
+          {loader: 'css-loader'},
+          {loader: 'sass-loader'},
+          {
+            // Loader for webpack to process CSS with PostCSS
+            loader: 'postcss-loader',
+            options: {
+              plugins: function () {
+                return [
+                  require('autoprefixer')
+                ];
+              }
+            }
+          }
         ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg|ico)$/i,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'images/'
+          }
+        }]
       }
     ]
   }

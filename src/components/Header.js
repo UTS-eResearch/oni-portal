@@ -6,7 +6,7 @@ const Header = function (data) {
             <div class="col-md-9">
               <p></p>
               <p class="header-main">
-                <img src="${data.header.logoURL}" [attr.alt]="${data.header.title}" style="width:110px;"/>
+                <img src="${data.header.logo}" [attr.alt]="${data.header.title}" style="width:110px;"/>
                 <a href="${data.header.URL}">${data.header.title}</a>
               </p>
             </div>
