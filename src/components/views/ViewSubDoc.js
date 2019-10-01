@@ -8,7 +8,6 @@ const ViewSubDoc = function (ele) {
       const dummy = $('<div>');
       const sub = $('<div>');
       const a = $('<a>');
-      console.log(ele);
       ele = JSON.parse(ele);
       const href = `/#view/${ele['@id']}`;
       a.attr('href', href);
@@ -16,7 +15,6 @@ const ViewSubDoc = function (ele) {
       a.text(ele['name']);
       a.addClass("link");
       sub.append(a);
-      console.log(a.html());
       dummy.append(sub);
       return dummy;
     } else {

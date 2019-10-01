@@ -1,10 +1,10 @@
-const Header = require('./header');
-const Main = require('./main');
-const Footer = require('./footer');
-const Search = require('./search');
-const ViewDoc = require('./ViewDoc');
-const ViewError = require('./ViewError');
-const solrService = require('../lib/SolrService');
+const Header = require('./views/header');
+const Main = require('./views/main');
+const Footer = require('./views/footer');
+const Search = require('./views/search');
+const ViewDoc = require('./views/ViewDoc');
+const ViewError = require('./views/ViewError');
+const solrService = require('./SolrService');
 
 const Router = async function (state) {
   const route = window.location.hash;
@@ -26,7 +26,8 @@ const Router = async function (state) {
   } else {
     const {data, status} = await solrService.searchAll({api: state.config.api});
     if (status === 200) {
-      state.main.docs = data;
+      state.main.docs = data.docs;
+      state.main.numFound = data.numFound;
       app.innerHTML = [Header(state), Search(state), Main(state), Footer(state)].join('');
     } else {
       app.innerHTML = [Header(state), Search(state), ViewError(state), Footer(state)].join('');

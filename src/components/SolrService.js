@@ -5,7 +5,7 @@ const SolrService = {
     try {
       const req = await axios.get(`${config.api}/select?q=*%3A*`);
       if (req.data) {
-        return {data: req.data['response']['docs'], status: req.status};
+        return {data: req.data['response'], status: req.status};
       } else {
         return {data: [], status: req.status};
       }
@@ -36,7 +36,7 @@ const SolrService = {
       data = encodeURIComponent(`${data}`);
       const req = await axios.get(`${config.api}/${param}${data}`);
       if (req.data) {
-        return {data: req.data['response']['docs'], status: req.status};
+        return {data: req.data['response'], status: req.status};
       } else {
         return {data: [], status: req.status};
       }
