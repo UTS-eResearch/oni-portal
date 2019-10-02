@@ -36,7 +36,8 @@ let state = {
     page: 1,
     numFound: 0,
     pageSize: 10,
-    searchText: ''
+    searchText: '',
+    related: []
   },
   config: config
 };

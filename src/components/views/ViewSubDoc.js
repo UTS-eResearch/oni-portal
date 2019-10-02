@@ -4,19 +4,24 @@ const ViewSubDoc = function (ele) {
 
   try {
     if (Array.isArray(ele)) {
-      ele = ele[0];
       const dummy = $('<div>');
-      const sub = $('<div>');
-      const a = $('<a>');
-      ele = JSON.parse(ele);
-      const href = `/#view/${ele['@id']}`;
-      a.attr('href', href);
-      a.attr('title', ele['name']);
-      a.text(ele['name']);
-      a.addClass("link");
-      sub.append(a);
-      dummy.append(sub);
+      const subDocTitle = $('<div>');
+      subDocTitle.html('Author/s');
+      dummy.append(subDocTitle);
+      for (let el of ele) {
+        const div = $('<div>');
+        const a = $('<a>');
+        const sub = JSON.parse(el);
+        const href = `/#view/${sub['@id']}`;
+        a.attr('href', href);
+        a.attr('title', sub['name']);
+        a.text(sub['name']);
+        a.addClass("link");
+        div.append(a);
+        dummy.append(div);
+      }
       return dummy;
+
     } else {
       return ele;
     }

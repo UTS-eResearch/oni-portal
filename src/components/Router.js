@@ -15,22 +15,40 @@ const Router = async function (state) {
     const verb = match[1];
     const query = match[2];
     if (verb === '#view/') {
-      const {data, status} = await solrService.get({api: state.config.api}, query);
+      let {data, status} = await solrService.get({api: state.config.api}, query);
       if (status === 200) {
         state.main.doc = data;
+        //Just to avoid extra ajax calls but we can have multiple relationships here
+        if(state.main.doc.record_type_s || state.main.doc.record_type_s === 'Person') {
+          //Removing orcid.org to have better matches
+          state.main.doc.id = state.main.doc.id.replace("https://orcid.org/", "");
+          //state.main.doc.id = encodeURIComponent(state.main.doc.id);
+          //state.main.doc.id = encodeURIComponent(state.main.doc.id);
+          const res = await solrService.search({api: state.config.api}, {
+            start: 0,
+            page: 1,
+            searchParam: 'author_id%3A',
+            text: state.main.doc.id
+          });
+          if (status === 200) {
+            state.main.related = res.data.docs || [];
+          }
+        }
         app.innerHTML = [Header(state), Search(state), ViewDoc(state), Footer(state)].join('');
       } else {
         app.innerHTML = [Header(state), Search(state), ViewError(state), Footer(state)].join('');
       }
     }
     if (verb === '#search/') {
+      //TODO: make this better
       const splits = match[2].split('/');
       const start = splits[0] || state.main.start;
       const page = splits[1] || '';
-      const searchText = splits[2] || '';
+      let searchText = splits[2] || '';
       const {data, status} = await solrService.search({api: state.config.api}, {
         start: start,
         page: page,
+        searchParam: 'main_search%3A',
         text: searchText
       });
       if (status === 200) {
