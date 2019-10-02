@@ -16,28 +16,35 @@ const RegisterEvents = function (state) {
 
   delegate('#app', 'click', '#search-text', async () => {
     const search = document.querySelector('#text-to-search');
-    const {data, status} = await solrService.search({api: state.config.api}, search.value);
-    state.main.docs = data.docs;
-    state.main.numFound = data.numFound;
-    renderApp(state, app);
+    window.location.hash = `#search/${state.main.start}/${state.main.page}/${search.value}`;
+
+    // const {data, status} = await solrService.search({api: state.config.api}, {start: state.main.start, page: state.main.page, text: search.value});
+    // state.main.docs = data.docs;
+    // state.main.numFound = data.numFound;
+    // renderApp(state, app);
   });
 
   delegate('#app', 'keyup', '#text-to-search', async (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
+
       const search = document.querySelector('#text-to-search');
-      const {data, status} = await solrService.search({api: state.config.api}, search.value);
-      state.main.docs = data.docs;
-      state.main.numFound = data.numFound;
-      renderApp(state, app);
+      window.location.hash = `#search/${state.main.start}/${state.main.page}/${search.value}`;
+
+      // const {data, status} = await solrService.search({api: state.config.api}, {start: state.main.start, page: state.main.page, text: search.value});
+      // state.main.docs = data.docs;
+      // state.main.numFound = data.numFound;
+      // renderApp(state, app);
     }
   });
 
   delegate('#app', 'click', '#search-text-1', async () => {
     const search = document.querySelector('#text-to-search');
-    const {data, status} = await solrService.search({api: state.config.api}, search.value);
-    state.main.docs = data;
-    renderApp(state, app);
+    window.location.hash = `#search/${state.main.start}/${state.main.page}/${search.value}`;
+
+    // const {data, status} = await solrService.search({api: state.config.api}, {start: state.main.start, page: state.main.page, text: search.value});
+    // state.main.docs = data;
+    // renderApp(state, app);
   });
 };
 

@@ -32,7 +32,11 @@ let state = {
   main: {
     docs: [],
     doc: {},
-    numFound: 0
+    start: 0,
+    page: 1,
+    numFound: 0,
+    pageSize: 10,
+    searchText: ''
   },
   config: config
 };

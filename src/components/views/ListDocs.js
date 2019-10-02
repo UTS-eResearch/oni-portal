@@ -10,8 +10,10 @@ const ListDocs = function (data) {
         <div class="item"><a href="${url}">${d['name'][0]}</a> ${d['record_type_s']} </div>
       </li>`;
     });
+  } else {
+    html += `<div class="text-center"> No data found</div>`;
   }
-  html += `</ul>`;
+  html += `<div></div><br/></div></ul>`;
   return html;
 };
 

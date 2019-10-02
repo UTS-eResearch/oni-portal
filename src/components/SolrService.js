@@ -28,13 +28,16 @@ const SolrService = {
       return {data: {}, status: e.message};
     }
   },
-  search: async function (config, data) {
+  search: async function (config, {start: start, page: page, text: text}) {
     try {
       let param = `select?q=main_search%3A`;
       //Twice encoded, once for html one for solr
-      data = encodeURIComponent(`${data}`);
-      data = encodeURIComponent(`${data}`);
-      const req = await axios.get(`${config.api}/${param}${data}`);
+      let data = encodeURIComponent(`${text}`);
+      data = encodeURIComponent(`${text}`);
+      if (text === '' || !text) {
+        data = '*';
+      }
+      const req = await axios.get(`${config.api}/${param}${data}&start=${start}&page=${page}`);
       if (req.data) {
         return {data: req.data['response'], status: req.status};
       } else {
