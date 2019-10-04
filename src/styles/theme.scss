@@ -22,15 +22,20 @@ html, body {
 }
 
 .content-inside {
-  //padding: 20px;
-  padding-bottom: 70px;
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
 }
 
 .footer {
-  height: 70px;
-  margin-top: -70px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background-color: #000;
   color: #fff;
+  height: 70px;
 }
 
 .footer p {
@@ -93,4 +98,3 @@ html, body {
   width: 500px;
   background-color: $refiner-card-bg-color;
 }
-

@@ -1,43 +1,36 @@
 const axios = require('axios');
 
 const SolrService = {
-  searchAll: async function (config) {
-    try {
-      const req = await axios.get(`${config.api}/select?q=*%3A*`);
-      if (req.data) {
-        return {data: req.data['response'], status: req.status};
-      } else {
-        return {data: [], status: req.status};
-      }
-    } catch (e) {
-      return {data: [], status: e.message};
-    }
-  },
   get: async function (config, data) {
     try {
       let param = `get?id=`;
       data = encodeURIComponent(`${data}`);
-      const req = await axios.get(`${config.api}/${param}${data}`);
-      if (req.data) {
-        return {data: req.data['doc'], status: req.status};
+      const res = await axios.get(`${config.api}/${param}${data}`);
+      if (res.data) {
+        return {data: res.data['doc'], status: res.status};
       } else {
-        return {data: {}, status: req.status};
+        return {data: {}, status: res.status};
       }
     } catch (e) {
       return {data: {}, status: e.message};
     }
   },
-  search: async function (config, {start: start, page: page, searchParam: searchParam, text: text}) {
+  search: async function (config, {start: start, page: page, searchParam: searchParam, text: text, facets: facets, facetLimit: facetLimit}) {
     try {
-      let param = `select?q=`;
-      if (text === '' || !text) {
+      let param = `select?q=`;      
+      if (text === '' || !text ) {
         text = '*';
       }
-      const req = await axios.get(`${config.api}/${param}${searchParam}${text}&start=${start}&page=${page}`);
-      if (req.data) {
-        return {data: req.data['response'], status: req.status};
+      let query = `${param}${searchParam}${text}&start=${start}&page=${page}`;
+
+      if(facets) {
+        query += `&facet=true%20&facet.field=${[...facets].join('&facet.field')}&facet.limit=${facetLimit || 5}`;
+      }
+      const res = await axios.get(`${config.api}/${query}`);
+      if (res.data) {
+        return {data: res.data['response'], facets: res.data['facet_counts'], status: res.status};
       } else {
-        return {data: [], status: req.status};
+        return {data: [], status: res.status};
       }
     } catch (e) {
       return {data: [], status: e.message};

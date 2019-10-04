@@ -1,7 +1,11 @@
+const Facets = require('./Facets');
+
 const ListDocs = function (data) {
   var html = '';
   const docs = data.main.docs;
-  html += `<ul class="list-group">`;
+  html += `<div class="container col-sm-12"><div class="row">`
+  html += Facets(data);
+  html += `<ul class="list-group col-sm-8">`;
   if (docs.length > 0) {
     docs.forEach((d) => {
       var url = `${data.config.repo}${d['uri_id']}/`;
@@ -13,7 +17,8 @@ const ListDocs = function (data) {
   } else {
     html += `<div class="text-center"> No data found</div>`;
   }
-  html += `<div></div><br/></div></ul>`;
+  html += `</ul><div><br/></div>`;
+  html += `</div></div>`;
   return html;
 };
 

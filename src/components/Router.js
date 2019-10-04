@@ -6,6 +6,8 @@ const Footer = require('./views/footer');
 const Search = require('./views/search');
 const ViewDoc = require('./views/ViewDoc');
 const ViewError = require('./views/ViewError');
+const FacetController = require('./FacetController');
+
 const solrService = require('./SolrService');
 
 const Router = async function (state) {
@@ -30,19 +32,20 @@ const Router = async function (state) {
             start: 0,
             page: 1,
             searchParam: 'author_id%3A',
-            text: state.main.doc.id
+            text: state.main.doc.id,
+            facets: false
           });
           if (status === 200) {
             state.main.related = res.data.docs || [];
           }
         }
-        app.innerHTML = [Header(state), Menu(state), Container([Search(state), ViewDoc(state)]), Footer(state)].join('');
+        app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewDoc(state), Footer(state)])].join('');
       } else {
-        app.innerHTML = [Header(state), Menu(state), Container([Search(state), ViewError(state)]), Footer(state)].join('');
+        app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
       }
     }
     if (verb === '#search/') {
-      //TODO: make this better
+      //TODO: make the split better
       const splits = match[2].split('/');
       const start = splits[0] || state.main.start;
       const page = splits[1] || '';
@@ -51,30 +54,49 @@ const Router = async function (state) {
         start: start,
         page: page,
         searchParam: 'main_search%3A',
-        text: searchText
+        text: searchText,
+        facets: state.facets,
+        facetLimit: state.facetLimit
       });
       if (status === 200) {
         state.main.docs = data.docs;
         state.main.numFound = data.numFound;
         state.main.searchText = searchText;
-        app.innerHTML = [Header(state), Menu(state), Container([Search(state), Main(state)]), Footer(state)].join('');
+        app.innerHTML = [Container([Header(state), Menu(state), Search(state), Main(state), Footer(state)])].join('');
         const input = document.getElementById('text-to-search');
         if (input) {
           input.value = searchText;
         }
       } else {
-        app.innerHTML = [Header(state), Menu(state), Container([Search(state), ViewError(state)]), Footer(state)].join('');
+        app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
       }
     }
   } else {
-    const {data, status} = await solrService.searchAll({api: state.config.api});
-    if (status === 200) {
-      state.main.docs = data.docs;
-      state.main.numFound = data.numFound;
+    const res = await solrService.search({api: state.config.api}, {
+      start: state.main.start,
+      page: state.main.page,
+      searchParam: '*%3A',
+      text: '*',
+      facets: state.facets,
+      facetLimit: state.facetLimit
+    });
+    if (res.status === 200) {
+      state.main.docs = res.data.docs;
+      state.main.numFound = res.data.numFound;
       state.main.searchText = '';
-      app.innerHTML = [Header(state), Menu(state), Container([Search(state), Main(state)]), Footer(state)].join('');
+      state.facetResult = res.facets;
+      const facetContent = FacetController.get({data: state.facetResult['facet_fields'][state.facets[0]], toJSON: true});
+      const facetData = FacetController.display({data: facetContent, config: {
+        name: 'Dataset_author_facetmulti',
+        route: '#view/',
+        searchUrl: '@id',
+        searchText: 'name'
+        }
+      });
+      state.facetData = facetData;
+      app.innerHTML = [Container([Header(state), Menu(state), Search(state), Main(state), Footer(state)])].join('');
     } else {
-      app.innerHTML = [Header(state), Menu(state), Container([Search(state), ViewError(state)]), Footer(state)].join('');
+      app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
     }
   }
 };
