@@ -1,6 +1,7 @@
 const Search = function (data) {
   return `
-    <div class="">
+    <div class="container">
+    <div class="row"><br/></div>
       <div class="row no-gutters align-items-center">
         <div class="col-md-2"></div>
         <div class="col-md-8">

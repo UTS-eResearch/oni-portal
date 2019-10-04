@@ -1,4 +1,6 @@
+const Container = require('./views/Container');
 const Header = require('./views/header');
+const Menu = require('./views/menu');
 const Main = require('./views/main');
 const Footer = require('./views/footer');
 const Search = require('./views/search');
@@ -19,7 +21,7 @@ const Router = async function (state) {
       if (status === 200) {
         state.main.doc = data;
         //Just to avoid extra ajax calls but we can have multiple relationships here
-        if(state.main.doc.record_type_s || state.main.doc.record_type_s === 'Person') {
+        if (state.main.doc.record_type_s || state.main.doc.record_type_s === 'Person') {
           //Removing orcid.org to have better matches
           state.main.doc.id = state.main.doc.id.replace("https://orcid.org/", "");
           //state.main.doc.id = encodeURIComponent(state.main.doc.id);
@@ -34,9 +36,9 @@ const Router = async function (state) {
             state.main.related = res.data.docs || [];
           }
         }
-        app.innerHTML = [Header(state), Search(state), ViewDoc(state), Footer(state)].join('');
+        app.innerHTML = [Header(state), Menu(state), Container([Search(state), ViewDoc(state)]), Footer(state)].join('');
       } else {
-        app.innerHTML = [Header(state), Search(state), ViewError(state), Footer(state)].join('');
+        app.innerHTML = [Header(state), Menu(state), Container([Search(state), ViewError(state)]), Footer(state)].join('');
       }
     }
     if (verb === '#search/') {
@@ -55,13 +57,13 @@ const Router = async function (state) {
         state.main.docs = data.docs;
         state.main.numFound = data.numFound;
         state.main.searchText = searchText;
-        app.innerHTML = [Header(state), Search(state), Main(state), Footer(state)].join('');
+        app.innerHTML = [Header(state), Menu(state), Container([Search(state), Main(state)]), Footer(state)].join('');
         const input = document.getElementById('text-to-search');
         if (input) {
           input.value = searchText;
         }
       } else {
-        app.innerHTML = [Header(state), Search(state), ViewError(state), Footer(state)].join('');
+        app.innerHTML = [Header(state), Menu(state), Container([Search(state), ViewError(state)]), Footer(state)].join('');
       }
     }
   } else {
@@ -70,9 +72,9 @@ const Router = async function (state) {
       state.main.docs = data.docs;
       state.main.numFound = data.numFound;
       state.main.searchText = '';
-      app.innerHTML = [Header(state), Search(state), Main(state), Footer(state)].join('');
+      app.innerHTML = [Header(state), Menu(state), Container([Search(state), Main(state)]), Footer(state)].join('');
     } else {
-      app.innerHTML = [Header(state), Search(state), ViewError(state), Footer(state)].join('');
+      app.innerHTML = [Header(state), Menu(state), Container([Search(state), ViewError(state)]), Footer(state)].join('');
     }
   }
 };

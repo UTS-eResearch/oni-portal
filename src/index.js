@@ -1,5 +1,3 @@
-import * as $ from 'jquery';
-//import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import './styles/styles.scss';
 import './images/logo.svg';
@@ -44,6 +42,9 @@ let state = {
       {display: "SubDocDate", field: "datePublished", fieldName: 'Date Published'},
       {display: "SubDoc", field: "contactPoint", fieldName: 'Contact Point', template: '${item.name} ${item.email}'},
     ]
+  },
+  footer:{
+    text: '2019 University of Technology Sydney'
   },
   config: config
 };

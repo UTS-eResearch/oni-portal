@@ -16,7 +16,6 @@ const SolrService = {
   get: async function (config, data) {
     try {
       let param = `get?id=`;
-      //Twice encoded, once for html one for solr
       data = encodeURIComponent(`${data}`);
       const req = await axios.get(`${config.api}/${param}${data}`);
       if (req.data) {
@@ -31,9 +30,6 @@ const SolrService = {
   search: async function (config, {start: start, page: page, searchParam: searchParam, text: text}) {
     try {
       let param = `select?q=`;
-      //Twice encoded, once for html one for solr
-      //let data = encodeURIComponent(`${text}`);
-      //data = encodeURIComponent(`${text}`);
       if (text === '' || !text) {
         text = '*';
       }
