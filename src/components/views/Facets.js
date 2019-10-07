@@ -2,7 +2,7 @@ const $ = require("jquery");
 const isIterable = require('../isIterable');
 
 const Facets = function (data) {
-  let html = `<ul class="list-group col-sm-4">`;
+  let html = `<ul class="list-group col-sm-4 col-xl-3">`;
 
   if(isIterable(data.facetsDisplay)){
     for(let fd of data.facetsDisplay){

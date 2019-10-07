@@ -3,7 +3,7 @@ const Facets = require('./Facets');
 const ListDocs = function (data) {
   var html = '';
   const docs = data.main.docs;
-  html += `<div class="container col-sm-12"><div class="row">`
+  html += `<div class="container col-sm-12 col-xl-9"><div class="row">`
   html += Facets(data);
   html += `<ul class="list-group col-sm-8">`;
   if (docs.length > 0) {

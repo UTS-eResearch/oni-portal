@@ -11,7 +11,7 @@ const RegisterEvents = require('./components/RegisterEvents');
 //Default state
 let state = {
   header: {
-    title: 'Data Portal',
+    title: 'Research Data Portal',
     URL: '/',
     logo: 'images/logo.svg',
     help: 'Help',
