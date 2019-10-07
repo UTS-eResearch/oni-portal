@@ -38,6 +38,7 @@ let state = {
     related: [],
     viewFields: [
       {display: "SubDocHorizontal", field: "author", fieldName: 'Author/s'},
+      {display: "", field: "affiliation", fieldName: 'Affiliation'},
       {display: "", field: "license", fieldName: 'Licence'},
       {display: "SubDocDate", field: "datePublished", fieldName: 'Date Published'},
       {display: "SubDoc", field: "contactPoint", fieldName: 'Contact Point', template: '${item.name} ${item.email}'},
@@ -46,7 +47,7 @@ let state = {
   facets: ['Dataset_author_facetmulti'],
   facetsDisplay: [
     {name: 'Dataset_author_facetmulti', displayText: 'Top Authors'},
-    //{name: 'Keywords', displayText: 'Top Keywords'}
+    {name: 'Keywords', displayText: 'Top Keywords'}
   ],
   facetData: [],
   facetLimit: 5,

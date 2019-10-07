@@ -72,6 +72,7 @@ const Router = async function (state) {
       }
     }
   } else {
+    // TODO: Move some of these config data to config
     const res = await solrService.search({api: state.config.api}, {
       start: state.main.start,
       page: state.main.page,
@@ -86,6 +87,7 @@ const Router = async function (state) {
       state.main.searchText = '';
       state.facetResult = res.facets;
       const facetContent = FacetController.get({data: state.facetResult['facet_fields'][state.facets[0]], toJSON: true});
+      // TODO: Move this to config
       const facetData = FacetController.display({data: facetContent, config: {
         name: 'Dataset_author_facetmulti',
         route: '#view/',
