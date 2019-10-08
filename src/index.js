@@ -47,7 +47,7 @@ let state = {
   facets: ['Dataset_author_facetmulti'],
   facetsDisplay: [
     {name: 'Dataset_author_facetmulti', displayText: 'Top Authors'},
-    {name: 'Keywords', displayText: 'Top Keywords'}
+    //{name: 'Keywords', displayText: 'Top Keywords'}
   ],
   facetData: [],
   facetLimit: 5,
