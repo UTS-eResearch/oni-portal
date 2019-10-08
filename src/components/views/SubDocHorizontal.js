@@ -3,11 +3,18 @@ const isIterable = require('../isIterable');
 
 const SubDocHorizontal = function (data) {
   const div = $('<div class="row">');
-  const headerDiv = $('<div class="col-sm-2">').html(data.fieldName);
-  div.append(headerDiv);
+  let subDiv = $('<div>');
+
+  if (data.fieldName) {
+    const headerDiv = $('<div class="col-sm-2">').html(data.fieldName);
+    div.append(headerDiv);
+    subDiv.addClass('col-sm-10');
+  }
 
   if (isIterable(data.value)) {
+    let i = 0;
     for (let key of data.value) {
+      i++;
       try {
         const a = $('<a>');
         const subEle = $('<span class="">');
@@ -18,14 +25,16 @@ const SubDocHorizontal = function (data) {
         a.text(sub['name']);
         a.addClass("link");
         subEle.append(a);
-        div.append(subEle);
-
+        subDiv.append(subEle);
+        if (data.value.length > i) {
+          subDiv.append($('<span>,&nbsp;</span>'));
+        }
       } catch (e) {
-        div.append('');
+        subDiv.append('');
       }
     }
   }
-
+  div.append(subDiv);
 
   return div;
 }

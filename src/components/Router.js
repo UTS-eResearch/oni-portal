@@ -25,8 +25,7 @@ const Router = async function (state) {
         //Just to avoid extra ajax calls but we can have multiple relationships here
         if (state.main.doc.record_type_s || state.main.doc.record_type_s === 'Person') {
           //Removing orcid.org to have better matches
-          state.main.doc.id = state.main.doc.id.replace("https://orcid.org/", "");
-          //state.main.doc.id = encodeURIComponent(state.main.doc.id);
+          state.main.doc.id = state.main.doc.id.replace("http://orcid.org/0000-000", "");
           //state.main.doc.id = encodeURIComponent(state.main.doc.id);
           const res = await solrService.search({api: state.config.api}, {
             start: 0,
