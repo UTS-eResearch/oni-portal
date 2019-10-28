@@ -8,10 +8,13 @@ const ListDocs = function (data) {
   html += `<ul class="list-group col-sm-8">`;
   if (docs.length > 0) {
     docs.forEach((d) => {
-      var url = `${data.config.repo}${d['uri_id']}/`;
       var url = `/#view/${d['id']}`;
+      var name = '';
+      if( d['name'] ) {
+        name = d['name'][0]
+      }
       html += `<li class="list-group-item">
-        <div class="item"><a href="${url}">${d['name'][0]}</a> ${d['record_type_s']} </div>
+        <div class="item"><a href="${url}">${name}</a> ${d['record_type_s']} </div>
       </li>`;
     });
   } else {
