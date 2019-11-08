@@ -44,9 +44,11 @@ let state = {
       {display: "SubDoc", field: "contactPoint", fieldName: 'Contact Point', template: '${item.name} ${item.email}'},
     ]
   },
-  facets: ['Dataset_author_facetmulti'],
+  facets: [
+  'Dataset_author_facetmulti'
+  ],
   facetsDisplay: [
-    {name: 'Dataset_author_facetmulti', displayText: 'Top Authors'},
+    //{name: 'Dataset_author_facetmulti', displayText: 'Top Authors'},
     //{name: 'Keywords', displayText: 'Top Keywords'}
   ],
   facetData: [],

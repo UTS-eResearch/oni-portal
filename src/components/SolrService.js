@@ -4,7 +4,7 @@ const SolrService = {
   get: async function (config, data) {
     try {
       let param = `get?id=`;
-      data = encodeURIComponent(`${data}`);
+      data = encodeURIComponent(data);
       const res = await axios.get(`${config.api}/${param}${data}`);
       if (res.data) {
         return {data: res.data['doc'], status: res.status};
@@ -21,7 +21,8 @@ const SolrService = {
       if (text === '' || !text ) {
         text = '*';
       }
-      let query = `${param}${searchParam}${text}&start=${start}&page=${page}`;
+      let escText = text.replace(':', "\\:");
+      let query = `${param}${searchParam}${escText}&start=${start}&page=${page}`;
 
       if(facets) {
         query += `&facet=true%20&facet.field=${[...facets].join('&facet.field')}&facet.limit=${facetLimit || 5}`;
