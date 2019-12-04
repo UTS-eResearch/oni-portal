@@ -28,7 +28,7 @@ const ViewDoc = function (data) {
     if (isIterable(doc['uri_id'])) {
       for (let resolve of doc['uri_id']) {
         const goTo = $('<a>');
-        goTo.attr('href', `${data.config.repo}${resolve}`);
+        goTo.attr('href', `${data.config.repo}${resolve}/`);
         goTo.attr('title', 'Open Record');
         goTo.attr('target', 'blank');
         goTo.text('Open Record');
