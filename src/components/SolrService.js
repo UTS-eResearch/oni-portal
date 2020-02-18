@@ -25,7 +25,7 @@ const SolrService = {
       let query = `${param}${searchParam}${escText}&start=${start}&page=${page}`;
 
       if(facets) {
-        query += `&facet=true%20&facet.field=${[...facets].join('&facet.field')}&facet.limit=${facetLimit || 5}`;
+        query += `&facet=true%20&facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;
       }
       const res = await axios.get(`${config.api}/${query}`);
       if (res.data) {
