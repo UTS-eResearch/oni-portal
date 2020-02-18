@@ -1,11 +1,11 @@
 {
-  "repo": "http://localhost:8080/repo/",
-  "core": "repo",
-  "api": "/solr/public_ocfl",
+  "repo": "http://localhost:8080/grants/",
+  "core": "grants",
+  "api": "/solr/grants",
   "dev": {
     "proxy": {
-      "/solr/public_ocfl": {
-        "target": "http://localhost:8080",
+      "/solr": {
+        "target": "http://localhost:8080/",
         "secure": false
       }
     }
