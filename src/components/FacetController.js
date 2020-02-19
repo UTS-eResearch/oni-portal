@@ -1,18 +1,20 @@
 const FacetController = {
   get: function({data:arr, toJSON:toJSON}) {
+    console.log(`FacetController: ${JSON.stringify(arr)}`);
     const facets = [];
     arr.map(function(value, index, Arr) {
       if(index % 2 == 0) {
-        if(toJSON){
-          try{
-            value = JSON.parse(value)
-          }catch(e){console.error(e.message);}}
+        // if(toJSON){
+        //   try{
+        //     value = JSON.parse(value)
+        //   }catch(e){console.error(e.message);}}
           const facet = {
             value: value, count: arr[index + 1]
           }
           facets.push(facet);
         }
       });
+      console.log(`FacetController: facets ${JSON.stringify(facets)}`);
       return facets;
     },
     display: function ({data: data, config: config}) {
@@ -27,6 +29,7 @@ const FacetController = {
         }
         displays.push(displayFacet)
       });
+      console.log(`FacetController: displays ${JSON.stringify(displays)}`);
       return displays;
     }
   }

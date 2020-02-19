@@ -85,10 +85,11 @@ const Router = async function (state) {
       state.main.numFound = res.data.numFound;
       state.main.searchText = '';
       state.facetResult = res.facets;
+      console.log(`facet results: ${JSON.stringify(res.facets)}`);
       const facetContent = FacetController.get({data: state.facetResult['facet_fields'][state.facets[0]], toJSON: true});
       // TODO: Move this to config
       const facetData = FacetController.display({data: facetContent, config: {
-        name: 'Dataset_author_facetmulti',
+        name: 'Dataset_author_facet',
         route: '#view/',
         searchUrl: '@id',
         searchText: 'name'

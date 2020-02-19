@@ -48,11 +48,11 @@ let state = {
   'Dataset_keywords_facetmulti',
   'Dataset_FOR_facetmulti'
   ],
-  
+
   facetsDisplay: [
-    {name: 'Dataset_author_facet', displayText: 'Authors'},
-    {name: 'Dateset_keywords_facetmulti', displayText: 'Keywords'},
-    {name: 'Dateset_FOR_facetmulti', displayText: 'FORs'}
+    {name: 'Dataset_author_facet', displayText: 'Author'},
+    {name: 'Dataset_keywords_facetmulti', displayText: 'Keywords'},
+    {name: 'Dataset_FOR_facetmulti', displayText: 'FORs'}
   ],
   facetData: [],
   facetLimit: 5,
