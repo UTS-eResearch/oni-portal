@@ -21,8 +21,8 @@ const SolrService = {
       if (text === '' || !text ) {
         text = '*';
       }
-      let escText = text.replace(':', "\\:");
-      let query = `${param}${searchParam}${escText}&start=${start}&page=${page}`;
+      let escSearch = searchParam + '%3A' + text.replace(':', "\\:");
+      let query = `${param}${escSearch}&start=${start}&page=${page}`;
 
       if(facets) {
         query += `&facet=true%20&facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;

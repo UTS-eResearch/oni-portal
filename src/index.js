@@ -11,7 +11,7 @@ const RegisterEvents = require('./components/RegisterEvents');
 //Default state
 let state = {
   header: {
-    title: 'Research Data Portal',
+    title: 'Successful Grants',
     URL: '/',
     logo: 'images/logo.svg',
     help: 'Help',
@@ -25,7 +25,8 @@ let state = {
   search: {
     error: 'Search Error',
     invalidSearch: 'Invalid Search',
-    searchText: 'Search'
+    searchText: 'Search',
+    mainSearch: 'main_search'
   },
   main: {
     docs: [],
@@ -43,21 +44,34 @@ let state = {
       {display: "SubDoc", field: "contactPoint", fieldName: 'Contact Point', template: '${item.name} ${item.email}'},
     ]
   },
+
   facets: [
-  'Dataset_author_facet',
-  'Dataset_keywords_facetmulti',
-  'Dataset_FOR_facetmulti'
+    {
+      name: 'Dataset_author_facet',
+      label: 'Author',
+      field: 'author',
+      JSON: false
+    },
+    {
+      name: 'Dataset_keywords_facetmulti',
+      label: 'Keywords',
+      field: 'keywords',
+      JSON: false
+    },
+    {
+      name: 'Dataset_FOR_facetmulti',
+      label: 'FORs',
+      JSON: true,
+      search: '@id',
+      display: 'name',
+      field: 'FOR_id'
+    }
   ],
 
-  facetsDisplay: [
-    {name: 'Dataset_author_facet', displayText: 'Author'},
-    {name: 'Dataset_keywords_facetmulti', displayText: 'Keywords'},
-    {name: 'Dataset_FOR_facetmulti', displayText: 'FORs'}
-  ],
   facetData: [],
   facetLimit: 5,
   footer:{
-    text: '2019 University of Technology Sydney'
+    text: '2020 University of Technology Sydney'
   },
   config: config
 };

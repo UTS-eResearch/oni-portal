@@ -3,30 +3,27 @@ const isIterable = require('../isIterable');
 
 const Facets = function (data) {
   let html = '';
-  console.log(`Facets: ${JSON.stringify(data.facetsDisplay)}`);
-  console.log(`Facets: ${JSON.stringify(data.facetData)}`);
-  if(isIterable(data.facetsDisplay) ){
+  if(isIterable(data.facets) ){
     html = `<ul class="list-group col-md-2">`;
-    for(let fd of data.facetsDisplay){
+    for(let facet of data.facets) {
+      const values = data.facetData[facet.name].filter((v)=>v['count'] > 0);
+
       html += `<li class="list-group-item">
       <div>
-         <h4>${fd.displayText}</h4>
+         <h4>${facet.label}</h4>
          <hr/>
          <ul class="list-group">`;
-         console.log(`fdname = ${fd.name}, all facets = ${JSON.stringify(data.facetData)}`);
-         const currentFacet = data.facetData.filter((f)=>{
-           return f.name === fd.name;
-         });
-         console.log(`filtered currentFacet = ${JSON.stringify(currentFacet)}`);
-        if(isIterable(currentFacet)){
-           for(let facet of currentFacet){            
-             html += `<li class="row">
-             <div class="col-sm-4">${facet['count']}</div>
-             <div class="col-sm-8"><a href="/${facet['route']}${facet['searchUrl']}">${facet['searchText']}</a></div>
+
+       if(isIterable(values))
+        { 
+        for(let f of values ){            
+          html += `<li class="row">
+             <div class="col-sm-4">${f['count']}</div>
+             <div class="col-sm-8"><a href="/#search/${facet['field']}=${encodeURIComponent('"' + f['search'] + '"')}">${f['value']}</a></div>
              </li>`;
-           }
-        }
-         html += `</ul>
+          }
+      }
+      html += `</ul>
       </div>
       </li>`
     }

@@ -1,37 +1,64 @@
-const FacetController = {
-  get: function({data:arr, toJSON:toJSON}) {
-    console.log(`FacetController: ${JSON.stringify(arr)}`);
-    const facets = [];
-    arr.map(function(value, index, Arr) {
-      if(index % 2 == 0) {
-        // if(toJSON){
-        //   try{
-        //     value = JSON.parse(value)
-        //   }catch(e){console.error(e.message);}}
-          const facet = {
-            value: value, count: arr[index + 1]
-          }
-          facets.push(facet);
-        }
-      });
-      console.log(`FacetController: facets ${JSON.stringify(facets)}`);
-      return facets;
-    },
-    display: function ({data: data, config: config}) {
-      const displays = [];
-      data.forEach(function(d){
-        const displayFacet = {
-          count:d.count,
-          name: config.name,
-          route: config.route,
-          searchUrl: d.value[config.searchUrl],
-          searchText: d.value[config.searchText]
-        }
-        displays.push(displayFacet)
-      });
-      console.log(`FacetController: displays ${JSON.stringify(displays)}`);
-      return displays;
-    }
-  }
 
-  module.exports = FacetController;
+
+function tryJSON(value) {
+  try {
+    return JSON.parse(value);
+  } catch(e) {
+    console.error(e);
+    return null;
+  }
+}
+
+
+const FacetController = {
+
+  // transforms the solr facets
+  //
+  // facetname1: [ f1, count1, f2, count2, f3, count3 ]
+  //
+  // into a data structure that the view can use:
+  //
+  // facentname1: [ {
+  //     value: f1
+  //     count: count1,
+  //     search: [value to search on for this facet],
+  //     field: [field to search on for this facet]
+  // } , .. ]
+  //
+  // it tries to parse the JSON and pull out the right values
+  // to display and search if so configured
+
+  process: function({data: data, config: config}) {
+    const facets = {};
+    for( let name in data ) {
+      facets[name] = [];
+      const cfa = config.filter((c) => c.name === name);
+      if( cfa.length !== 1 ) {
+        console.error("No config found for facet " + name);
+      } else {
+        const cf = cfa[0];
+        const parseJson = cf['JSON'];
+        for( let i = 0; i < data[name].length; i += 2 ) {
+          if( parseJson ) {
+            const value = tryJSON(data[name][i]);
+            facets[name].push({
+              value: value[cf['display']],
+              count: data[name][i + 1],
+              search: value[cf['search']],
+              field: cf['field']
+            })
+          } else {
+            facets[name].push({
+              value: data[name][i],
+              count: data[name][i + 1],
+              search: data[name][i],
+              field: cf['field']
+            });
+          }
+        }
+      }
+    }
+    return facets;
+  }
+}
+module.exports = FacetController;
