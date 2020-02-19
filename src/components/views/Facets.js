@@ -19,7 +19,7 @@ const Facets = function (data) {
         for(let f of values ){            
           html += `<li class="row">
              <div class="col-sm-4">${f['count']}</div>
-             <div class="col-sm-8"><a href="/#search/${facet['field']}=${encodeURIComponent('"' + f['search'] + '"')}">${f['value']}</a></div>
+             <div class="col-sm-8"><a href="/#search/0/1/${facet['field']}=${encodeURIComponent('"' + f['search'] + '"')}">${f['value']}</a></div>
              </li>`;
           }
       }
