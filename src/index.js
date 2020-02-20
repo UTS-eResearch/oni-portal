@@ -39,7 +39,7 @@ let state = {
     related: [],
     viewFields: [
       {display: "SubDocHorizontal", field: "author", fieldName: 'Author/s'},
-      {display: "SubDoc", field: "html", fieldName: "HTML" }
+      {display: "SubDoc", field: "html", fieldName: "Grant", template: "item['@id']" }
     ]
   },
 
