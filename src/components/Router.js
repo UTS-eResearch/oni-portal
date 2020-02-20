@@ -21,7 +21,6 @@ const Router = async function (state) {
 
 
     if (verb === '#view/') {
-      console.log(`Router query = ${query}`);
       const res = await solrService.select({api: state.config.api}, {
         start: 0,
         page: 1,

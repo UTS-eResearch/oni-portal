@@ -11,20 +11,6 @@ function escapeSolrQuery(raw) {
 
 
 const SolrService = {
-  // get: async function (config, data) {
-  //   try {
-  //     let param = `select?id=`;
-  //     data = encodeURIComponent(data);
-  //     const res = await axios.get(`${config.api}/${param}${data}`);
-  //     if (res.data) {
-  //       return {data: res.data['response'], status: res.status};
-  //     } else {
-  //       return {data: {}, status: res.status};
-  //     }
-  //   } catch (e) {
-  //     return {data: {}, status: e.message};
-  //   }
-  // },
 
   select: async function (config, {start: start, page: page, searchParam: searchParam, text: text, facets: facets, facetLimit: facetLimit}) {
     try {
@@ -33,7 +19,6 @@ const SolrService = {
         text = '*';
       }
       let escSearch = searchParam + '%3A' + escapeSolrQuery(text);
-      console.log(`SolrService: raw '${text}' / escaped '${escSearch}'`);
       let query = `${param}${escSearch}&start=${start}&page=${page}`;
 
       if(facets) {

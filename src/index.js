@@ -39,9 +39,7 @@ let state = {
     related: [],
     viewFields: [
       {display: "SubDocHorizontal", field: "author", fieldName: 'Author/s'},
-      {display: "", field: "licenseOriginal", fieldName: 'Licence'},
-      {display: "SubDocDate", field: "datePublished", fieldName: 'Date Published'},
-      {display: "SubDoc", field: "contactPoint", fieldName: 'Contact Point', template: '${item.name} ${item.email}'},
+      {display: "SubDoc", field: "html", fieldName: "HTML" }
     ]
   },
 

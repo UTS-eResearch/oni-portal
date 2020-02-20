@@ -14,7 +14,7 @@ const ListDocs = function (data) {
         name = d['name'][0]
       }
       html += `<li class="list-group-item">
-        <div class="item"><a href="${url}">${name}</a> ${d['record_type_s']} </div>
+        <div class="item"><a href="${url}">${name}</a></div>
       </li>`;
     });
   } else {
