@@ -38,9 +38,18 @@ let state = {
     searchText: '',
     related: [],
     viewFields: [
-      {display: "SubDocHorizontal", field: "author", fieldName: 'Author/s'},
-      {display: "SubDoc", field: "html", fieldName: "Grant", template: "item['@id']" }
-    ]
+      {
+        display: "SubDoc", field: "author", fieldName: 'Author', template: "${item.value[0]}"
+      },
+      {
+        display: "SubDocIframe",
+        field: "html",
+        fieldName: "Application",
+        width: "1000",
+        height: "400",
+        baseUrl: "http://localhost:8080/grants"
+      }
+      ]
   },
 
   facets: [

@@ -24,16 +24,20 @@ const ViewDoc = function (data) {
       }
       related.append(relatedUl);
     }
+
     const linkTo = $('<div>');
-    if (isIterable(doc['uri_id'])) {
-      for (let resolve of doc['uri_id']) {
-        const goTo = $('<a>');
-        goTo.attr('href', `${data.config.repo}${resolve}/`);
-        goTo.attr('title', 'Open Record');
-        goTo.attr('target', 'blank');
-        goTo.text('Open Record');
-        goTo.addClass("link");
-        linkTo.append(goTo);
+    console.log(`viewDoc: ${JSON.stringify(data.config)}`);
+    if( data.config.repo ) {
+      if (isIterable(doc['uri_id'])) {
+        for (let resolve of doc['uri_id']) {
+          const goTo = $('<a>');
+          goTo.attr('href', `${data.config.repo}${resolve}/`);
+          goTo.attr('title', 'Open Record');
+          goTo.attr('target', 'blank');
+          goTo.text('Open Record');
+          goTo.addClass("link");
+          linkTo.append(goTo);
+        }
       }
     }
     let tableFields = data.main.viewFields || [];
