@@ -18,26 +18,34 @@ const Router = async function (state) {
     const match = route.match(/(#.*?\/)(.*)/);
     const verb = match[1];
     const query = match[2];
+
+
     if (verb === '#view/') {
-      let {data, status} = await solrService.get({api: state.config.api}, query);
-      if (status === 200) {
-        state.main.doc = data;
-        //Just to avoid extra ajax calls but we can have multiple relationships here
-        if (state.main.doc.record_type_s || state.main.doc.record_type_s === 'Person') {
-          //Removing orcid.org to have better matches
-          state.main.doc.id = state.main.doc.id.replace("http://orcid.org/0000-000", "");
-          //state.main.doc.id = encodeURIComponent(state.main.doc.id);
-          const res = await solrService.search({api: state.config.api}, {
-            start: 0,
-            page: 1,
-            searchParam: 'uri_id',
-            text: state.main.doc.id,
-            facets: false
-          });
-          if (status === 200) {
-            state.main.related = res.data.docs || [];
-          }
-        }
+      console.log(`Router query = ${query}`);
+      const res = await solrService.select({api: state.config.api}, {
+        start: 0,
+        page: 1,
+        searchParam: 'id',
+        text: query,
+        facets: false
+      });
+      if (res.status === 200 && res.data["numFound"] === 1 ) {
+        state.main.doc = res.data["docs"][0];
+        // //Just to avoid extra ajax calls but we can have multiple relationships here
+        // if (state.main.doc.record_type_s || state.main.doc.record_type_s === 'Person') {
+        //   //Removing orcid.org to have better matches
+        //   state.main.doc.id = state.main.doc.id.replace("http://orcid.org/0000-000", "");
+        //   //state.main.doc.id = encodeURIComponent(state.main.doc.id);
+        //   const res = await solrService.select({api: state.config.api}, {
+        //     start: 0,
+        //     page: 1,
+        //     searchParam: 'uri_id',
+        //     text: state.main.doc.id,
+        //     facets: false
+        //   });
+        //   if (status === 200) {
+        //     state.main.related = res.data.docs || [];
+        //   }
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewDoc(state), Footer(state)])].join('');
       } else {
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
@@ -46,10 +54,11 @@ const Router = async function (state) {
     // this needs to be able to specify a search param for facets
     // and facets should be able to compose
     if (verb === '#search/') {
-      //TODO: make the split better
+      // TODO: make the split better
       // ML: I made it a bit worse by adding search params
+      // need to rethink this so that facet links can compose - this is what 
+      // issue ST-361 needs to deal with 
       const splits = match[2].split('/');
-      console.log("Search splits = " + JSON.stringify(splits));
       const start = splits[0] || state.main.start;
       const page = splits[1] || '';
       var searchParam = state.search.mainSearch;
@@ -59,7 +68,7 @@ const Router = async function (state) {
         searchParam = searchparts[0];
         searchText = searchparts[1];
       }
-      const res = await solrService.search({api: state.config.api}, {
+      const res = await solrService.select({api: state.config.api}, {
         start: start,
         page: page,
         searchParam: searchParam,
@@ -84,7 +93,7 @@ const Router = async function (state) {
     }
   } else {
     // TODO: Move some of these config data to config
-    const res = await solrService.search({api: state.config.api}, {
+    const res = await solrService.select({api: state.config.api}, {
       start: state.main.start,
       page: state.main.page,
       searchParam: '*',
