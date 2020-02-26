@@ -16,8 +16,6 @@ let state = {
     logo: 'images/logo.svg',
     help: 'Help',
     helpURL: '',
-    portal: 'Back to Stash',
-    portalURL: 'http://stash.research.uts.edu.au',
     menu: [
       {id: 'back', name: 'Back'}
     ]
@@ -47,7 +45,7 @@ let state = {
         fieldName: "Application",
         width: "1000",
         height: "400",
-        baseUrl: "http://localhost:8080/grants"
+        baseUrl: "http://localhost:8089/grants"
       }
       ]
   },

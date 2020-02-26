@@ -1,11 +1,12 @@
 {
-  "repo": "http://localhost:8080/grants/",
+  "repo": "http://localhost:8089/grants/",
   "core": "grants",
   "api": "/solr/grants",
+  
   "dev": {
     "proxy": {
       "/solr": {
-        "target": "http://localhost:8080/",
+        "target": "http://localhost:8089/",
         "secure": false
       }
     }

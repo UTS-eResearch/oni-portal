@@ -18,11 +18,6 @@ const Header = function (data) {
                      href="${data.header.helpURL}" target="_blank noreferer">
                     ${data.header.help}<i class="fa fa-question-circle" aria-hidden="true"></i></a>
                 </div>
-                <div class="navbar-nav">
-                  <a class="nav-item nav-link"
-                     href="${data.header.portalURL}" target="_blank noreferer">
-                    ${data.header.portal}<i class="fa fa-external-link" aria-hidden="true"></i></a>
-                </div>
               </nav>
             </div>
           </div>

@@ -5,7 +5,7 @@ This is the code of a single page application for searching with SOLR
 ### Install
 
 ```bash
-npm intstall
+npm install
 ```
 
 ### Development
