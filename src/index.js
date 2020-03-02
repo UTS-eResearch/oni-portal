@@ -52,6 +52,24 @@ let state = {
 
   facets: [
     {
+      name: 'Dataset_funder_facetmulti',
+      label: 'Funding scheme',
+      field: 'funder',
+      JSON: false
+    },
+    {
+      name: 'Dataset_dateCreated_facetmulti',
+      label: 'year',
+      field: 'dateCreated',
+      JSON: false
+    },
+    {
+      name: 'Dataset_affiliation_facetmulti',
+      label: 'School/Dept',
+      field: 'affiliation',
+      JSON: false
+    },
+    {
       name: 'Dataset_author_facet',
       label: 'Author',
       field: 'author',
@@ -69,6 +87,8 @@ let state = {
       JSON: true,
       search: '@id',
       display: 'name',
+      display_re: /^(\d+)\s*-\s*(.*)$/,
+      component: 'FacetFOR',
       field: 'FOR_id'
     }
   ],
