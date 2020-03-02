@@ -34,6 +34,7 @@ let state = {
     numFound: 0,
     pageSize: 10,
     searchText: '',
+    currentSearch: {},
     related: [],
     resultFacets: [
       'Dataset_funder_facetmulti',

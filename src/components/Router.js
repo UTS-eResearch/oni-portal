@@ -9,6 +9,7 @@ const ViewError = require('./views/ViewError');
 const FacetController = require('./FacetController');
 
 const solrService = require('./SolrService');
+const SearchPath = require('./SearchPath');
 
 const Router = async function (state) {
   const route = window.location.hash;
@@ -50,35 +51,31 @@ const Router = async function (state) {
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
       }
     }
-    // this needs to be able to specify a search param for facets
-    // and facets should be able to compose
+
+
     if (verb === '#search/') {
       // TODO: make the split better
       // ML: I made it a bit worse by adding search params
       // need to rethink this so that facet links can compose - this is what 
       // issue ST-361 needs to deal with 
-      const splits = match[2].split('/');
-      const start = splits[0] || state.main.start;
-      const page = splits[1] || '';
-      var searchParam = state.search.mainSearch;
-      var searchText = splits[2] || '';
-      const searchparts = searchText.split('=');
-      if( searchparts.length === 2 ) {
-        searchParam = searchparts[0];
-        searchText = searchparts[1];
-      }
+
+      const { start, page, search } = SearchPath.fromURI(state.main.start, '', match[2]);
+
+      console.log(`start ${start} page ${page} search ${JSON.stringify(search)}`);
+
       const res = await solrService.select({api: state.config.api}, {
         start: start,
         page: page,
-        searchParam: searchParam,
-        text: searchText,
+        search: search,
         facets: state.facets.map((f) => f.name),
         facetLimit: state.facetLimit
       });
+
       if (res.status === 200) {
         state.main.docs = res.data.docs;
         state.main.numFound = res.data.numFound;
         state.main.searchText = searchText;
+        state.main.currentSearch = search;
         state.facetResult = res.facets;
         state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), Main(state), Footer(state)])].join('');
@@ -91,12 +88,14 @@ const Router = async function (state) {
       }
     }
   } else {
+
     // TODO: Move some of these config data to config
+
+
     const res = await solrService.select({api: state.config.api}, {
       start: state.main.start,
       page: state.main.page,
-      searchParam: '*',
-      text: '*',
+      search: null,
       facets: state.facets.map((f) => f.name),
       facetLimit: state.facetLimit
     });
@@ -104,6 +103,7 @@ const Router = async function (state) {
       state.main.docs = res.data.docs;
       state.main.numFound = res.data.numFound;
       state.main.searchText = '';
+      state.main.currentSearch = {};
       state.facetResult = res.facets;
       state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
       app.innerHTML = [Container([Header(state), Menu(state), Search(state), Main(state), Footer(state)])].join('');

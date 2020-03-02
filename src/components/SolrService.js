@@ -12,18 +12,22 @@ function escapeSolrQuery(raw) {
 
 const SolrService = {
 
-  select: async function (config, {start: start, page: page, searchParam: searchParam, text: text, facets: facets, facetLimit: facetLimit}) {
+  select: async function (config, {start: start, page: page, search: search, facets: facets, facetLimit: facetLimit}) {
+    console.log("SolrService.select " + JSON.stringify(search));
     try {
-      let param = `select?q=`;      
-      if (text === '' || !text ) {
-        text = '*';
+      var searchParams = 'main_search%3A*'; // default if search is empty
+      if( search ) {
+        const searches = Object.keys(search).map((k) => k + '%3A' + escapeSolrQuery(search[k]));
+        searchParams = searches.join('%20%26%26%20');
+        // join search clauses together with ' && ' %26%26
       }
-      let escSearch = searchParam + '%3A' + escapeSolrQuery(text);
-      let query = `${param}${escSearch}&start=${start}&page=${page}`;
+      var query = `select?q=${searchParams}&start=${start}&page=${page}`;
 
       if(facets) {
         query += `&facet=true%20&facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;
       }
+
+      console.log(`solr query = ${query}`);
       const res = await axios.get(`${config.api}/${query}`);
       if (res.data) {
         return {data: res.data['response'], facets: res.data['facet_counts'], status: res.status};
@@ -31,6 +35,7 @@ const SolrService = {
         return {data: [], status: res.status};
       }
     } catch (e) {
+      console.log("search errror " + e);
       return {data: [], status: e.message};
     }
   }

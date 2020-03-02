@@ -1,8 +1,11 @@
 const $ = require("jquery");
 const isIterable = require('../isIterable');
+const SearchPath = require('../SearchPath');
 
-function facetLink(facet, f) {
-  const url = `/#search/0/1/${facet['field']}=${encodeURIComponent('"' + f['search'] + '"')}`;
+function facetLink(data, facet, f) {
+  const url = SearchPath.toURI(data.main.currentSearch, { [facet['field']]: f['search'] } );
+
+  // const url = `/#search/0/1/${facet['field']}=${encodeURIComponent('"' + f['search'] + '"')}`;
   if( facet['display_re'] ) {
     const m = f['value'].match(facet['display_re']);
     if( m ) {
@@ -28,7 +31,7 @@ const Facets = function (data) {
 
        if(isIterable(values)) { 
         for(let f of values ){       
-          html += `<li class="row">${facetLink(facet, f)} (${f['count']})</li>\n`;
+          html += `<li class="row">${facetLink(data, facet, f)} (${f['count']})</li>\n`;
           }
       }
       html += `</ul>
