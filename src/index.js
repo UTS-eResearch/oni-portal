@@ -35,9 +35,32 @@ let state = {
     pageSize: 10,
     searchText: '',
     related: [],
+    resultFacets: [
+      'Dataset_funder_facetmulti',
+      'Dataset_dateCreated_facetmulti',
+      'Dataset_author_facet',
+      'Dataset_affiliation_facetmulti'
+    ],
     viewFields: [
       {
-        display: "SubDoc", field: "author", fieldName: 'Author', template: "${item.value[0]}"
+        display: "SubDoc",
+        field: "author",
+        fieldName: 'Author'
+      },
+      {
+        display: "SubDoc",
+        field: "dateCreated",
+        fieldName: 'Year'
+      },
+      {
+        display: "SubDoc",
+        field: "funder",
+        fieldName: 'Funder'
+      },
+      {
+        display: "SubDoc",
+        field: "affiliation",
+        fieldName: 'School/Dept'
       },
       {
         display: "SubDocIframe",
@@ -45,9 +68,10 @@ let state = {
         fieldName: "Application",
         width: "1000",
         height: "400",
-        baseUrl: "http://localhost:8089/grants"
+        baseUrl: config.repo
       }
-      ]
+    ],
+    viewLinks: false
   },
 
   facets: [
@@ -59,7 +83,7 @@ let state = {
     },
     {
       name: 'Dataset_dateCreated_facetmulti',
-      label: 'year',
+      label: 'Year',
       field: 'dateCreated',
       JSON: false
     },

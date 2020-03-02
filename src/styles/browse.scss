@@ -67,6 +67,19 @@
   box-shadow: bottom-shadow($depth), top-shadow($depth);
 }
 
+.item-link {
+  font-weight: bold;
+}
+
+.item-description {
+  color: #444;
+  font-size: 75%;
+}
+
+.item-facets {
+  font-size: 75%;
+}
+
 .display-line-header {
   border-left: 1em solid brown;
 }

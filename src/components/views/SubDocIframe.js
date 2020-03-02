@@ -7,7 +7,8 @@ const SubDocIframe = function (data) {
   div.append(headerDiv);
 
   try {
-    const value = JSON.parse(data.value)
+    const value = JSON.parse(data.value);
+    console.log("SubDocIframe " + JSON.stringify(data));
     const url = data.cf.baseUrl + '/' + data.id + '/' + value['@id'];
     const width  = data.cf.width || '800';
     const height = data.cf.height || '800';

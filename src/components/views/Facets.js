@@ -4,7 +4,6 @@ const isIterable = require('../isIterable');
 function facetLink(facet, f) {
   const url = `/#search/0/1/${facet['field']}=${encodeURIComponent('"' + f['search'] + '"')}`;
   if( facet['display_re'] ) {
-    console.log(`Trying to match ${f['value']} ${facet['display_re']}`);
     const m = f['value'].match(facet['display_re']);
     if( m ) {
       return `<a href="${url}" title="${m[2]}">${m[1]}</a>`;

@@ -26,8 +26,7 @@ const ViewDoc = function (data) {
     }
 
     const linkTo = $('<div>');
-    console.log(`viewDoc: ${JSON.stringify(data.config)}`);
-    if( data.config.repo ) {
+    if( data.main.viewLinks ) {
       if (isIterable(doc['uri_id'])) {
         for (let resolve of doc['uri_id']) {
           const goTo = $('<a>');

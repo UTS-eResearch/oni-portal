@@ -10,14 +10,11 @@ const SubDoc = function (data) {
     for (let key of data.value) {
       try {
         const subDiv = $('<div class="col-sm">');
-        const item = JSON.parse(data.value);
-        // TODO: talk to Michael Lynch
-        const display = eval("`"  + data.template + "`");
-        const dis = $('<span>').html(display);
+        const dis = $('<span>').html(data.value);
         subDiv.append(dis);
         div.append(subDiv);
       } catch (e) {
-        div.append('')
+        console.log("Error rendering field " + e);
       }
     }
   }
