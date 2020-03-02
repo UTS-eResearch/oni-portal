@@ -59,7 +59,9 @@ const Router = async function (state) {
       // need to rethink this so that facet links can compose - this is what 
       // issue ST-361 needs to deal with 
 
-      const { start, page, search } = SearchPath.fromURI(state.main.start, '', match[2]);
+      console.log(`match = ${JSON.stringify(query)}`);
+
+      const { start, page, search } = SearchPath.fromURI(state.main.start, '', query);
 
       console.log(`start ${start} page ${page} search ${JSON.stringify(search)}`);
 
@@ -74,14 +76,14 @@ const Router = async function (state) {
       if (res.status === 200) {
         state.main.docs = res.data.docs;
         state.main.numFound = res.data.numFound;
-        state.main.searchText = searchText;
+        state.main.searchText = search['main_search'] || '';
         state.main.currentSearch = search;
         state.facetResult = res.facets;
         state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), Main(state), Footer(state)])].join('');
         const input = document.getElementById('text-to-search');
         if (input) {
-          input.value = searchText;
+          input.value = search['main_search'] || '';
         }
       } else {
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
