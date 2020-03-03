@@ -16,7 +16,7 @@ const ListDocs = function (data) {
         </li>`;
     });
   } else {
-    html += `<div class="text-center"> No data found</div>`;
+    html += `<div class="text-center">No search results</div>`;
   }
   html += `</ul><div><br/></div>`;
   html += `</div></div>`;
