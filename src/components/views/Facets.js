@@ -22,21 +22,23 @@ const Facets = function (data) {
   if(isIterable(data.facets) ){
     html = `<ul class="list-group col-3">`;
     for(let facet of data.facets) {
-      const values = data.facetData[facet.name].filter((v)=>v['count'] > 0);
-      html += `<li class="list-group-item">
-      <div>
-         <h4>${facet.label}</h4>
-         <hr/>
-         <ul class="list-group">`;
+      if( ! data.main.showFacet || facet.name !== data.main.showFacet ) {
+        const values = data.facetData[facet.name].filter((v)=>v['count'] > 0);
+        html += `<li class="list-group-item">
+        <div>
+           <h4>${facet.label}</h4>
+            <hr/>
+           <ul class="list-group">`;
 
-       if(isIterable(values)) { 
-        for(let f of values ){       
-          html += `<li class="row">${facetLink(data, facet, f)} (${f['count']})</span></li>\n`;
-          }
-      }
-      html += `</ul>
+        if(isIterable(values)) { 
+          for(let f of values ){       
+            html += `<li class="row">${facetLink(data, facet, f)} (${f['count']})</span></li>\n`;
+            }
+        }
+        html += `</ul>
       </div>
       </li>`
+      }
     }
     html += `</ul>`;
   };

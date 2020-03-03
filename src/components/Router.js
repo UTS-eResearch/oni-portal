@@ -1,7 +1,8 @@
 const Container = require('./views/Container');
 const Header = require('./views/Header');
 const Menu = require('./views/Menu');
-const Main = require('./views/Main');
+const SearchResults = require('./views/SearchResults');
+//const SearchFacetResults = require('./views/SearchFacetResults');
 const Footer = require('./views/Footer');
 const Search = require('./views/Search');
 const ViewDoc = require('./views/ViewDoc');
@@ -80,7 +81,11 @@ const Router = async function (state) {
         state.main.showFacet = showFacet;
         state.facetResult = res.facets;
         state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
-        app.innerHTML = [Container([Header(state), Menu(state), Search(state), Main(state), Footer(state)])].join('');
+        //const results = showFacet ? SearchFacetResults(state) : SearchResults(state);
+        const results = SearchResults(state);
+        app.innerHTML = [
+          Container([Header(state), Menu(state), Search(state), results, Footer(state)])
+        ].join('');
         const input = document.getElementById('text-to-search');
         if (input) {
           input.value = search['main_search'] || '';
@@ -105,7 +110,7 @@ const Router = async function (state) {
       state.main.currentSearch = {};
       state.facetResult = res.facets;
       state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
-      app.innerHTML = [Container([Header(state), Menu(state), Search(state), Main(state), Footer(state)])].join('');
+      app.innerHTML = [Container([Header(state), Menu(state), Search(state), SearchResults(state), Footer(state)])].join('');
     } else {
       app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
     }
