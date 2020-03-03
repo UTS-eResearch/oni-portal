@@ -1,4 +1,5 @@
 const Facets = require('./Facets');
+const SearchPath = require('../SearchPath');
 
 // TODO - there should be a single function which generates a
 // URI from a facet for the links from each result's facets
@@ -6,13 +7,12 @@ const Facets = require('./Facets');
 const ListDocs = function (data) {
   var html = '';
   const docs = data.main.docs;
-  const resultFacets = data.main.resultFacets;
   html += `<div class="container col-sm-12 col-xl-9"><div class="row">`
   html += Facets(data);
   html += `<ul class="list-group col-sm-8">`;
   if (docs.length > 0) {
     docs.forEach((d) => {
-      html += `<li class="list-group-item">${listDoc(resultFacets, d)}
+      html += `<li class="list-group-item">${listDoc(data, d)}
         </li>`;
     });
   } else {
@@ -25,10 +25,10 @@ const ListDocs = function (data) {
 
 
 
-function listDoc (facets, d) {
+function listDoc (data, d) {
   const url = `/#view/${d['id']}`;
   const name = d['name'] ? d['name'][0] : '---';
-  const facetValues = facets.map((f) => d[f]).join(' | ');
+  const facetValues = data.main.resultFacets.map((f) => docFacet(data, f, d[f])).join(' | ');
   const description = d['description'].substr(0, 160) + '...';
   return `<div class="item">
         <div class="item-link"><a href="${url}">${name}</a></div>
@@ -37,6 +37,10 @@ function listDoc (facets, d) {
         </div>`;
   return html;
 };
+
+function docFacet(data, facet, value) {
+  return `<a href=${SearchPath.toURI(data.main.currentSearch, { [facet]: value })}>${value}</a>`;
+}
 
 
 

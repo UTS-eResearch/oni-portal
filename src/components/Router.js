@@ -22,7 +22,7 @@ const Router = async function (state) {
 
 
     if (verb === '#view/') {
-      const res = await solrService.select({api: state.config.api}, {
+      const res = await solrService.select(state.search, {
         start: 0,
         page: 1,
         search: { id: query },
@@ -60,14 +60,16 @@ const Router = async function (state) {
 
       const { start, page, search } = SearchPath.fromURI(state.main.start, '', query);
 
-      console.log("Search =  " + JSON.stringify(search, null, 4));
+      const showFacet = search['showFacet'] || null;
+      delete search['showFacet'];
 
-      const res = await solrService.select({api: state.config.api}, {
+      const res = await solrService.select(state.search, {
         start: start,
         page: page,
         search: search,
         facets: state.facets.map((f) => f.name),
-        facetLimit: state.facetLimit
+        facetLimit: state.facetLimit,
+        facetViewAll: showFacet
       });
 
       if (res.status === 200) {
@@ -75,6 +77,7 @@ const Router = async function (state) {
         state.main.numFound = res.data.numFound;
         state.main.searchText = search['main_search'] || '';
         state.main.currentSearch = search;
+        state.main.showFacet = showFacet;
         state.facetResult = res.facets;
         state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), Main(state), Footer(state)])].join('');
@@ -88,10 +91,7 @@ const Router = async function (state) {
     }
   } else {
 
-    // TODO: Move some of these config data to config
-
-
-    const res = await solrService.select({api: state.config.api}, {
+    const res = await solrService.select(state.search, {
       start: state.main.start,
       page: state.main.page,
       search: null,

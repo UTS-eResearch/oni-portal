@@ -12,23 +12,34 @@ function escapeSolrQuery(raw) {
 
 const SolrService = {
 
-  select: async function (config, {start: start, page: page, search: search, facets: facets, facetLimit: facetLimit}) {
+  select: async function (config, {start: start, page: page, search: search, facets: facets, facetLimit: facetLimit, facetViewAll: facetViewAll}) {
     console.log("SolrService.select " + JSON.stringify(search));
     try {
-      var searchParams = 'main_search%3A*'; // default if search is empty
+      var searchParams = config.mainSearch + '%3A*'; // default if search is empty
       if( search && Object.keys(search).length > 0 ) {
-        const searches = Object.keys(search).map((k) => k + '%3A' + escapeSolrQuery(search[k]));
+        const searches = Object.keys(search).map((k) => {
+          if( k === config.mainSearch ) {
+            return k + '%3A' + escapeSolrQuery(search[k]);
+          } else {
+            return k + '%3A' + '"' + escapeSolrQuery(search[k]) + '"';
+          }
+        });
         searchParams = searches.join('%20%26%26%20');
         // join search clauses together with ' && ' %26%26
       }
       var query = `select?q=${searchParams}&start=${start}&page=${page}`;
 
       if(facets) {
-        query += `&facet=true%20&facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;
+        console.log(`facets ${facetLimit} ${facetViewAll}`);
+        query += `&facet=true&facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;
+        if( facetViewAll ) {
+          // remove the facet limit if we're viewing one facet 
+          query += `&f.${facetViewAll}.facet.limit=-1`;
+        }
       }
 
       console.log(`solr query = ${query}`);
-      const res = await axios.get(`${config.api}/${query}`);
+      const res = await axios.get(`${config.solrUrl}/${query}`);
       if (res.data) {
         return {data: res.data['response'], facets: res.data['facet_counts'], status: res.status};
       } else {

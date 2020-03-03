@@ -24,6 +24,7 @@ let state = {
     error: 'Search Error',
     invalidSearch: 'Invalid Search',
     searchText: 'Search',
+    solrUrl: config.solr,
     mainSearch: 'main_search'
   },
   main: {

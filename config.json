@@ -1,7 +1,6 @@
 {
   "repo": "http://localhost:8089/grants/",
-  "core": "grants",
-  "api": "/solr/grants",
+  "solr": "/solr/grants",
   
   "dev": {
     "proxy": {
