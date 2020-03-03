@@ -59,12 +59,7 @@ const Router = async function (state) {
       // need to rethink this so that facet links can compose - this is what 
       // issue ST-361 needs to deal with 
 
-      console.log(`match = ${JSON.stringify(query)}`);
-
       const { start, page, search } = SearchPath.fromURI(state.main.start, '', query);
-
-      console.log(`start ${start} page ${page} search ${JSON.stringify(search)}`);
-
       const res = await solrService.select({api: state.config.api}, {
         start: start,
         page: page,

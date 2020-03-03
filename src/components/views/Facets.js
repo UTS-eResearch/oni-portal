@@ -31,7 +31,7 @@ const Facets = function (data) {
 
        if(isIterable(values)) { 
         for(let f of values ){       
-          html += `<li class="row">${facetLink(data, facet, f)} (${f['count']})</li>\n`;
+          html += `<li class="row">${facetLink(data, facet, f)} (${f['count']})</span></li>\n`;
           }
       }
       html += `</ul>

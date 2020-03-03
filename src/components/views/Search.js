@@ -35,10 +35,10 @@ const Search = function (data) {
 
 function currentFilters(data) {
   if( data.main.currentSearch ) {
-    let html = '<ul class="list-group list-group-horizontal">';
+    let html = '<ul class="list-inline">';
     for( let field in data.main.currentSearch ) {
       const removeLink = SearchPath.toURI(data.main.currentSearch, { [field]: null });
-      html += `<li class="facetFilter">${data.main.currentSearch[field]} <a href="${removeLink}">x</a></li>\n`;
+      html += `<li class="list-inline-item text-light bg-info p-2">${data.main.currentSearch[field]} <a href="${removeLink}">x</a></li>\n`;
     }
     html += '</ul>';
     return html;
