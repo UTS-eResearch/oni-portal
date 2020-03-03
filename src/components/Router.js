@@ -25,8 +25,7 @@ const Router = async function (state) {
       const res = await solrService.select({api: state.config.api}, {
         start: 0,
         page: 1,
-        searchParam: 'id',
-        text: query,
+        search: { id: query },
         facets: false
       });
       if (res.status === 200 && res.data["numFound"] === 1 ) {
