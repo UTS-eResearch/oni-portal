@@ -59,6 +59,9 @@ const Router = async function (state) {
       // issue ST-361 needs to deal with 
 
       const { start, page, search } = SearchPath.fromURI(state.main.start, '', query);
+
+      console.log("Search =  " + JSON.stringify(search, null, 4));
+
       const res = await solrService.select({api: state.config.api}, {
         start: start,
         page: page,

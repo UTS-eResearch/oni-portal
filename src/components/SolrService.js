@@ -16,7 +16,7 @@ const SolrService = {
     console.log("SolrService.select " + JSON.stringify(search));
     try {
       var searchParams = 'main_search%3A*'; // default if search is empty
-      if( search ) {
+      if( search && Object.keys(search).length > 0 ) {
         const searches = Object.keys(search).map((k) => k + '%3A' + escapeSolrQuery(search[k]));
         searchParams = searches.join('%20%26%26%20');
         // join search clauses together with ' && ' %26%26
