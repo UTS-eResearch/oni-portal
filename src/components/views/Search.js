@@ -1,3 +1,5 @@
+const SearchPath = require("../SearchPath");
+
 const Search = function (data) {
   return `
     <div class="container">
@@ -22,10 +24,26 @@ const Search = function (data) {
 <!--              </div>-->
             </div>
           </div>
+          <div>${currentFilters(data)}</div>
         </div>
         <div class="col-md-2"></div>
       </div>
     </div>
   `;
 };
+
+
+function currentFilters(data) {
+  if( data.main.currentSearch ) {
+    let html = '<ul class="list-group list-group-horizontal">';
+    for( let field in data.main.currentSearch ) {
+      const removeLink = SearchPath.toURI(data.main.currentSearch, { [field]: null });
+      html += `<li class="facetFilter">${data.main.currentSearch[field]} <a href="${removeLink}">x</a></li>\n`;
+    }
+    html += '</ul>';
+    return html;
+  }
+}
+
+
 module.exports = Search;
