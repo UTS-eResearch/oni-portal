@@ -32,7 +32,6 @@ const Router = async function (state) {
 
 
     if (verb === '#view/') {
-      console.log(`In view: currentSearch = ${JSON.stringify(state.main.currentSearch)}`);
       const res = await solrService.select(state.search, {
         start: 0,
         page: 1,

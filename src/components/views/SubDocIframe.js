@@ -8,14 +8,12 @@ const SubDocIframe = function (data) {
 
   try {
     const value = JSON.parse(data.value);
-    console.log("SubDocIframe " + JSON.stringify(data));
     const url = data.cf.baseUrl + '/' + data.id + '/' + value['@id'];
     const width  = data.cf.width || '800';
     const height = data.cf.height || '800';
 
     div.append($('<iframe>', { width: width, height: height, src: url }));
 
-    console.log(`Iframe : ${JSON.stringify(data)}`);
     return div;
   } catch(e) {
     div.append($('<span>').html(`Error building iframe ${e}`));
