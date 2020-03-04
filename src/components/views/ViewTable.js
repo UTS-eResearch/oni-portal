@@ -7,7 +7,6 @@ const SubDoc = require('./SubDoc');
 
 const ViewTable = function (doc, fields) {
 
-  const dummy = $('<div>');
   const div = $('<div class="table table-responsive">');
 
   for (let sdcf of fields) {
@@ -56,8 +55,7 @@ const ViewTable = function (doc, fields) {
     }
     div.append(list);
   }
-  dummy.append(div);
-  return dummy;
+  return div;
 };
 
 module.exports = ViewTable;

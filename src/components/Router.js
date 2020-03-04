@@ -19,9 +19,9 @@ const Router = async function (state) {
   // a bit of a hack so that facet links on search results use the
   // search fields not the facet names
 
-  state.main.facetSearchField = {};
+  state.main.facetsByName = {};
   for( let facet of state.facets ) {
-    state.main.facetSearchField[facet.name] = facet.field;
+    state.main.facetsByName[facet.name] = facet;
   }
 
 

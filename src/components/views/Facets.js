@@ -13,7 +13,7 @@ function renderFacet(data, facet, focus) {
         <ul class="list-group">`;
   if(isIterable(values)) { 
     for(let f of values ){       
-      html += `<li class="facet">${facetLink(data, facet, f)} (${f['count']})</span></li>\n`;
+      html += `<li class="facet">${Facets.link(data, facet, f)} (${f['count']})</span></li>\n`;
     }
   }
  
@@ -28,19 +28,6 @@ function renderFacet(data, facet, focus) {
 }
 
 
-function facetLink(data, facet, f) {
-  const url = SearchPath.toURI(data.main.currentSearch, { [facet['field']]: f['search'] } );
-
-  if( facet['display_re'] ) {
-    const m = f['value'].match(facet['display_re']);
-    if( m ) {
-      return `<a href="${url}" title="${m[2]}">${m[1]}</a>`;
-    } else {
-      console.log("no match!");
-    }
-  }
-  return `<a href="${url}">${f['value']}</a>`;
-}
 
 const Facets = {
 
@@ -68,8 +55,21 @@ const Facets = {
     } else {
       return `<p>Facet ${showFacet} not found</p>`;
     }
-  }
+  },
 
+  link: function(data, facet, f) {
+    const url = SearchPath.toURI(data.main.currentSearch, { [facet['field']]: f['search'] } );
+
+    if( facet['display_re'] ) {
+      const m = f['value'].match(facet['display_re']);
+      if( m ) {
+        return `<a href="${url}" title="${m[2]}">${m[1]}</a>`;
+      } else {
+        console.log("no match!");
+      }
+    }
+    return `<a href="${url}">${f['value']}</a>`;
+  }
 };
 
 module.exports = Facets;

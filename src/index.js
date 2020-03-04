@@ -43,33 +43,38 @@ let state = {
       'Dataset_author_facet',
       'Dataset_affiliation_facetmulti'
     ],
+    summaryFields: [
+      {
+        field: 'funder',
+        facet: 'Dataset_funder_facetmulti'
+      },
+      { 
+        field: 'dateCreated',
+        facet: 'Dataset_dateCreated_facetmulti'
+      },
+      {
+        field: 'author',
+        facet: 'Dataset_author_facet'
+      },
+      {
+        field: 'affiliation',
+        facet: 'Dataset_affiliation_facetmulti'
+      },
+      {
+        field: 'description'
+      },
+      {
+        field: 'FOR',
+        facet: 'Dataset_FOR_facetmulti'
+      }
+    ],
     viewFields: [
-      {
-        display: "SubDoc",
-        field: "author",
-        fieldName: 'Author'
-      },
-      {
-        display: "SubDoc",
-        field: "dateCreated",
-        fieldName: 'Year'
-      },
-      {
-        display: "SubDoc",
-        field: "funder",
-        fieldName: 'Funder'
-      },
-      {
-        display: "SubDoc",
-        field: "affiliation",
-        fieldName: 'School/Dept'
-      },
       {
         display: "SubDocIframe",
         field: "html",
-        fieldName: "Application",
-        width: "1000",
-        height: "400",
+        fieldName: "",
+        width: "800",
+        height: "11300",
         baseUrl: config.repo
       }
     ],
@@ -113,7 +118,6 @@ let state = {
       JSON: true,
       search: '@id',
       display: 'name',
-      display_re: /^(\d+)\s*-\s*(.*)$/,
       component: 'FacetFOR',
       field: 'FOR_id'
     }

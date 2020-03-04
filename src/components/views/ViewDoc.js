@@ -3,59 +3,72 @@ const ViewTable = require('./ViewTable');
 const ViewErrorElement = require('./ViewErrorElement');
 const ViewRelated = require('./ViewRelated');
 const isIterable = require('../isIterable');
+const SearchPath = require('../SearchPath');
+const Facets = require('./Facets');
 
 const ViewDoc = function (data) {
+  return `
+  <div><br/></div>
+  <div class="container col-sm-12 col-xl-9"><div class="row">
+  <div class="col-3 docSummary">
+    ${summary(data)}
+    <div class="summaryField"><a href="${SearchPath.toURI(data.currentSearch)}">&lt; back to search</a></div>
+  </div>
 
-  const doc = data.main.doc;
-  const dummy = $('<div>');
-  const summary = $('<div class="jumbotron">');
-  if (doc) {
-    const heading = $('<h1>').html(doc.name);
-    const desc = $('<p>').html(doc.description);
-    const related = $('<div>');
-    if (data.main.related.length > 0) {
-      const relatedInfo = $('<h3>').html('Related Objects');
-      related.append(relatedInfo);
-      const relatedUl = $('<ul>');
-      for (let rel of data.main.related) {
-        const relatedLi = $('<li>');
-        relatedLi.append(ViewRelated(rel));
-        relatedUl.append(relatedLi);
-      }
-      related.append(relatedUl);
-    }
+  <div class="col-8">
+    <div class="item-link">${data.main.doc.name}</div>
+    ${ViewTable(data.main.doc, data.main.viewFields).html()}
+  </div>
+  </div>
+  </div>
+  `;
+};
 
-    const linkTo = $('<div>');
-    if( data.main.viewLinks ) {
-      if (isIterable(doc['uri_id'])) {
-        for (let resolve of doc['uri_id']) {
-          const goTo = $('<a>');
-          goTo.attr('href', `${data.config.repo}${resolve}/`);
-          goTo.attr('title', 'Open Record');
-          goTo.attr('target', 'blank');
-          goTo.text('Open Record');
-          goTo.addClass("link");
-          linkTo.append(goTo);
+
+// duplicated from FacetController - fixme
+
+function tryJSON(value) {
+  try {
+    return JSON.parse(value);
+  } catch(e) {
+    console.error(e);
+    return null;
+  }
+}
+
+
+
+function summary(data) {
+  let html = '';
+  let doc = data.main.doc;
+  let fields = data.main.summaryFields;
+  let facetcf = data.main.facetsByName;
+  for( let fieldcf of fields ) {
+    const field = fieldcf['field'];
+    const values = Array.isArray(doc[field]) ? doc[field]: [ doc[field] ];
+    if( fieldcf['facet'] ) {
+      const facet = facetcf[fieldcf['facet']];
+      for( v of values ) {
+        console.log(fieldcf['field'], v);
+        if( facet['JSON'] ) {
+          const j = tryJSON(v);
+          const value = {
+            value: j[facet['display']],
+            search: j[facet['search']]
+          }
+          html += `<div class="summaryField">${Facets.link(data, facet, value)}</div>`;
+        } else {
+          html += `<div class="summaryField">${Facets.link(data, facet, { value: v, search: v })}</div>`;          
         }
       }
+    } else {
+      for( v of values ) {
+        html += `<div class="summaryField">${doc[field]}</div>`;
+      } 
     }
-    let tableFields = data.main.viewFields || [];
-    // if (doc['record_type_s'] === data.main.tabledDoc) {
-    //   tableFields = data.main.viewFields;
-    // }
-
-    summary.append(heading)
-        .append(desc)
-        .append(ViewTable(doc, tableFields))
-        .append(related)
-        .append(linkTo);
-    dummy.append(summary);
-    return dummy.html();
-  } else {
-    summary.append(ViewErrorElement()).html();
-    dummy.append(summary);
-    return dummy.html();
   }
-};
+  return html;
+}
+
 
 module.exports = ViewDoc;
