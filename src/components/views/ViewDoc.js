@@ -12,7 +12,7 @@ const ViewDoc = function (data) {
   <div class="container col-sm-12 col-xl-9"><div class="row">
   <div class="col-3 docSummary">
     ${summary(data)}
-    <div class="summaryField"><a href="${SearchPath.toURI(data.currentSearch)}">&lt; back to search</a></div>
+    <div class="summaryField"><a href="${SearchPath.toURI(data.main.currentSearch)}">&lt; back to search</a></div>
   </div>
 
   <div class="col-8">
@@ -49,7 +49,6 @@ function summary(data) {
     if( fieldcf['facet'] ) {
       const facet = facetcf[fieldcf['facet']];
       for( v of values ) {
-        console.log(fieldcf['field'], v);
         if( facet['JSON'] ) {
           const j = tryJSON(v);
           const value = {

@@ -13,7 +13,6 @@ function escapeSolrQuery(raw) {
 const SolrService = {
 
   select: async function (config, {start: start, page: page, search: search, facets: facets, facetLimit: facetLimit, facetViewAll: facetViewAll}) {
-    console.log("SolrService.select " + JSON.stringify(search));
     try {
       var searchParams = config.mainSearch + '%3A*'; // default if search is empty
       if( search && Object.keys(search).length > 0 ) {
@@ -30,7 +29,6 @@ const SolrService = {
       var query = `select?q=${searchParams}&start=${start}&page=${page}`;
 
       if(facets) {
-        console.log(`facets ${facetLimit} ${facetViewAll}`);
         query += `&facet=true&facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;
         if( facetViewAll ) {
           // remove the facet limit if we're viewing one facet 
@@ -38,7 +36,6 @@ const SolrService = {
         }
       }
 
-      console.log(`solr query = ${query}`);
       const res = await axios.get(`${config.solrUrl}/${query}`);
       if (res.data) {
         return {data: res.data['response'], facets: res.data['facet_counts'], status: res.status};

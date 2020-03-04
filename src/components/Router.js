@@ -32,6 +32,7 @@ const Router = async function (state) {
 
 
     if (verb === '#view/') {
+      console.log(`In view: currentSearch = ${JSON.stringify(state.main.currentSearch)}`);
       const res = await solrService.select(state.search, {
         start: 0,
         page: 1,
@@ -73,8 +74,6 @@ const Router = async function (state) {
       const showFacet = search['showFacet'] || null;
       delete search['showFacet'];
 
-      console.log(`search ${JSON.stringify(search)} showFacet ${showFacet}`);
-
       const res = await solrService.select(state.search, {
         start: start,
         page: page,
@@ -105,8 +104,6 @@ const Router = async function (state) {
       }
     }
   } else {
-
-    console.log(`facet search fields: ${JSON.stringify(state.main.facetSearchField)}`);
 
     const res = await solrService.select(state.search, {
       start: state.main.start,
