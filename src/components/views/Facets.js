@@ -3,20 +3,26 @@ const isIterable = require('../isIterable');
 const SearchPath = require('../SearchPath');
 
 
-function renderFacet(data, facet) {
+function renderFacet(data, facet, focus) {
   const values = data.facetData[facet.name].filter((v)=>v['count'] > 0);
-  html = `<li class="list-group-item">
+
+  let focusLink = focus ? SearchPath.toURI({}, { showFacet: facet.name }) : null;
+  let html = `<li class="list-group-item">
   <div>
-    <h4>${facet.label}</h4>
-    <hr/>
-    <ul class="list-group">`;
+    <div class="facetLabel">${facet.label}</div>
+        <ul class="list-group">`;
   if(isIterable(values)) { 
     for(let f of values ){       
-      html += `<li class="row">${facetLink(data, facet, f)} (${f['count']})</span></li>\n`;
+      html += `<li class="facet">${facetLink(data, facet, f)} (${f['count']})</span></li>\n`;
     }
   }
+ 
+ if( focusLink ) {
+    html += `<li class="facet"><a href="${focusLink}">more...</a></li>`;
+  }
+
   html += `</ul>
-  </div>
+   </div>
   </li>`
   return html;
 }
@@ -44,7 +50,7 @@ const Facets = {
       html = `<ul class="list-group col-3">`;
       for(let facet of data.facets) {
         if( ! data.main.showFacet || facet.name !== data.main.showFacet ) {
-          html += renderFacet(data, facet);
+          html += renderFacet(data, facet, true);
         }
       }
       html += `</ul>`;
@@ -56,7 +62,7 @@ const Facets = {
     const facets = data.facets.filter((f) => f.name === showFacet);
     if( facets.length > 0 ) {
       let html = `<ul class="list-group col-9">`;
-      html += renderFacet(data, facets[0]);
+      html += renderFacet(data, facets[0], false);
       html += `</ul>`;
       return html;
     } else {

@@ -13,7 +13,7 @@ const ShowFacet = function (data, showFacet) {
     ${Facets.sidebar(data)}
 
     ${Facets.focus(data, showFacet)}
-  </div></div>
+  </div>
   </div>
   `;
 };
