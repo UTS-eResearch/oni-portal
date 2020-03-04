@@ -16,6 +16,15 @@ const Router = async function (state) {
   const route = window.location.hash;
   const app = document.querySelector('#app');
 
+  // a bit of a hack so that facet links on search results use the
+  // search fields not the facet names
+
+  state.main.facetSearchField = {};
+  for( let facet of state.facets ) {
+    state.main.facetSearchField[facet.name] = facet.field;
+  }
+
+
   if (route) {
     const match = route.match(/(#.*?\/)(.*)/);
     const verb = match[1];
@@ -96,6 +105,8 @@ const Router = async function (state) {
       }
     }
   } else {
+
+    console.log(`facet search fields: ${JSON.stringify(state.main.facetSearchField)}`);
 
     const res = await solrService.select(state.search, {
       start: state.main.start,

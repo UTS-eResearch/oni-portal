@@ -57,7 +57,7 @@ function listDoc (data, d) {
 };
 
 function docFacet(data, facet, value) {
-  return `<a href=${SearchPath.toURI(data.main.currentSearch, { [facet]: value })}>${value}</a>`;
+  return `<a href=${SearchPath.toURI(data.main.currentSearch, { [data.main.facetSearchField[facet]]: value })}>${value}</a>`;
 }
 
 
