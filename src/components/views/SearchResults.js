@@ -9,7 +9,7 @@ const SearchResults = function (data) {
   return `
   <div><br/></div>
   <div class="container col-sm-12 col-xl-9"><div class="row">
-    ${Facets(data)}
+    ${Facets.sidebar(data)}
 
     ${listDocs(data)}
   <div><br/></div>

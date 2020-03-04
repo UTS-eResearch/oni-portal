@@ -2,7 +2,7 @@ const Container = require('./views/Container');
 const Header = require('./views/Header');
 const Menu = require('./views/Menu');
 const SearchResults = require('./views/SearchResults');
-//const SearchFacetResults = require('./views/SearchFacetResults');
+const ShowFacet = require('./views/ShowFacet');
 const Footer = require('./views/Footer');
 const Search = require('./views/Search');
 const ViewDoc = require('./views/ViewDoc');
@@ -64,6 +64,8 @@ const Router = async function (state) {
       const showFacet = search['showFacet'] || null;
       delete search['showFacet'];
 
+      console.log(`search ${JSON.stringify(search)} showFacet ${showFacet}`);
+
       const res = await solrService.select(state.search, {
         start: start,
         page: page,
@@ -81,8 +83,7 @@ const Router = async function (state) {
         state.main.showFacet = showFacet;
         state.facetResult = res.facets;
         state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
-        //const results = showFacet ? SearchFacetResults(state) : SearchResults(state);
-        const results = SearchResults(state);
+        const results = showFacet ? ShowFacet(state, showFacet) : SearchResults(state);
         app.innerHTML = [
           Container([Header(state), Menu(state), Search(state), results, Footer(state)])
         ].join('');
