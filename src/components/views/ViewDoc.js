@@ -25,17 +25,6 @@ const ViewDoc = function (data) {
 };
 
 
-// duplicated from FacetController - fixme
-
-function tryJSON(value) {
-  try {
-    return JSON.parse(value);
-  } catch(e) {
-    console.error(e);
-    return null;
-  }
-}
-
 
 
 function summary(data) {
@@ -47,21 +36,11 @@ function summary(data) {
     const field = fieldcf['field'];
     const values = Array.isArray(doc[field]) ? doc[field]: [ doc[field] ];
     if( fieldcf['facet'] ) {
-      const facet = facetcf[fieldcf['facet']];
-      for( v of values ) {
-        if( facet['JSON'] ) {
-          const j = tryJSON(v);
-          const value = {
-            value: j[facet['display']],
-            search: j[facet['search']]
-          }
-          html += `<div class="summaryField">${Facets.link(data, facet, value)}</div>`;
-        } else {
-          html += `<div class="summaryField">${Facets.link(data, facet, { value: v, search: v })}</div>`;          
-        }
+      for( let fv of values.map((v) => Facets.process(data, fieldcf['facet'], v)) ) {
+        html += `<div class="summaryField">${Facets.link(data, fieldcf['facet'], fv)}</div>`
       }
     } else {
-      for( v of values ) {
+      for( let v of values ) {
         html += `<div class="summaryField">${doc[field]}</div>`;
       } 
     }

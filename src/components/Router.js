@@ -3,11 +3,11 @@ const Header = require('./views/Header');
 const Menu = require('./views/Menu');
 const SearchResults = require('./views/SearchResults');
 const ShowFacet = require('./views/ShowFacet');
+const Facets = require('./views/Facets');
 const Footer = require('./views/Footer');
 const Search = require('./views/Search');
 const ViewDoc = require('./views/ViewDoc');
 const ViewError = require('./views/ViewError');
-const FacetController = require('./FacetController');
 
 const solrService = require('./SolrService');
 const SearchPath = require('./SearchPath');
@@ -81,7 +81,7 @@ const Router = async function (state) {
         state.main.currentSearch = search;
         state.main.showFacet = showFacet;
         state.facetResult = res.facets;
-        state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
+        state.facetData = Facets.processAll(state, state.facetResult['facet_fields']);
         const results = showFacet ? ShowFacet(state, showFacet) : SearchResults(state);
         app.innerHTML = [
           Container([Header(state), Menu(state), Search(state), results, Footer(state)])
@@ -109,7 +109,7 @@ const Router = async function (state) {
       state.main.searchText = '';
       state.main.currentSearch = {};
       state.facetResult = res.facets;
-      state.facetData = FacetController.process({config: state.facets, data: state.facetResult['facet_fields']});
+      state.facetData = Facets.processAll(state, state.facetResult['facet_fields']);
       app.innerHTML = [Container([Header(state), Menu(state), Search(state), SearchResults(state), Footer(state)])].join('');
     } else {
       app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');

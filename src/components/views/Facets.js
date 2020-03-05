@@ -29,8 +29,66 @@ function renderFacet(data, facetName, focus) {
 }
 
 
+function processFacet(cf, raw, count) {
+  if( cf['JSON'] ) {
+    const value = tryJSON(raw);
+    if( value ) {
+      return {
+        value: value[cf['display']],
+        search: value[cf['search']],
+        field: cf['field'],
+        count: count
+      }
+    } else {
+      return {
+        value: '---',
+        search: '',
+        field: '',
+        count: count
+      }
+    }  
+  } else {
+    return {
+      value: raw,
+      search: raw,
+      field: cf['field'],
+      count: count
+    }
+  }
+}
+
+
+function tryJSON(value) {
+  try {
+    return JSON.parse(value);
+  } catch(e) {
+    console.error("Facet parse error " + e);
+    return  null;
+  }
+}
+
+
 
 const Facets = {
+
+  process: function (data, facetName, raw) {
+    return processFacet(data.facets[facetName], raw);
+  },
+
+  // TODO - stash facet maps at this stage
+
+  processAll: function(data, solrFacets) {
+    const facets = {};
+    for( let facetName in solrFacets ) {
+      facets[facetName] = [];
+      for( let i = 0; i < solrFacets[facetName].length; i += 2 ) {
+        const raw = solrFacets[facetName][i];
+        const count = solrFacets[facetName][i + 1];
+        facets[facetName].push(processFacet(data.facets[facetName], raw, count));
+      }
+    }
+    return facets;
+  },
 
   sidebar: function (data) {
     let html = '';
@@ -73,6 +131,7 @@ const Facets = {
     }
     return `<a href="${url}">${f['value']}</a>`;
   }
+
 };
 
 module.exports = Facets;
