@@ -37,6 +37,14 @@ let state = {
     searchText: '',
     currentSearch: {},
     related: [],
+    searchFacets: [
+      'Dataset_funder_facetmulti',
+      'Dataset_dateCreated_facetmulti',
+      'Dataset_affiliation_facetmulti',
+      'Dataset_author_facet',
+      'Dataset_keywords_facetmulti',
+      'Dataset_FOR_facetmulti'
+    ],
     resultFacets: [
       'Dataset_funder_facetmulti',
       'Dataset_dateCreated_facetmulti',
@@ -81,47 +89,45 @@ let state = {
     viewLinks: false
   },
 
-  facets: [
-    {
-      name: 'Dataset_funder_facetmulti',
+  // NOTE: need another array called sidebarFacets to control
+  // which of these are visible and in what order
+
+  // extra config about sort order and number displayed can go here
+
+  facets: {
+    'Dataset_funder_facetmulti': {
       label: 'Funding scheme',
-      field: 'funder',
-      JSON: false
+      field: 'funder'
     },
-    {
-      name: 'Dataset_dateCreated_facetmulti',
+    'Dataset_dateCreated_facetmulti': {
       label: 'Year',
-      field: 'dateCreated',
-      JSON: false
+      field: 'dateCreated'
     },
-    {
-      name: 'Dataset_affiliation_facetmulti',
+    'Dataset_affiliation_facetmulti': {
       label: 'School/Dept',
       field: 'affiliation',
-      JSON: false
+      limit: 5
     },
-    {
-      name: 'Dataset_author_facet',
+    'Dataset_author_facet': {
       label: 'Author',
       field: 'author',
-      JSON: false
+      limit: 5
     },
-    {
-      name: 'Dataset_keywords_facetmulti',
+    'Dataset_keywords_facetmulti': {
       label: 'Keywords',
       field: 'keywords',
-      JSON: false
+      limit: 5
     },
-    {
-      name: 'Dataset_FOR_facetmulti',
+    'Dataset_FOR_facetmulti': {
       label: 'FORs',
       JSON: true,
       search: '@id',
       display: 'name',
       component: 'FacetFOR',
-      field: 'FOR_id'
+      field: 'FOR_id',
+      limit: 5
     }
-  ],
+  },
 
   facetData: [],
   facetLimit: 5,

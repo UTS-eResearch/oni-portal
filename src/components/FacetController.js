@@ -32,11 +32,10 @@ const FacetController = {
     const facets = {};
     for( let name in data ) {
       facets[name] = [];
-      const cfa = config.filter((c) => c.name === name);
-      if( cfa.length !== 1 ) {
+      if( !( name in config ) ) {
         console.error("No config found for facet " + name);
       } else {
-        const cf = cfa[0];
+        const cf = config[name];
         const parseJson = cf['JSON'];
         for( let i = 0; i < data[name].length; i += 2 ) {
           if( parseJson ) {

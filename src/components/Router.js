@@ -16,14 +16,6 @@ const Router = async function (state) {
   const route = window.location.hash;
   const app = document.querySelector('#app');
 
-  // a bit of a hack so that facet links on search results use the
-  // search fields not the facet names
-
-  state.main.facetsByName = {};
-  for( let facet of state.facets ) {
-    state.main.facetsByName[facet.name] = facet;
-  }
-
 
   if (route) {
     const match = route.match(/(#.*?\/)(.*)/);
@@ -77,7 +69,7 @@ const Router = async function (state) {
         start: start,
         page: page,
         search: search,
-        facets: state.facets.map((f) => f.name),
+        facets: Object.keys(state.facets),
         facetLimit: state.facetLimit,
         facetViewAll: showFacet
       });
@@ -108,7 +100,7 @@ const Router = async function (state) {
       start: state.main.start,
       page: state.main.page,
       search: null,
-      facets: state.facets.map((f) => f.name),
+      facets: Object.keys(state.facets),
       facetLimit: state.facetLimit
     });
     if (res.status === 200) {

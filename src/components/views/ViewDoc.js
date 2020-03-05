@@ -42,7 +42,7 @@ function summary(data) {
   let html = '';
   let doc = data.main.doc;
   let fields = data.main.summaryFields;
-  let facetcf = data.main.facetsByName;
+  let facetcf = data.facets;
   for( let fieldcf of fields ) {
     const field = fieldcf['field'];
     const values = Array.isArray(doc[field]) ? doc[field]: [ doc[field] ];
