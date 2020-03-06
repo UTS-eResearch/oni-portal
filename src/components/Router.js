@@ -80,7 +80,6 @@ const Router = async function (state) {
         const facets = Facets.processAll(state, state.facetResult['facet_fields']);
         state.facetData = facets['facets'];
         state.filterMaps = facets['filterMaps'];
-        console.log(`filterMaps: ${JSON.stringify(facets['filterMaps'])}`);
         const results = showFacet ? ShowFacet(state, showFacet) : SearchResults(state);
         app.innerHTML = [
           Container([Header(state), Menu(state), Search(state), results, Footer(state)])

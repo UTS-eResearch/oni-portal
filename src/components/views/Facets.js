@@ -5,6 +5,11 @@ const SearchPath = require('../SearchPath');
 
 function renderFacet(data, facetName, focus) {
   const facet = data.facets[facetName];
+  if ( !(facetName in data.facetData) ) {
+    console.log(`can't find facet data for ${facetName}`);
+    return `<p>No facet data for ${facetName}`;
+  }
+
   const values = data.facetData[facetName].filter((v)=>v['count'] > 0);
 
   let focusLink = focus ? SearchPath.toURI({}, { showFacet: facetName }) : null;
@@ -18,7 +23,7 @@ function renderFacet(data, facetName, focus) {
     }
   }
  
- if( focusLink ) {
+  if( focusLink ) {
     html += `<li class="facet"><a href="${focusLink}">more...</a></li>`;
   }
 
@@ -113,7 +118,6 @@ const Facets = {
     if(isIterable(data.main.searchFacets) ){
       html = `<ul class="list-group col-3">`;
       for(let facetName of data.main.searchFacets ) {
-        console.log("facet " + facetName);
         if( ! data.main.showFacet || facetName !== data.main.showFacet ) {
           html += renderFacet(data, facetName, true);
         }
@@ -129,7 +133,7 @@ const Facets = {
   focus: function(data, showFacet) {
     if( showFacet in data.facets ) {
       let html = `<ul class="list-group col-9">`;
-      html += renderFacet(data, data.facets[showFacet], false);
+      html += renderFacet(data, showFacet, false);
       html += `</ul>`;
       return html;
     } else {
@@ -153,6 +157,22 @@ const Facets = {
     }
     return `<a href="${url}">${f['display']}</a>`;
   },
+
+  // filterTag: takes a search field and resolve the value back to the displayable value
+  // which was stored in data.filterMaps. This is used to make sure that facets which are
+  // searched by ID (like FORs) get displayed in the filter tags in a human-readable way
+
+  filterTag: function(data, field) {
+    if( field in data.main.currentSearch ) {
+      if( field in data.filterMaps ) {
+        return data.filterMaps[field][data.main.currentSearch[field]];
+      } else {
+        return data.main.currentSearch[field];
+      }
+    } else {
+      return '';
+    }
+  }  
 
 
 };

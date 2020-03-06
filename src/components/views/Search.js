@@ -1,5 +1,6 @@
 
 const SearchPath = require("../SearchPath");
+const Facets = require("./Facets");
 
 const Search = function (data) {
   return `
@@ -38,7 +39,7 @@ function currentFilters(data) {
   if( data.main.currentSearch ) {
     let html = '<ul class="list-inline">';
     for( let field in data.main.currentSearch ) {
-      const tag = data.filterMaps[field][data.main.currentSearch[field]];
+      const tag = Facets.filterTag(data, field);
       const removeLink = SearchPath.toURI(data.main.currentSearch, { [field]: null });
       html += `<li class="list-inline-item text-light bg-info p-2">${tag} <a href="${removeLink}">x</a></li>\n`;
     }
