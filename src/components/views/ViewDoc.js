@@ -37,7 +37,8 @@ function summary(data) {
     const values = Array.isArray(doc[field]) ? doc[field]: [ doc[field] ];
     if( fieldcf['facet'] ) {
       for( let fv of values.map((v) => Facets.process(data, fieldcf['facet'], v)) ) {
-        html += `<div class="summaryField">${Facets.link(data, fieldcf['facet'], fv)}</div>`
+        console.log(`Summary facet link ${JSON.stringify(fv)}`);
+        html += `<div class="summaryField">${Facets.link(data, data.facets[fieldcf['facet']], fv)}</div>`
       }
     } else {
       for( let v of values ) {
