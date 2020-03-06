@@ -34,14 +34,14 @@ function processFacet(cf, raw, count) {
     const value = tryJSON(raw);
     if( value ) {
       return {
-        value: value[cf['display']],
+        display: value[cf['display']],
         search: value[cf['search']],
         field: cf['field'],
         count: count
       }
     } else {
       return {
-        value: '---',
+        display: '---',
         search: '',
         field: '',
         count: count
@@ -49,7 +49,7 @@ function processFacet(cf, raw, count) {
     }  
   } else {
     return {
-      value: raw,
+      display: raw,
       search: raw,
       field: cf['field'],
       count: count
@@ -71,29 +71,45 @@ function tryJSON(value) {
 
 const Facets = {
 
-  process: function (data, facetName, raw) {
-    return processFacet(data.facets[facetName], raw);
-  },
+  // the first two methods are used to convert raw facet results from Solr (which might
+  // be JSON snippets with fields for a person or identifier) into objects with a
+  // displayable text value, the search field and value, and optionally a count.
 
+  // processAll: process all of the facet results for a search into the displayable
+  // format used for the sidebar facets
+  //
   // TODO - stash facet maps at this stage
 
   processAll: function(data, solrFacets) {
     const facets = {};
+    const filterMaps = {};
     for( let facetName in solrFacets ) {
       facets[facetName] = [];
+      const filterMap = {};
       for( let i = 0; i < solrFacets[facetName].length; i += 2 ) {
         const raw = solrFacets[facetName][i];
         const count = solrFacets[facetName][i + 1];
-        facets[facetName].push(processFacet(data.facets[facetName], raw, count));
+        const facetVal = processFacet(data.facets[facetName], raw, count);
+        facets[facetName].push(facetVal);
+        filterMap[facetVal['search']] = facetVal['display'];
       }
+      filterMaps[data.facets[facetName].field] = filterMap;
     }
-    return facets;
+    return { facets: facets, filterMaps: filterMaps }
   },
+
+  // process: process a single value. This is used for the facet links on search results
+
+  process: function (data, facetName, raw) {
+    return processFacet(data.facets[facetName], raw);
+  },
+
+  // sidebar: render and return all of the sidebar facets. If data.main.showFacet is
+  // set, we're viewing showFacet in the main column, so it will be skipped here
 
   sidebar: function (data) {
     let html = '';
-    console.log(`facetData ${JSON.stringify(data.facetData)}`);
-    console.log(`searchFacets ${JSON.stringify(data.main.searchFacets)}`);
+
     if(isIterable(data.main.searchFacets) ){
       html = `<ul class="list-group col-3">`;
       for(let facetName of data.main.searchFacets ) {
@@ -107,6 +123,9 @@ const Facets = {
   return html;
   },
 
+  // focus: for when we're viewing all of the results from a single facet in the
+  // main column
+
   focus: function(data, showFacet) {
     if( showFacet in data.facets ) {
       let html = `<ul class="list-group col-9">`;
@@ -118,19 +137,23 @@ const Facets = {
     }
   },
 
+  // link: generates a facet link from the results returned from the process methods
+  // above
+
   link: function(data, facet, f) {
     const url = SearchPath.toURI(data.main.currentSearch, { [facet['field']]: f['search'] } );
 
     if( facet['display_re'] ) {
-      const m = f['value'].match(facet['display_re']);
+      const m = f['display'].match(facet['display_re']);
       if( m ) {
         return `<a href="${url}" title="${m[2]}">${m[1]}</a>`;
       } else {
         console.log("no match!");
       }
     }
-    return `<a href="${url}">${f['value']}</a>`;
-  }
+    return `<a href="${url}">${f['display']}</a>`;
+  },
+
 
 };
 

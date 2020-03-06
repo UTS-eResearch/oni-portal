@@ -1,3 +1,4 @@
+
 const SearchPath = require("../SearchPath");
 
 const Search = function (data) {
@@ -37,8 +38,9 @@ function currentFilters(data) {
   if( data.main.currentSearch ) {
     let html = '<ul class="list-inline">';
     for( let field in data.main.currentSearch ) {
+      const tag = data.filterMaps[field][data.main.currentSearch[field]];
       const removeLink = SearchPath.toURI(data.main.currentSearch, { [field]: null });
-      html += `<li class="list-inline-item text-light bg-info p-2">${data.main.currentSearch[field]} <a href="${removeLink}">x</a></li>\n`;
+      html += `<li class="list-inline-item text-light bg-info p-2">${tag} <a href="${removeLink}">x</a></li>\n`;
     }
     html += '</ul>';
     return html;

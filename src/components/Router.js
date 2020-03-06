@@ -55,10 +55,6 @@ const Router = async function (state) {
 
 
     if (verb === '#search/') {
-      // TODO: make the split better
-      // ML: I made it a bit worse by adding search params
-      // need to rethink this so that facet links can compose - this is what 
-      // issue ST-361 needs to deal with 
 
       const { start, page, search } = SearchPath.fromURI(state.main.start, '', query);
 
@@ -81,7 +77,10 @@ const Router = async function (state) {
         state.main.currentSearch = search;
         state.main.showFacet = showFacet;
         state.facetResult = res.facets;
-        state.facetData = Facets.processAll(state, state.facetResult['facet_fields']);
+        const facets = Facets.processAll(state, state.facetResult['facet_fields']);
+        state.facetData = facets['facets'];
+        state.filterMaps = facets['filterMaps'];
+        console.log(`filterMaps: ${JSON.stringify(facets['filterMaps'])}`);
         const results = showFacet ? ShowFacet(state, showFacet) : SearchResults(state);
         app.innerHTML = [
           Container([Header(state), Menu(state), Search(state), results, Footer(state)])
@@ -109,7 +108,9 @@ const Router = async function (state) {
       state.main.searchText = '';
       state.main.currentSearch = {};
       state.facetResult = res.facets;
-      state.facetData = Facets.processAll(state, state.facetResult['facet_fields']);
+      const facets = Facets.processAll(state, state.facetResult['facet_fields']);
+      state.facetData = facets['facets'];
+      state.filterMaps = facets['filterMaps'];
       app.innerHTML = [Container([Header(state), Menu(state), Search(state), SearchResults(state), Footer(state)])].join('');
     } else {
       app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
