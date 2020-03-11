@@ -8,18 +8,14 @@ const config = require('../config.json');
 const Router = require('./components/Router');
 const RegisterEvents = require('./components/RegisterEvents');
 
-//Default state
+// Default state
+// config is passed through from the oni-express app
+
+// TODO - most of the config in state should be moved out to 
+// config.json
+
 let state = {
-  header: {
-    title: 'Successful Grants',
-    URL: '/',
-    logo: 'images/logo.svg',
-    help: 'Help',
-    helpURL: '',
-    menu: [
-      {id: 'back', name: 'Back'}
-    ]
-  },
+  header: config.header,
   search: {
     error: 'Search Error',
     invalidSearch: 'Invalid Search',
@@ -83,16 +79,11 @@ let state = {
         fieldName: "",
         width: "800",
         height: "11300",
-        baseUrl: config.repo
+        baseUrl: config.ocfl
       }
     ],
     viewLinks: false
   },
-
-  // NOTE: need another array called sidebarFacets to control
-  // which of these are visible and in what order
-
-  // extra config about sort order and number displayed can go here
 
   facets: {
     'Dataset_funder_facetmulti': {
