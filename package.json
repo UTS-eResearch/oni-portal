@@ -1,10 +1,10 @@
 {
-  "name": "data-portal",
+  "name": "oni-portal",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -w",
+    "build": "webpack",
     "start:dev": "webpack-dev-server"
   },
   "author": "",
@@ -17,7 +17,7 @@
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "popper.js": "^1.15.0",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.0",

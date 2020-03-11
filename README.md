@@ -1,6 +1,8 @@
-### Data-Portal 
+### Oni Portal 
 
-This is the code of a single page application for searching with SOLR
+This is the front-end for Oni, a scalable and searchable data repository built on ocfl.
+
+It should be deployed as part of [https://github.com/UTS-eResearch/oni-express](Oni Express)
 
 ### Install
 
