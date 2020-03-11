@@ -1,8 +1,9 @@
 ### Oni Portal 
 
-This is the front-end for Oni, a scalable and searchable data repository built on ocfl.
+This is the front-end single-page app for Oni, a scalable and searchable data repository built on ocfl.
 
-It should be deployed as part of [https://github.com/UTS-eResearch/oni-express](Oni Express)
+The simplest way to deploy it is using the Dockerfile included as part of [https://github.com/UTS-eResearch/oni-express](Oni Express).
+
 
 ### Install
 
