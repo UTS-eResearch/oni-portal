@@ -115,9 +115,9 @@ const Facets = {
   sidebar: function (data) {
     let html = '';
 
-    if(isIterable(data.main.searchFacets) ){
+    if(isIterable(data.results.searchFacets) ){
       html = `<ul class="list-group col-3">`;
-      for(let facetName of data.main.searchFacets ) {
+      for(let facetName of data.results.searchFacets ) {
         if( ! data.main.showFacet || facetName !== data.main.showFacet ) {
           html += renderFacet(data, facetName, true);
         }

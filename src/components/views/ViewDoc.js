@@ -17,7 +17,7 @@ const ViewDoc = function (data) {
 
   <div class="col-8">
     <div class="item-link">${data.main.doc.name}</div>
-    ${ViewTable(data.main.doc, data.main.viewFields).html()}
+    ${ViewTable(data, data.main.doc, data.results.viewFields).html()}
   </div>
   </div>
   </div>
@@ -30,7 +30,7 @@ const ViewDoc = function (data) {
 function summary(data) {
   let html = '';
   let doc = data.main.doc;
-  let fields = data.main.summaryFields;
+  let fields = data.results.summaryFields;
   let facetcf = data.facets;
   for( let fieldcf of fields ) {
     const field = fieldcf['field'];

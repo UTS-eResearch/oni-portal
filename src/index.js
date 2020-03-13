@@ -15,14 +15,12 @@ const RegisterEvents = require('./components/RegisterEvents');
 // config.json
 
 let state = {
+  apis: config.apis,
   header: config.header,
-  search: {
-    error: 'Search Error',
-    invalidSearch: 'Invalid Search',
-    searchText: 'Search',
-    solrUrl: config.solr,
-    mainSearch: 'main_search'
-  },
+  footer: config.footer,
+  pages: config.pages,
+  search: config.search,
+  results: config.results,
   main: {
     docs: [],
     doc: {},
@@ -33,98 +31,11 @@ let state = {
     searchText: '',
     currentSearch: {},
     related: [],
-    searchFacets: [
-      'Dataset_funder_facetmulti',
-      'Dataset_dateCreated_facetmulti',
-      'Dataset_affiliation_facetmulti',
-      'Dataset_author_facet',
-      'Dataset_keywords_facetmulti',
-      'Dataset_FOR_facetmulti'
-    ],
-    resultFacets: [
-      'Dataset_funder_facetmulti',
-      'Dataset_dateCreated_facetmulti',
-      'Dataset_author_facet',
-      'Dataset_affiliation_facetmulti'
-    ],
-    summaryFields: [
-      {
-        field: 'funder',
-        facet: 'Dataset_funder_facetmulti'
-      },
-      { 
-        field: 'dateCreated',
-        facet: 'Dataset_dateCreated_facetmulti'
-      },
-      {
-        field: 'author',
-        facet: 'Dataset_author_facet'
-      },
-      {
-        field: 'affiliation',
-        facet: 'Dataset_affiliation_facetmulti'
-      },
-      {
-        field: 'description'
-      },
-      {
-        field: 'FOR',
-        facet: 'Dataset_FOR_facetmulti'
-      }
-    ],
-    viewFields: [
-      {
-        display: "SubDocIframe",
-        field: "html",
-        fieldName: "",
-        width: "800",
-        height: "11300",
-        baseUrl: config.ocfl
-      }
-    ],
-    viewLinks: false
   },
-
-  facets: {
-    'Dataset_funder_facetmulti': {
-      label: 'Funding scheme',
-      field: 'funder'
-    },
-    'Dataset_dateCreated_facetmulti': {
-      label: 'Year',
-      field: 'dateCreated'
-    },
-    'Dataset_affiliation_facetmulti': {
-      label: 'School/Dept',
-      field: 'affiliation',
-      limit: 5
-    },
-    'Dataset_author_facet': {
-      label: 'Author',
-      field: 'author',
-      limit: 5
-    },
-    'Dataset_keywords_facetmulti': {
-      label: 'Keywords',
-      field: 'keywords',
-      limit: 5
-    },
-    'Dataset_FOR_facetmulti': {
-      label: 'FORs',
-      JSON: true,
-      search: '@id',
-      display: 'name',
-      component: 'FacetFOR',
-      field: 'FOR_id',
-      limit: 5
-    }
-  },
+  facets: config.facets,
 
   facetData: [],
   facetLimit: 5,
-  footer:{
-    text: '2020 University of Technology Sydney'
-  },
   config: config
 };
 

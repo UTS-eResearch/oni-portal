@@ -46,7 +46,7 @@ function listDocs (data) {
 function listDoc (data, d) {
   const url = `/#view/${d['id']}`;
   const name = d['name'] ? d['name'][0] : '---';
-  const facetValues = data.main.resultFacets.map((f) => docFacet(data, f, d[f])).join(' | ');
+  const facetValues = data.results.resultFacets.map((f) => docFacet(data, f, d[f])).join(' | ');
   const description = d['description'];
   return `<div class="item">
         <div class="item-link"><a href="${url}">${name}</a></div>

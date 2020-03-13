@@ -14,10 +14,10 @@ const SolrService = {
 
   select: async function (config, {start: start, page: page, search: search, facets: facets, facetLimit: facetLimit, facetViewAll: facetViewAll}) {
     try {
-      var searchParams = config.mainSearch + '%3A*'; // default if search is empty
+      var searchParams = config.search.mainSearch + '%3A*'; // default if search is empty
       if( search && Object.keys(search).length > 0 ) {
         const searches = Object.keys(search).map((k) => {
-          if( k === config.mainSearch ) {
+          if( k === config.search.mainSearch ) {
             return k + '%3A' + escapeSolrQuery(search[k]);
           } else {
             return k + '%3A' + '"' + escapeSolrQuery(search[k]) + '"';
@@ -36,7 +36,7 @@ const SolrService = {
         }
       }
 
-      const res = await axios.get(`${config.solrUrl}/${query}`);
+      const res = await axios.get(`${config.apis.solr}/${query}`);
       if (res.data) {
         return {data: res.data['response'], facets: res.data['facet_counts'], status: res.status};
       } else {

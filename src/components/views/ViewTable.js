@@ -5,7 +5,7 @@ const SubDocDate = require('./SubDocDate');
 const SubDocIframe = require('./SubDocIframe');
 const SubDoc = require('./SubDoc');
 
-const ViewTable = function (doc, fields) {
+const ViewTable = function (data, doc, fields) {
 
   const div = $('<div class="table table-responsive">');
 
@@ -33,7 +33,8 @@ const ViewTable = function (doc, fields) {
               value: doc[sdcf.field],
               fieldName: sdcf.fieldName,
               id: doc['id'],
-              cf: sdcf
+              cf: sdcf,
+              api: data.apis.ocfl
             });
           list.append(subDoc);
         }

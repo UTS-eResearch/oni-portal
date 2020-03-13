@@ -24,7 +24,7 @@ const Router = async function (state) {
 
 
     if (verb === '#view/') {
-      const res = await solrService.select(state.search, {
+      const res = await solrService.select(state, {
         start: 0,
         page: 1,
         search: { id: query },
@@ -61,7 +61,7 @@ const Router = async function (state) {
       const showFacet = search['showFacet'] || null;
       delete search['showFacet'];
 
-      const res = await solrService.select(state.search, {
+      const res = await solrService.select(state, {
         start: start,
         page: page,
         search: search,
@@ -94,7 +94,7 @@ const Router = async function (state) {
     }
   } else {
 
-    const res = await solrService.select(state.search, {
+    const res = await solrService.select(state, {
       start: state.main.start,
       page: state.main.page,
       search: null,
