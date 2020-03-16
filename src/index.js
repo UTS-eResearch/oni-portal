@@ -21,6 +21,7 @@ let state = {
   pages: config.pages,
   search: config.search,
   results: config.results,
+  errors: config.errors,
   main: {
     docs: [],
     doc: {},

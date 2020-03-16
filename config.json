@@ -8,13 +8,7 @@
     "title": "My Oni Application",
     "URL": "/",
     "logo": "images/logo.svg",
-    "help": "Help",
-    "helpURL": "/help",
-    "menu": [
-      {
-        "id": "back", "name": "Back"
-      }
-    ]
+    "menu": [ "help", "about", "privacy" ]
   },
 
   "footer": {
@@ -29,23 +23,20 @@
   },
   
 
-  "pages": [
-    {
-      "slug": "help",
+  "pages": {
+    "help": {
       "title": "Help",
       "text": "How to use this app"
     },
-    {
-      "slug": "oni",
-      "title": "Oni",
+    "about": {
+      "title": "About",
       "text": "This app was build with Oni 👹"
     },
-    {
-      "slug": "privacy",
+    "privacy": {
       "title": "Privacy",
       "text": "Don;t do bad things with this app"
     }
-  ],
+  },
 
 
   "facets": {
@@ -124,6 +115,11 @@
       }
     ],
     "viewLinks": false
+  },
+
+  "errors": {
+    "not_found": "Page not found",
+    "unavailable": "The app is temporarily unavailable"
   },
 
   

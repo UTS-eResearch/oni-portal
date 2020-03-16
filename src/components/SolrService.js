@@ -38,13 +38,13 @@ const SolrService = {
 
       const res = await axios.get(`${config.apis.solr}/${query}`);
       if (res.data) {
-        return {data: res.data['response'], facets: res.data['facet_counts'], status: res.status};
+        return { data: res.data['response'], facets: res.data['facet_counts'], status: res.status};
       } else {
-        return {data: [], status: res.status};
+        return { data: [], status: res.status};
       }
     } catch (e) {
-      console.log("search errror " + e);
-      return {data: [], status: e.message};
+      console.log("search error " + e);
+      return { data: [], status: e.message };
     }
   }
 };

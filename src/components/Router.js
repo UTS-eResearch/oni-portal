@@ -1,6 +1,7 @@
 const Container = require('./views/Container');
 const Header = require('./views/Header');
 const Menu = require('./views/Menu');
+const Page = require('./views/Page');
 const SearchResults = require('./views/SearchResults');
 const ShowFacet = require('./views/ShowFacet');
 const Facets = require('./views/Facets');
@@ -32,21 +33,6 @@ const Router = async function (state) {
       });
       if (res.status === 200 && res.data["numFound"] === 1 ) {
         state.main.doc = res.data["docs"][0];
-        // //Just to avoid extra ajax calls but we can have multiple relationships here
-        // if (state.main.doc.record_type_s || state.main.doc.record_type_s === 'Person') {
-        //   //Removing orcid.org to have better matches
-        //   state.main.doc.id = state.main.doc.id.replace("http://orcid.org/0000-000", "");
-        //   //state.main.doc.id = encodeURIComponent(state.main.doc.id);
-        //   const res = await solrService.select({api: state.config.api}, {
-        //     start: 0,
-        //     page: 1,
-        //     searchParam: 'uri_id',
-        //     text: state.main.doc.id,
-        //     facets: false
-        //   });
-        //   if (status === 200) {
-        //     state.main.related = res.data.docs || [];
-        //   }
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewDoc(state), Footer(state)])].join('');
       } else {
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
@@ -92,6 +78,15 @@ const Router = async function (state) {
         app.innerHTML = [Container([Header(state), Menu(state), Search(state), ViewError(state), Footer(state)])].join('');
       }
     }
+
+    if( verb === '#page/' ) {
+      console.log(`${query} ${JSON.stringify(state.pages)}`);
+      const page = state.pages[query] || state.errors.not_found;
+      app.innerHTML = [ 
+        Container([Header(state), Menu(state), Search(state), Page(page), Footer(state)])
+      ];
+    }
+
   } else {
 
     const res = await solrService.select(state, {
