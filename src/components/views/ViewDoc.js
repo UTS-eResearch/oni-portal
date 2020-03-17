@@ -6,14 +6,10 @@ const isIterable = require('../isIterable');
 const SearchPath = require('../SearchPath');
 const Facets = require('./Facets');
 
-const ViewDoc = function (data) {
-  return `
-  <div><br/></div>
-  <div class="container col-sm-12 col-xl-9"><div class="row">
-  <div class="col-3 docSummary">
-    ${summary(data)}
-    <div class="summaryField"><a href="${SearchPath.toURI(data.main.currentSearch)}">&lt; back to search</a></div>
-  </div>
+const ViewDoc = {
+
+  main: function (data) {
+    return `
 
   <div class="col-8">
     <div class="item-link">${data.main.doc.name}</div>
@@ -22,32 +18,31 @@ const ViewDoc = function (data) {
   </div>
   </div>
   `;
-};
+  },
 
-
-
-
-function summary(data) {
-  let html = '';
-  let doc = data.main.doc;
-  let fields = data.results.summaryFields;
-  let facetcf = data.facets;
-  for( let fieldcf of fields ) {
-    const field = fieldcf['field'];
-    const values = Array.isArray(doc[field]) ? doc[field]: [ doc[field] ];
-    if( fieldcf['facet'] ) {
-      for( let fv of values.map((v) => Facets.process(data, fieldcf['facet'], v)) ) {
-        console.log(`Summary facet link ${JSON.stringify(fv)}`);
-        html += `<div class="summaryField">${Facets.link(data, data.facets[fieldcf['facet']], fv)}</div>`
+  summary: function (data) {
+    let html = '<div class="col-3 docSummary">';
+    let doc = data.main.doc;
+    let fields = data.results.summaryFields;
+    let facetcf = data.facets;
+    for( let fieldcf of fields ) {
+      const field = fieldcf['field'];
+      const values = Array.isArray(doc[field]) ? doc[field]: [ doc[field] ];
+      if( fieldcf['facet'] ) {
+        for( let fv of values.map((v) => Facets.process(data, fieldcf['facet'], v)) ) {
+          html += `<div class="summaryField">${Facets.link(data, data.facets[fieldcf['facet']], fv)}</div>`
+        }
+      } else {
+        for( let v of values ) {
+          html += `<div class="summaryField">${doc[field]}</div>`;
+        } 
       }
-    } else {
-      for( let v of values ) {
-        html += `<div class="summaryField">${doc[field]}</div>`;
-      } 
     }
+    html += `<div class="summaryField"><a href="${SearchPath.toURI(data.main.currentSearch)}">&lt; back to search</a></div>
+    </div>`
+    return html;
   }
-  return html;
-}
+};
 
 
 module.exports = ViewDoc;

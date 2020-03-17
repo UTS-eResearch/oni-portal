@@ -7,14 +7,9 @@ const Pagination = require('./Pagination');
 
 const SearchResults = function (data) {
   return `
-  <div><br/></div>
-  <div class="container col-sm-12 col-xl-9"><div class="row">
-    ${Facets.sidebar(data)}
 
     ${listDocs(data)}
-  <div><br/></div>
-  </div></div>
-  <div><br/></div>
+
     ${Pagination(data)}
     <div class="row">
       <div class="container">
@@ -22,7 +17,6 @@ const SearchResults = function (data) {
           <p>Results: ${data.main.numFound}</p>
       </div>
     </div>
-  </div>
   <div><br/></div>
   `;
 };
