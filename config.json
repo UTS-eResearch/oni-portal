@@ -5,10 +5,10 @@
   },
 
   "header":{
-    "title": "My Oni Application",
+    "title": "Library of Successful Grants",
     "URL": "/",
     "logo": "images/logo.svg",
-    "menu": [ "help", "about", "privacy" ]
+    "menu": [ "about", "privacy", "help"  ]
   },
 
   "footer": {
@@ -24,17 +24,17 @@
   
 
   "pages": {
-    "help": {
-      "title": "Help",
-      "text": "How to use this app"
-    },
     "about": {
       "title": "About",
-      "text": "This app was build with Oni 👹"
+      "text": "<p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p>"
     },
     "privacy": {
       "title": "Privacy",
       "text": "Don;t do bad things with this app"
+    },
+    "help": {
+      "title": "Help",
+      "text": "How to use this app"
     }
   },
 

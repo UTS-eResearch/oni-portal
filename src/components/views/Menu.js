@@ -9,11 +9,27 @@ const Menu = function (data) {
     <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>      
+      </li>
+      ${pageLinks(data)}   
     </ul>
   </div>
 </nav>
   `
 };
+
+function pageLinks(data) {
+  var html = '';
+  if( data.header['menu'] ) {
+    data.header['menu'].forEach((m) => {
+      const page = data.pages[m];
+      if( page ) {
+        html += `<li class="nav-item active">
+      <a class="nav-link" href="/#page/${m}">${page.title}</a>
+      </li>`
+      }
+    })
+  }
+  return html;
+}
 
 module.exports = Menu;

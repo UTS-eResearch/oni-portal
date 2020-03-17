@@ -36,7 +36,10 @@ const SolrService = {
         }
       }
 
-      const res = await axios.get(`${config.apis.solr}/${query}`);
+      const url = `${config.apis.solr}/${query}`;
+      console.log(`Solr: ${url}`);
+
+      const res = await axios.get(url);
       if (res.data) {
         return { data: res.data['response'], facets: res.data['facet_counts'], status: res.status};
       } else {
