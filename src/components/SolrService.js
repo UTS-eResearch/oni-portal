@@ -12,7 +12,7 @@ function escapeSolrQuery(raw) {
 
 const SolrService = {
 
-  select: async function (config, {start: start, page: page, search: search, facets: facets, facetLimit: facetLimit, facetViewAll: facetViewAll}) {
+  select: async function (config, {start: start, page: page, search: search, facets: facets, showFacet: showFacet}) {
     try {
       var searchParams = config.search.mainSearch + '%3A*'; // default if search is empty
       if( search && Object.keys(search).length > 0 ) {
@@ -29,11 +29,7 @@ const SolrService = {
       var query = `select?q=${searchParams}&start=${start}&page=${page}`;
 
       if(facets) {
-        query += `&facet=true&facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;
-        if( facetViewAll ) {
-          // remove the facet limit if we're viewing one facet 
-          query += `&f.${facetViewAll}.facet.limit=-1`;
-        }
+        query += `&facet=true&` + facetParams(config, facets, showFacet);
       }
 
       const url = `${config.apis.solr}/${query}`;
@@ -51,5 +47,33 @@ const SolrService = {
     }
   }
 };
+
+
+
+function facetParams(config, facets, showFacet) {
+  const params = [ 'facet.limit=' + config.facetLimit ];
+  for( var facet of facets ) {
+    params.push('facet.field=' + facet);
+    const cf = config.facets[facet];
+    console.log(`${facet} ${JSON.stringify(cf)}`)
+    if( facet === showFacet ) {
+      params.push(`f.${facet}.facet.limit=-1`);
+    } else if( 'limit' in cf && cf['limit'] !== config.facetLimit ) {
+      params.push(`f.${facet}.facet.limit=${cf['limit']}`);
+    }
+    if( 'sort' in cf ) {
+      params.push(`f.${facet}.facet.sort=${cf['sort']}`);
+    }
+  }
+  console.log(params);
+  return params.join('&');
+}
+//        &facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;
+//        if( facetViewAll ) {
+          // remove the facet limit if we're viewing one facet 
+//          query += `&f.${facetViewAll}.facet.limit=-1`;
+//        }
+//      }
+//}
 
 module.exports = SolrService;

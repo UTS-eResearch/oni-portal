@@ -42,12 +42,14 @@
   "facets": {
     "Dataset_dateCreated_facetmulti": {
       "label": "Year",
-      "field": "dateCreated"
+      "field": "dateCreated",
+      "sort": "index",
+      "limit": -1
     },
     "Dataset_affiliation_facetmulti": {
       "label": "School/Dept",
       "field": "affiliation",
-      "limit": 5
+      "limit": 3
     },
     "Dataset_author_facet": {
       "label": "Author",
@@ -57,7 +59,7 @@
     "Dataset_keywords_facetmulti": {
       "label": "Keywords",
       "field": "keywords",
-      "limit": 5
+      "limit": 10
     },
     "Dataset_FOR_facetmulti": {
       "label": "FORs",
