@@ -1,7 +1,6 @@
 const Layout = require('./views/Layout');
 const Page = require('./views/Page');
 const SearchResults = require('./views/SearchResults');
-const ShowFacet = require('./views/ShowFacet');
 const Facets = require('./views/Facets');
 const Footer = require('./views/Footer');
 const ViewDoc = require('./views/ViewDoc');
@@ -78,7 +77,7 @@ const Router = async function (state) {
         if (input) {
           input.value = search['main_search'] || '';
         }
-        const results = showFacet ? ShowFacet(state, showFacet) : SearchResults(state);
+        const results = showFacet ? Facets.focus(state, showFacet) : SearchResults(state);
         app.innerHTML = Layout(state, Facets.sidebar(state), results);
       }
     }

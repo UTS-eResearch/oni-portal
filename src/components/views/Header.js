@@ -14,9 +14,7 @@ const Header = function (data) {
               <p></p>
               <nav class="navbar">
                 <div class="navbar-nav">
-                  <a class="nav-item nav-link"
-                     href="${data.header.helpURL}" target="_blank noreferer">
-                    ${data.header.help}<i class="fa fa-question-circle" aria-hidden="true"></i></a>
+
                 </div>
               </nav>
             </div>
