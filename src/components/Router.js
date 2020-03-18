@@ -37,14 +37,21 @@ const Router = async function (state) {
     } else {
       app.innerHTML = Layout(state, '', ViewError(state));
     }
+
+  } else if( verb === '#page/' ) {
+
+    // Render one of the help pages in the main column and facets
+    // from the most recent search in the sidebar 
+
+    const page = state.pages[query] || state.errors.not_found;
+    app.innerHTML = Layout(state, Facets.sidebar(state), Page(page));
+
   } else {
 
-    // Do a search w/facets and display either the results, a single facet in 
-    // detail, or a static page (these have facets in their sidebar)
+    // Do a new search and render either the search results or a focussed
+    // facet in the main column
 
-    const search_query = ( verb === '#page/' ? '' : query);
-
-    const { start, page, search } = SearchPath.fromURI(state.main.start, '', search_query);
+    const { start, page, search } = SearchPath.fromURI(state.main.start, '', query);
 
     const showFacet = search['showFacet'];
     delete search['showFacet'];
@@ -69,65 +76,17 @@ const Router = async function (state) {
       state.facetData = facets['facets'];
       state.filterMaps = facets['filterMaps'];
 
-      if( verb === "#page/" ) {
-        const page = state.pages[query] || state.errors.not_found;
-        app.innerHTML = Layout(state, Facets.sidebar(state), Page(page));
-      } else {
-        const input = document.getElementById('text-to-search');
-        if (input) {
-          input.value = search['main_search'] || '';
-        }
-        const results = showFacet ? Facets.focus(state, showFacet) : SearchResults(state);
-        app.innerHTML = Layout(state, Facets.sidebar(state), results);
+      const input = document.getElementById('text-to-search');
+      if (input) {
+        input.value = search['main_search'] || '';
       }
+      const results = showFacet ? Facets.focus(state, showFacet) : SearchResults(state);
+      app.innerHTML = Layout(state, Facets.sidebar(state), results);
+    } else {
+      app.innerHTML = Layout(state, '', ViewError(state));
     }
   }
 };
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //   // TODO: pages should have facets, so it needs a search
-
-  //   if( verb === '#page/' ) {
-  //   }
-
-  // } else {
-
-  //   const res = await solrService.select(state, {
-  //     start: state.main.start,
-  //     page: state.main.page,
-  //     search: null,
-  //     facets: Object.keys(state.facets),
-  //     facetLimit: state.facetLimit
-  //   });
-  //   if (res.status === 200) {
-  //     state.main.docs = res.data.docs;
-  //     state.main.numFound = res.data.numFound;
-  //     state.main.searchText = '';
-  //     state.main.currentSearch = {};
-  //     state.facetResult = res.facets;
-  //     const facets = Facets.processAll(state, state.facetResult['facet_fields']);
-  //     state.facetData = facets['facets'];
-  //     state.filterMaps = facets['filterMaps'];
-  //     app.innerHTML = Layout(state, Facets.sidebar(state), SearchResults(state));
-  //   } else {
-  //     app.innerHTML = Layout(state, '', ViewError(state));
-  //   }
-
 
 
 
