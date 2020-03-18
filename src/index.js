@@ -43,6 +43,7 @@ let state = {
 RegisterEvents(state);
 
 window.onhashchange = main;
+document.title = config.header.title;
 
 // Main App
 async function main() {
