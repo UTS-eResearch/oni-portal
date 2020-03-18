@@ -61,7 +61,7 @@ const SearchPath = {
         	}
       		return { start: start, page: page, search: search };
       	} else {
-      		return { start: start, page: page, search: null };
+      		return { start: start, page: page, search: {} };
       	}
     }
 

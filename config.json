@@ -26,11 +26,11 @@
   "pages": {
     "about": {
       "title": "About",
-      "text": "<p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p><p>This app was build with Oni 👹</p>"
+      "text": "<p>This app was build with Oni 👹</p>"
     },
     "privacy": {
       "title": "Privacy",
-      "text": "Don;t do bad things with this app"
+      "text": "Don't do bad things with this app"
     },
     "help": {
       "title": "Help",
