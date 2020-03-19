@@ -15,8 +15,6 @@ const ViewDoc = {
     <div class="item-link">${data.main.doc.name}</div>
     ${ViewTable(data, data.main.doc, data.results.viewFields).html()}
   </div>
-  </div>
-  </div>
   `;
   },
 
