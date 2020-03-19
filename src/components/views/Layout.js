@@ -11,7 +11,8 @@ const Layout = function (data, sidebar, main) {
   ${Search(data)}
 
   <div><br/></div>
-  <div class="container col-sm-12 col-xl-9"><div class="row">
+  <div class="container col-sm-12 col-xl-9">
+  <div class="row">
 
   ${sidebar}
 
