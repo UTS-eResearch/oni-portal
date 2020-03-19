@@ -61,7 +61,7 @@ const Router = async function (state) {
       page: page,
       search: search,
       facets: Object.keys(state.facets),
-      facetViewAll: showFacet
+      showFacet: showFacet
     });
 
     if (res.status === 200) {

@@ -3,7 +3,7 @@ const isIterable = require('../isIterable');
 const SearchPath = require('../SearchPath');
 
 
-function renderFacet(data, facetName, focus) {
+function renderFacet(data, facetName, showFocusLink) {
   const facet = data.facets[facetName];
   if ( !(facetName in data.facetData) ) {
     console.log(`can't find facet data for ${facetName}`);
@@ -12,7 +12,7 @@ function renderFacet(data, facetName, focus) {
 
   const values = data.facetData[facetName].filter((v)=>v['count'] > 0);
 
-  let focusLink = focus ? SearchPath.toURI({}, { showFacet: facetName }) : null;
+  let focusLink = showFocusLink ? SearchPath.toURI({}, { showFacet: facetName }) : null;
   let html = `<li class="list-group-item">
   <div>
     <div class="facetLabel">${facet.label}</div>
@@ -24,7 +24,7 @@ function renderFacet(data, facetName, focus) {
   }
  
   if( focusLink ) {
-    html += `<li class="facet"><a href="${focusLink}">more...</a></li>`;
+    html += `<li class="facet"><a href="${focusLink}">All...</a></li>`;
   }
 
   html += `</ul>

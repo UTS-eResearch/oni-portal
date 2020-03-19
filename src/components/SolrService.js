@@ -33,7 +33,6 @@ const SolrService = {
       }
 
       const url = `${config.apis.solr}/${query}`;
-      console.log(`Solr: ${url}`);
 
       const res = await axios.get(url);
       if (res.data) {
@@ -48,14 +47,11 @@ const SolrService = {
   }
 };
 
-
-
 function facetParams(config, facets, showFacet) {
   const params = [ 'facet.limit=' + config.facetLimit ];
   for( var facet of facets ) {
     params.push('facet.field=' + facet);
     const cf = config.facets[facet];
-    console.log(`${facet} ${JSON.stringify(cf)}`)
     if( facet === showFacet ) {
       params.push(`f.${facet}.facet.limit=-1`);
     } else if( 'limit' in cf && cf['limit'] !== config.facetLimit ) {
@@ -65,7 +61,6 @@ function facetParams(config, facets, showFacet) {
       params.push(`f.${facet}.facet.sort=${cf['sort']}`);
     }
   }
-  console.log(params);
   return params.join('&');
 }
 //        &facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;

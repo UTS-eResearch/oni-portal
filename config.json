@@ -8,7 +8,7 @@
     "title": "Library of Successful Grants",
     "URL": "/",
     "logo": "images/logo.svg",
-    "menu": [ "about", "privacy", "help"  ]
+    "menu": [ "help", "privacy", "about" ]
   },
 
   "footer": {
@@ -26,7 +26,7 @@
   "pages": {
     "about": {
       "title": "About",
-      "text": "<p>This app was build with Oni 👹</p>"
+      "text": "<p>This app was built by the UTS eResearch Support Group using Oni 👹 v1.0.0 - a platform for managing, indexing and searching secure data repositories based on open standards for research object metadata - <a href=\"https://researchobject.github.io/ro-crate/\">RO-Crate</a> - and file-based repositories - <a href=\"https://ocfl.io/\">OCFL</a>.</p><p>If you'd like to use Oni to manage or publish your research data, please get in touch with us at <a href=\"mailto:eResearch-it@uts.edu.au\">eResearch-it@uts.edu.au</a>.</p>"
     },
     "privacy": {
       "title": "Privacy",
@@ -34,7 +34,7 @@
     },
     "help": {
       "title": "Help",
-      "text": "How to use this app"
+      "text": "<p>Welcome to the <em>Library of Successful Grants</em>. Please see the <a href=\"/#page/privacy\">Privacy Statement</a> for important information about the conditions of use.</p><p>You can focus on a particular funding round, year, faculty/school/department, author, keyword or FOR code by clicking on one of the links to the left.</p><p>With the exception of Funder and Year, this column only shows the top five or ten results in a facet. To brows all of the values for a facet, click one of the following links (or the 'all...' link in any of the facet panes):</p><ul><li><a href=\"/#search/0/1/showFacet=Dataset_funder_facetmulti\">Funder</a></li><li><a href=\"/#search/0/1/showFacet=Dataset_dateCreated_facetmulti\">Year</a></li><li><a href=\"/#search/0/1/showFacet=Dataset_affiliation_facetmulti\">School/Dept</a></li><li><a href=\"/#search/0/1/showFacet=Dataset_author_facet\">Author</a></li><li><a href=\"/#search/0/1/showFacet=Dataset_keywords_facetmulti\">Keywords</a></li><li><a href=\"/#search/0/1/showFacet=Dataset_FOR_facetmulti\">FOR codes</a></li></ul><p>You can search the full text of grants by entering terms in the search box beneath the menu bar.</p><p>When you click on a facet value, it will appear as a search filter beneath the search box, and clicking multiple facet values will add to the filter list. The filter list will be applied to text search results. To remove a filter, click the 'x' which appears in the tag.</p><p>For technical support, contact <a href=\"mailto:eResearch-it@uts.edu.au\">eResearch Support Group</a>.</p>"
     }
   },
 
@@ -55,7 +55,7 @@
     "Dataset_affiliation_facetmulti": {
       "label": "School/Dept",
       "field": "affiliation",
-      "limit": 3
+      "limit": 5
     },
     "Dataset_author_facet": {
       "label": "Author",
@@ -65,7 +65,7 @@
     "Dataset_keywords_facetmulti": {
       "label": "Keywords",
       "field": "keywords",
-      "limit": 10
+      "limit": 5
     },
     "Dataset_FOR_facetmulti": {
       "label": "FORs",
