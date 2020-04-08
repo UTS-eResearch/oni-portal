@@ -163,7 +163,7 @@ const Facets = {
   link2: function(data, facetName, raw) {
     const processed = processFacet(data.facets[facetName], raw);
     return Facets.link(data, data.facets[facetName], processed);
-  }
+  },
 
   // filterTag: takes a search field and resolve the value back to the displayable value
   // which was stored in data.filterMaps. This is used to make sure that facets which are
