@@ -67,6 +67,7 @@ function tryJSON(value) {
   try {
     return JSON.parse(value);
   } catch(e) {
+    console.log(`Couldn't parse facet ${value}`);
     console.error("Facet parse error " + e);
     return  null;
   }
