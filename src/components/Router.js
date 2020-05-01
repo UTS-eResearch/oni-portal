@@ -60,7 +60,6 @@ const Router = async function (state) {
       start: start,
       page: page,
       search: search,
-      facets: Object.keys(state.facets),
       showFacet: showFacet
     });
 
