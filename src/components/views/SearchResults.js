@@ -42,7 +42,7 @@ function listDocs (data) {
 function listDoc (data, d) {
   const url = `/#view/${d['id']}`;
   const name = d['name'] ? d['name'][0] : '---';
-  const facetValues = data.results.resultFacets.map((f) => Facets.link2(data, f, d[f])).join(' | ');
+  const facetValues = data.results.resultFacets.map((f) => Facets.link(data, f, d[f])).join(' | ');
   const description = d['description'];
   return `<div class="item">
         <div class="item-link"><a href="${url}">${name}</a></div>
@@ -52,10 +52,6 @@ function listDoc (data, d) {
   return html;
 };
 
-function docFacet(data, facet, value) {
-  return Facets.link(Facets.process(value));
-//  return `<a href=${SearchPath.toURI({}, { [data.facets[facet].field]: value })}>${value}</a>`;
-}
 
 
 module.exports = SearchResults;

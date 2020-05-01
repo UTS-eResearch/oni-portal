@@ -29,7 +29,7 @@ const ViewDoc = {
       if( fieldcf['facet'] ) {
         // FIXME use Facets.render(data, facetName, v)
         for( let fv of values.map((v) => Facets.process(data, fieldcf['facet'], v)) ) {
-          html += `<div class="summaryField">${Facets.link(data, data.facets[fieldcf['facet']], fv)}</div>`
+          html += `<div class="summaryField">${Facets.linkProcessed(data, data.facets[fieldcf['facet']], fv)}</div>`
         }
       } else {
         for( let v of values ) {
