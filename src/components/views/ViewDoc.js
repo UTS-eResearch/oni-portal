@@ -27,9 +27,8 @@ const ViewDoc = {
       const field = fieldcf['field'];
       const values = Array.isArray(doc[field]) ? doc[field]: [ doc[field] ];
       if( fieldcf['facet'] ) {
-        // FIXME use Facets.render(data, facetName, v)
-        for( let fv of values.map((v) => Facets.process(data, fieldcf['facet'], v)) ) {
-          html += `<div class="summaryField">${Facets.linkProcessed(data, data.facets[fieldcf['facet']], fv)}</div>`
+        for( let facetLink of values.map((v) => Facets.link(data, fieldcf['facet'], v)) ) {
+          html += `<div class="summaryField">${facetLink}</div>`
         }
       } else {
         for( let v of values ) {
