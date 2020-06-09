@@ -54,8 +54,8 @@ function processFacet(cf, raw, count) {
     const value = tryJSON(raw);
     if( value ) {
       return {
-        display: value[cf['display']],
-        search: value[cf['search']],
+        display: value['display'],
+        search: value['search'],
         field: cf['field'],
         count: count
       }
