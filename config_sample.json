@@ -104,7 +104,8 @@
   				"height": "1130"
   			}
   		],
-  		"viewLinks": true
+  		"viewLinks": true,
+      "linkText": "Dataset"
   	},
 
 

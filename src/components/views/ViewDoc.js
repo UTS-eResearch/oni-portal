@@ -14,6 +14,7 @@ const ViewDoc = {
   <div class="col-8">
     <div class="item-link">${data.main.doc.name}</div>
     ${ViewTable(data, data.main.doc, data.results.viewFields).html()}
+    ${ViewDoc.link(data, data.main.doc)}
   </div>
   `;
   },
@@ -40,6 +41,29 @@ const ViewDoc = {
     </div>`
     return html;
   }
+
+  link: function (data, doc) {
+
+    if( data.main.viewLinks ) {
+      let html = '<div class="col-3 docLink">';
+      const linkText = data.main.linkText || 'Dataset';
+      if (isIterable(doc['uri_id'])) {
+        for (let resolve of doc['uri_id']) {
+          const goTo = $('<a>');
+          goTo.attr('href', `${data.config.ocfl}${resolve}/`);
+          goTo.attr('title', linkText);
+          goTo.attr('target', 'blank');
+          goTo.text(linkText);
+          goTo.addClass("link");
+          html += goTo.html();
+        }
+      }
+      return html;
+    } else {
+      return '';
+    }
+  }
+
 };
 
 
