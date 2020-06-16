@@ -40,7 +40,7 @@ const ViewDoc = {
     html += `<div class="summaryField"><a href="${SearchPath.toURI(data.main.currentSearch)}">&lt; back to search</a></div>
     </div>`
     return html;
-  }
+  },
 
   link: function (data, doc) {
 
