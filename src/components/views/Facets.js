@@ -60,6 +60,7 @@ function processFacet(cf, raw, count) {
         count: count
       }
     } else {
+      //console.log(`Facet parse error ${cf['field']} '${raw}'`);
       return {
         display: '---',
         search: '',
@@ -82,8 +83,7 @@ function tryJSON(value) {
   try {
     return JSON.parse(value);
   } catch(e) {
-    console.log(`Couldn't parse facet ${value}`);
-    console.error("Facet parse error " + e);
+    //console.log("Facet parse error: " + e);
     return  null;
   }
 }

@@ -44,23 +44,26 @@ const ViewDoc = {
 
   link: function (data, doc) {
 
-    if( data.main.viewLinks ) {
+    console.log(`Making link for doc ${doc['uri_id']} - flag ${data.config.results.viewLinks}`);
+
+
+    if( data.config.results.viewLinks ) {
       let html = '<div class="col-3 docLink">';
-      const linkText = data.main.linkText || 'Dataset';
+      const linkText = data.config.results.linkText || 'Dataset';
       if (isIterable(doc['uri_id'])) {
-        for (let resolve of doc['uri_id']) {
-          const goTo = $('<a>');
-          goTo.attr('href', `${data.config.ocfl}${resolve}/`);
-          goTo.attr('title', linkText);
-          goTo.attr('target', 'blank');
-          goTo.text(linkText);
-          goTo.addClass("link");
-          html += goTo.html();
+        for (let uri_id of doc['uri_id']) {
+          html += `<a class="link" target="blank" href="${data.config.apis.ocfl}/${uri_id}">${linkText}</a>`;
         }
+      } else {
+        console.log("Error making link: no uri_id");
+        html += "---";
       }
+      html += "</div>";
+      console.log(`returning ${html}`);
       return html;
     } else {
       return '';
+      console.log(`returning nothing`);
     }
   }
 
