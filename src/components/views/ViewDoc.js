@@ -13,7 +13,6 @@ const ViewDoc = {
 
   <div class="col-8">
     <div class="item-link">${data.main.doc.name}</div>
-    <p>Hi - has this updated?</p>
     ${ViewDoc.link(data, data.main.doc)}
     ${ViewTable(data, data.main.doc, data.results.viewFields).html()}
   </div>

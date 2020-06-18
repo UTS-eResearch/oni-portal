@@ -48,9 +48,14 @@ const ViewTable = function (data, doc, fields) {
       default:
         if(doc[sdcf.field]) {
           const row = $('<div class="row">');
-          const defaultKey = $('<div class="col-sm-2">').html(`${sdcf.fieldName}`);
-          const defaultValue = $('<div class="col-sm-6">').html(doc[sdcf.field]);
-          row.append(defaultKey).append(defaultValue);
+          if( sdcf.label ) {
+            const label = $('<div class="col-sm-2">').html(sdcf.label);
+            const value = $('<div class="col-sm-6">').html(doc[sdcf.field]);
+            row.append(label).append(value);
+          } else {
+            const value = $('<div class="col-sm-8">').html(doc[sdcf.field]);
+            row.append(value);
+          }
           list.append(row);
         }
     }

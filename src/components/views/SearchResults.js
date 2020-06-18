@@ -66,6 +66,4 @@ function docFacets (data, d) {
 }
 
 
-
-
 module.exports = SearchResults;
