@@ -52,7 +52,7 @@ const ViewDoc = {
       const linkText = data.config.results.linkText || 'Dataset';
       if (isIterable(doc['uri_id'])) {
         for (let uri_id of doc['uri_id']) {
-          html += `<a class="link" target="blank" href="${data.config.apis.ocfl}/${uri_id}">${linkText}</a>`;
+          html += `<a class="link" target="blank" href="${data.config.apis.ocfl}/${uri_id}/">${linkText}</a>`;
         }
       } else {
         console.log("Error making link: no uri_id");
