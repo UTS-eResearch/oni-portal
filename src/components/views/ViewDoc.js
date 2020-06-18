@@ -13,8 +13,9 @@ const ViewDoc = {
 
   <div class="col-8">
     <div class="item-link">${data.main.doc.name}</div>
-    ${ViewTable(data, data.main.doc, data.results.viewFields).html()}
+    <p>Hi - has this updated?</p>
     ${ViewDoc.link(data, data.main.doc)}
+    ${ViewTable(data, data.main.doc, data.results.viewFields).html()}
   </div>
   `;
   },
@@ -43,9 +44,6 @@ const ViewDoc = {
   },
 
   link: function (data, doc) {
-
-    console.log(`Making link for doc ${doc['uri_id']} - flag ${data.config.results.viewLinks}`);
-
 
     if( data.config.results.viewLinks ) {
       let html = '<div class="col-3 docLink">';
