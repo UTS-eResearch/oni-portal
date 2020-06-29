@@ -67,9 +67,15 @@
   box-shadow: bottom-shadow($depth), top-shadow($depth);
 }
 
+.item-title {
+  font-weight: bold;
+  font-size: 120%;
+}
+
 .item-link {
   font-weight: bold;
 }
+
 
 .item-description {
   color: #444;
