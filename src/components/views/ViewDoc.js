@@ -56,11 +56,9 @@ const ViewDoc = {
         html += "---";
       }
       html += "</div>";
-      console.log(`returning ${html}`);
       return html;
     } else {
       return '';
-      console.log(`returning nothing`);
     }
   }
 

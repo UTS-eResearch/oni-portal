@@ -48,6 +48,7 @@ const ViewTable = function (data, doc, fields) {
       default:
         if(doc[sdcf.field]) {
           const row = $('<div class="row">');
+          console.log(`field ${sdcf.field} = ${JSON.stringify(doc[sdcf.field])}`);
           if( sdcf.label ) {
             const label = $('<div class="col-sm-2">').html(sdcf.label);
             const value = $('<div class="col-sm-6">').html(doc[sdcf.field]);
