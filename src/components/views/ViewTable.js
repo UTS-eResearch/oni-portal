@@ -6,7 +6,10 @@ const SubDocDate = require('./SubDocDate');
 const SubDocIframe = require('./SubDocIframe');
 const SubDoc = require('./SubDoc');
 
-const ViewTable = function (data, doc, fields) {
+const ViewTable = function (data, doc) {
+
+  const type = data.main.doc['record_type_s'];
+  const fields = data.results.view[type].viewFields;
 
   const div = $('<div class="table table-responsive">');
 

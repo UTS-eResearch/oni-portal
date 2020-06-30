@@ -36,8 +36,6 @@ const SolrService = {
         query += `&sort=` + sortParam(config.results.sort);
       }
 
-      console.log(query);
-
       const url = `${config.apis.solr}/${query}`;
 
       const res = await axios.get(url);

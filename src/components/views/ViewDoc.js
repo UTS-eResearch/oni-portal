@@ -14,7 +14,7 @@ const ViewDoc = {
   <div class="col-8">
     <div class="item-title">${data.main.doc.name}</div>
     ${ViewDoc.link(data, data.main.doc)}
-    ${ViewTable(data, data.main.doc, data.results.viewFields).html()}
+    ${ViewTable(data, data.main.doc).html()}
   </div>
   `;
   },
@@ -22,7 +22,8 @@ const ViewDoc = {
   summary: function (data) {
     let html = '<div class="col-3">';
     let doc = data.main.doc;
-    let fields = data.results.summaryFields;
+    let type = data.main.doc['record_type_s'];
+    let fields = data.results.view[type].summaryFields;
     let facetcf = data.facets;
     for( let fieldcf of fields ) {
       const field = fieldcf['field'];
