@@ -47,10 +47,10 @@ const ViewDoc = {
   },
 
   link: function (data, doc) {
-
-    if( data.config.results.viewLinks ) {
+    let type = data.main.doc['record_type_s'];
+    if( data.config.results.view[type].viewLinks ) {
       let html = '<div class="resultLink">';
-      const linkText = data.config.results.linkText || 'Dataset';
+      const linkText = data.config.results.view[type].linkText || 'Dataset';
       if (isIterable(doc['uri_id'])) {
         for (let uri_id of doc['uri_id']) {
           html += `<a class="link" target="blank" href="${data.config.apis.ocfl}/${uri_id}/">${linkText}</a>`;

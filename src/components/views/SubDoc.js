@@ -2,7 +2,6 @@ const $ = require("jquery");
 const isIterable = require('../isIterable');
 
 const SubDoc = function (data) {
-  console.log(`SubDoc ${JSON.stringify(data)}`);
   const div = $('<div class="row">');
   const headerDiv = $('<div class="col-sm-2">').html(data.fieldName);
   div.append(headerDiv);
