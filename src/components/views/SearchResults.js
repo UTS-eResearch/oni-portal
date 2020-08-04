@@ -43,7 +43,8 @@ function listDoc (data, d) {
   const url = `/#view/${d['id']}`;
   const name = d['name'] ? d['name'][0] : '---';
   const facetValues = docFacets(data, d).join(' | ');
-  const description = d['description'];
+  const description = d['description'] || '';
+
   return `<div class="item">
         <div class="item-link"><a href="${url}">${name}</a></div>
         <div class="item-description">${description}</div>
@@ -56,10 +57,12 @@ function listDoc (data, d) {
 function docFacets (data, d) {
   const facetLinks = [];
   for( let facet of data.results.resultFacets ) {
-    if( Array.isArray(d[facet]) ) {
-      facetLinks.push(...d[facet].map((v) => Facets.link(data, facet, v)));
-    } else{
-      facetLinks.push(Facets.link(data, facet, d[facet]));
+    if( d[facet] ) {
+      if( Array.isArray(d[facet]) ) {
+        facetLinks.push(...d[facet].map((v) => Facets.link(data, facet, v)));
+      } else{
+        facetLinks.push(Facets.link(data, facet, d[facet]));
+      }
     }
   }
   return facetLinks;
