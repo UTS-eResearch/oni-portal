@@ -5,7 +5,11 @@ const Pagination = function (data) {
   const pageSize = data.main.pageSize;
   const search = data.main.currentSearch || {};
   let start = data.main.start;
-  const maxPage = 10;
+  let maxPage = 5;
+  //Quick fix below: I wonder if this above could be more dynamic
+  if (window.window.innerWidth > 500) {
+    maxPage = 10;
+  }
   const totalPages = Math.ceil(numFound / pageSize);
   const totalPage = totalPages < maxPage ? totalPages : maxPage;
   let page = 1;
@@ -23,7 +27,7 @@ const Pagination = function (data) {
   <div class="container">
     <nav class="d-flex justify-content-center" aria-label="Pagination">
     <ul class="pagination">`;
-  if(start !== 0) {
+  if (start !== 0) {
     html += `<li class="page-item"><a class="page-link" href="${SearchPath.toURI(search, null, 0, 1)}"><<</a></li>`;
   }
   let currentStart = start;
