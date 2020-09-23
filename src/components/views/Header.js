@@ -1,25 +1,16 @@
 const Header = function (data) {
   return `
     <header id="header" class="container">
-    <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-9">
-              <p></p>
-              <p class="header-main">
-                <img src="${data.header.logo}" [attr.alt]="${data.header.title}" style="width:110px;"/>
-                <a href="${data.header.URL}">${data.header.title}</a>
-              </p>
-            </div>
-            <div class="col-md-3">
-              <p></p>
-              <nav class="navbar">
-                <div class="navbar-nav">
 
-                </div>
-              </nav>
-            </div>
-          </div>
-        </div>
+
+<nav class="navbar navbar-light bg-transparent">
+  <a class="navbar-brand" href="${data.header.URL}">
+    <img src="${data.header.logo}" width="110" height="51" class="d-inline-block align-top" alt="${data.header.title}">
+    <span style="font-size: 188%">${data.header.title}</span>
+  </a>
+</nav>
+
+ 
     </header>
     `
 };

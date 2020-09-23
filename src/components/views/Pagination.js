@@ -6,7 +6,7 @@ const Pagination = function (data) {
   const search = data.main.currentSearch || {};
   let start = data.main.start;
   let maxPage = 5;
-  //Quick fix below: I wonder if this above could be more dynamic
+  //Quick fix below: I wonder if this above could be more dynamic with events
   if (window.window.innerWidth > 500) {
     maxPage = 10;
   }
