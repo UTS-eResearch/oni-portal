@@ -73,6 +73,8 @@ const Router = async function (state) {
       const facets = Facets.processAll(state, state.facetResult['facet_fields']);
       state.facetData = facets['facets'];
       state.filterMaps = facets['filterMaps'];
+      state.main.currentStart = parseInt(start);
+      state.main.currentPage = parseInt(page);
 
       const input = document.getElementById('text-to-search');
       if (input) {
