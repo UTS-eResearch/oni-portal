@@ -12,18 +12,16 @@ const SearchResults = function (data) {
 
     ${Pagination(data)}
 
-    <div class="row">
       <div class="container">
-        <div class="text-center">
+        <div class="d-flex justify-content-center">
           <p>Results: ${data.main.numFound}</p>
         </div>
-      </div>
     </div>
   <div><br/></div>
   `;
 };
 
-function listDocs (data) {
+function listDocs(data) {
   var html = '';
   const docs = data.main.docs;
   html = `<ul class="list-group col-sm-8">`;
@@ -39,7 +37,7 @@ function listDocs (data) {
   return html;
 };
 
-function listDoc (data, d) {
+function listDoc(data, d) {
   const url = `/#view/${d['id']}`;
   const name = d['name'] ? d['name'][0] : '---';
   const facetValues = docFacets(data, d).join(' | ');
@@ -54,13 +52,13 @@ function listDoc (data, d) {
 };
 
 
-function docFacets (data, d) {
+function docFacets(data, d) {
   const facetLinks = [];
-  for( let facet of data.results.resultFacets ) {
-    if( d[facet] ) {
-      if( Array.isArray(d[facet]) ) {
+  for (let facet of data.results.resultFacets) {
+    if (d[facet]) {
+      if (Array.isArray(d[facet])) {
         facetLinks.push(...d[facet].map((v) => Facets.link(data, facet, v)));
-      } else{
+      } else {
         facetLinks.push(Facets.link(data, facet, d[facet]));
       }
     }

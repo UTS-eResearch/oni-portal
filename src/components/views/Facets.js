@@ -132,7 +132,7 @@ const Facets = {
     let html = '';
 
     if(isIterable(data.results.searchFacets) ){
-      html = `<ul class="list-group col-3">`;
+      html = `<ul class="list-group col-sm-4">`;
       for(let facetName of data.results.searchFacets ) {
         if( ! data.main.showFacet || facetName !== data.main.showFacet ) {
           html += renderFacet(data, facetName, true);
