@@ -44,7 +44,7 @@ const Router = async function (state) {
     // from the most recent search in the sidebar 
 
     const page = state.pages[query] || state.errors.not_found;
-    app.innerHTML = Layout(state, Facets.sidebar(state), Page(page));
+    app.innerHTML = Layout(state, '', Page(page));
 
   } else {
 
