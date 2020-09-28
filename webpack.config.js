@@ -32,7 +32,16 @@ module.exports = {
       'Access-Control-Allow-Headers': '*',
       'Access-Control-Allow-Methods': '*',
     },
-    proxy: config.dev.proxy,
+    proxy: {
+      "/config/portal": {
+        "target": "http://localhost:8080/",
+        "secure": false
+      },
+      "/solr": {
+        "target": "http://localhost:8080/",
+        "secure": false
+      }
+    },
     historyApiFallback: {
       index: 'index.html'
     }
