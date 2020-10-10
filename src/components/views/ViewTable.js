@@ -7,6 +7,7 @@ const SubDocIframe = require('./SubDocIframe');
 const SubDoc = require('./SubDoc');
 const SubDocLink = require('./SubDocLink');
 const SubDocJson = require('./SubDocJson');
+const SubDocImage = require('./SubDocImage');
 
 const ViewTable = function (data, doc) {
 
