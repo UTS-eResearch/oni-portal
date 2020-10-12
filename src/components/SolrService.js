@@ -71,7 +71,13 @@ function facetParams(config, showFacet) {
 
 
 function sortParam(cf) {
-  return cf.map((sortby) => `${sortby['field']}%20${sortby['order']}`).join(',');
+  return cf.map((sortby) => {
+    if( sortby['order'] ) {
+      return `${sortby['field']}%20${sortby['order']}`
+    } else {
+      return sortby['field'];
+    }
+  }).join(',');
 }
 
 module.exports = SolrService;
