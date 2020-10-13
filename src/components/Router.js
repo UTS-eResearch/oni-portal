@@ -19,7 +19,14 @@ const Router = async function (state) {
     const match = route.match(/(#.*?\/)(.*)/);
     verb = match[1];
     query = match[2];
-  } 
+  } else {
+    if( state['splash'] ) {
+      const page = state.pages[state['splash']];
+      state['splash'] = null;
+      app.innerHTML = Layout(state, Facets.sidebar(state), Page(page));
+      return;
+    }
+  }
 
   if (verb === '#view/') {
 

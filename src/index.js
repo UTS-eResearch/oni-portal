@@ -40,10 +40,15 @@ let state = {
   config: config
 };
 
+if( config.splash ) {
+  state.splash = config.splash;
+}
+
 RegisterEvents(state);
 
 window.onhashchange = main;
 document.title = config.header.title;
+
 
 // Main App
 async function main() {
