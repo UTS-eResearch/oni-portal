@@ -21,6 +21,8 @@ const Router = async function (state) {
     query = match[2];
   }
 
+
+
   if (verb === '#view/') {
 
     // Load and view a single item
@@ -78,9 +80,10 @@ const Router = async function (state) {
       if (input) {
         input.value = search['main_search'] || '';
       }
-
+      
       // if a splash page is configured, show it once in place of the search
-      // results.  This happens here so that the facets are populated.
+      // results. We do this here so that at least one search has been run
+      // and there's something to put in the facets sidebar.
 
       if( state['splash'] ) {
         const page = state.pages[state['splash']];
