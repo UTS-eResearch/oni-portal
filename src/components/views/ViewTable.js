@@ -41,7 +41,8 @@ const ViewTable = function (data, doc) {
               fieldName: sdcf.fieldName,
               id: doc['id'],
               cf: sdcf,
-              api: data.apis.ocfl
+              api: data.apis.ocfl,
+              external: sdcf['external']
             });
           list.append(subDoc);
         }
