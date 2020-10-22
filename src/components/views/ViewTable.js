@@ -8,6 +8,7 @@ const SubDoc = require('./SubDoc');
 const SubDocLink = require('./SubDocLink');
 const SubDocJson = require('./SubDocJson');
 const SubDocImage = require('./SubDocImage');
+const SubDocImageArray = require('./SubDocImageArray');
 
 const ViewTable = function (data, doc) {
 
@@ -74,6 +75,14 @@ const ViewTable = function (data, doc) {
           const valueHtml = renderValue(data, sdcf, doc);
           const row = $('<div class="row">');
           subDoc = SubDocImage({config: sdcf, value: valueHtml, element: row});
+          list.append(subDoc);
+        }
+        break;
+      case 'SubDocImageArray':
+        if(doc[sdcf.field]) {
+          const valueHtml = renderValue(data, sdcf, doc);
+          const row = $('<div class="row">');
+          subDoc = SubDocImageArray({config: sdcf, value: valueHtml, element: row});
           list.append(subDoc);
         }
         break;

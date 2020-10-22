@@ -18,7 +18,7 @@ const SubDocImage = function (data) {
   }
   return data.element;
   } catch (e) {
-    return data.element.append('error displaying element' + data.config.element)
+    return data.element.append('error displaying element: ' + e)
   }
 };
 module.exports = SubDocImage;
