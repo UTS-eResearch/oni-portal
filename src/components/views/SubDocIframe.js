@@ -12,7 +12,8 @@ const SubDocIframe = function (data) {
     const width  = data.cf.width || '800';
     const height = data.cf.height || '800';
 
-    div.append($('<iframe>', { width: width, height: height, src: url }));
+    const iframe = $('<iframe>', { width: width, height: height, src: url });
+    div.append(iframe);
 
     return div;
   } catch(e) {

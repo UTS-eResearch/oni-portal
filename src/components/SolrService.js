@@ -12,7 +12,7 @@ function escapeSolrQuery(raw) {
 
 const SolrService = {
 
-  select: async function (config, {start: start, page: page, search: search, facets: facets, showFacet: showFacet}) {
+  select: async function (config, {start: start, page: page, search: search, showFacet: showFacet}) {
     try {
       var searchParams = config.search.mainSearch + '%3A*'; // default if search is empty
       if( search && Object.keys(search).length > 0 ) {
@@ -28,8 +28,12 @@ const SolrService = {
       }
       var query = `select?q=${searchParams}&start=${start}&page=${page}`;
 
-      if(facets) {
-        query += `&facet=true&` + facetParams(config, facets, showFacet);
+      if( config.facets ) {
+        query += `&facet=true&` + facetParams(config, showFacet);
+      }
+
+      if( config.results.sort ) {
+        query += `&sort=` + sortParam(config.results.sort);
       }
 
       const url = `${config.apis.solr}/${query}`;
@@ -47,9 +51,9 @@ const SolrService = {
   }
 };
 
-function facetParams(config, facets, showFacet) {
+function facetParams(config, showFacet) {
   const params = [ 'facet.limit=' + config.facetLimit ];
-  for( var facet of facets ) {
+  for( var facet of Object.keys(config.facets) ) {
     params.push('facet.field=' + facet);
     const cf = config.facets[facet];
     if( facet === showFacet ) {
@@ -63,12 +67,17 @@ function facetParams(config, facets, showFacet) {
   }
   return params.join('&');
 }
-//        &facet.field=${[...facets].join('&facet.field=')}&facet.limit=${facetLimit || 5}`;
-//        if( facetViewAll ) {
-          // remove the facet limit if we're viewing one facet 
-//          query += `&f.${facetViewAll}.facet.limit=-1`;
-//        }
-//      }
-//}
+
+
+
+function sortParam(cf) {
+  return cf.map((sortby) => {
+    if( sortby['order'] ) {
+      return `${sortby['field']}%20${sortby['order']}`
+    } else {
+      return sortby['field'];
+    }
+  }).join(',');
+}
 
 module.exports = SolrService;

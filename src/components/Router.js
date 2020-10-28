@@ -19,7 +19,9 @@ const Router = async function (state) {
     const match = route.match(/(#.*?\/)(.*)/);
     verb = match[1];
     query = match[2];
-  } 
+  }
+
+
 
   if (verb === '#view/') {
 
@@ -60,7 +62,6 @@ const Router = async function (state) {
       start: start,
       page: page,
       search: search,
-      facets: Object.keys(state.facets),
       showFacet: showFacet
     });
 
@@ -79,8 +80,19 @@ const Router = async function (state) {
       if (input) {
         input.value = search['main_search'] || '';
       }
-      const results = showFacet ? Facets.focus(state, showFacet) : SearchResults(state);
-      app.innerHTML = Layout(state, Facets.sidebar(state), results);
+      
+      // if a splash page is configured, show it once in place of the search
+      // results. We do this here so that at least one search has been run
+      // and there's something to put in the facets sidebar.
+
+      if( state['splash'] ) {
+        const page = state.pages[state['splash']];
+        state['splash'] = null;
+        app.innerHTML = Layout(state, Facets.sidebar(state), Page(page));
+      } else {
+        const results = showFacet ? Facets.focus(state, showFacet) : SearchResults(state);
+        app.innerHTML = Layout(state, Facets.sidebar(state), results);
+      }
     } else {
       app.innerHTML = Layout(state, '', ViewError(state));
     }

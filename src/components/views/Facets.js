@@ -2,6 +2,21 @@ const $ = require("jquery");
 const isIterable = require('../isIterable');
 const SearchPath = require('../SearchPath');
 
+// TODO - Refactoring possibility
+
+// Sidebar facets and result facets do things slightly differently.
+
+// On the sidebar, the facet results from the search are processed (ie JSON
+// values are crosswalked) as a batch by Facets.processAll and then displayed
+// with renderFacet, which feeds the processed facet values to Facet.linkProcessed
+
+// Result facets are done by taking the individual raw (possibly JSON) facet
+// values and rendering them with Facet.link, which calls process and then 
+// linkProcessed.
+
+// So the two sets of facets use the same code to process and render links,
+// but in a slightly different and convoluted way, which could be cleaned up.
+
 
 function renderFacet(data, facetName, showFocusLink) {
   const facet = data.facets[facetName];
@@ -19,7 +34,7 @@ function renderFacet(data, facetName, showFocusLink) {
         <ul class="list-group">`;
   if(isIterable(values)) { 
     for(let f of values ){       
-      html += `<li class="facet">${Facets.link(data, facet, f)} (${f['count']})</span></li>\n`;
+      html += `<li class="facet">${Facets.linkProcessed(data, facet, f)} (${f['count']})</span></li>\n`;
     }
   }
  
@@ -39,12 +54,13 @@ function processFacet(cf, raw, count) {
     const value = tryJSON(raw);
     if( value ) {
       return {
-        display: value[cf['display']],
-        search: value[cf['search']],
+        display: value['display'],
+        search: value['search'],
         field: cf['field'],
         count: count
       }
     } else {
+      //console.log(`Facet parse error ${cf['field']} '${raw}'`);
       return {
         display: '---',
         search: '',
@@ -67,7 +83,7 @@ function tryJSON(value) {
   try {
     return JSON.parse(value);
   } catch(e) {
-    console.error("Facet parse error " + e);
+    //console.log("Facet parse error: " + e);
     return  null;
   }
 }
@@ -144,7 +160,7 @@ const Facets = {
   // link: generates a facet link from the results returned from the process methods
   // above
 
-  link: function(data, facet, f) {
+  linkProcessed: function(data, facet, f) {
     const url = SearchPath.toURI(data.main.currentSearch, { [facet['field']]: f['search'] } );
 
     if( facet['display_re'] ) {
@@ -156,6 +172,13 @@ const Facets = {
       }
     }
     return `<a href="${url}">${f['display']}</a>`;
+  },
+
+  // link: nicer process/link
+
+  link: function(data, facetName, raw) {
+    const processed = processFacet(data.facets[facetName], raw);
+    return Facets.linkProcessed(data, data.facets[facetName], processed);
   },
 
   // filterTag: takes a search field and resolve the value back to the displayable value
