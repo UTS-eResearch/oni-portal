@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const config = require('./config.json');
 
 module.exports = {
   // the entry can be split so we dont load many things that are not required
@@ -32,7 +31,20 @@ module.exports = {
       'Access-Control-Allow-Headers': '*',
       'Access-Control-Allow-Methods': '*',
     },
-    proxy: config.dev.proxy,
+    proxy: {
+      "/config/portal": {
+        "target": "http://localhost:8080/",
+        "secure": false
+      },
+      "/solr": {
+        "target": "http://localhost:8080/",
+        "secure": false
+      },
+      "/ocfl": {
+        "target": "http://localhost:8080/",
+        "secure": false
+      }
+    },
     historyApiFallback: {
       index: 'index.html'
     }

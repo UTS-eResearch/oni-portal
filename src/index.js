@@ -2,17 +2,16 @@ import 'bootstrap';
 import './styles/styles.scss';
 import './images/logo.svg';
 
-const config = require('../config.json');
-
+const ConfigService = require('./components/ConfigService');
 //App view components
 const Router = require('./components/Router');
 const RegisterEvents = require('./components/RegisterEvents');
 
+// Main App
+async function main() {
 // Default state
 // config is passed through from the oni-express app
-
-// TODO - most of the config in state should be moved out to 
-// config.json
+const config = await ConfigService.base();
 
 let state = {
   apis: config.apis,
@@ -45,11 +44,9 @@ RegisterEvents(state);
 window.onhashchange = main;
 document.title = config.header.title;
 
-// Main App
-async function main() {
-  await Router(state);
+await Router(state);
 }
 
 (async () => {
-  await main();
+await main();
 })();
