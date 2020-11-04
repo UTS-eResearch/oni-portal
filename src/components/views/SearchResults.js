@@ -40,7 +40,9 @@ function listDocs (data) {
 };
 
 function listDoc (data, d) {
-  const url = '/#view/' + encodeURIComponent(d['id']);
+  const encID = encodeURIComponent(d['id']);
+  const url = '/#view/' + encID;
+  console.log(`listDoc: ${url}`);
   const name = d['name'] ? d['name'][0] : '---';
   const facetValues = docFacets(data, d).join(' | ');
   const description = d['description'] || '';
