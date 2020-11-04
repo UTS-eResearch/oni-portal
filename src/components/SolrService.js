@@ -22,7 +22,7 @@ const SolrService = {
 
   select: async function (config, {start: start, page: page, search: search, showFacet: showFacet}) {
     try {
-      var searchParams = config.search.mainSearch + ':*'; // default if search is empty
+      let searchParams = config.search.mainSearch + ':*'; // default if search is empty
       if( search && Object.keys(search).length > 0 ) {
         const searches = Object.keys(search).map((k) => {
           if( k === config.search.mainSearch ) {
@@ -32,7 +32,7 @@ const SolrService = {
           }
         });
         searchParams = searches.join(' && ');
-      console.log(`Search params: ${searchParams}`);
+      }
       var query = `select?q=${encodeURIComponent(searchParams)}&start=${start}&page=${page}`;
 
       if( config.facets ) {
