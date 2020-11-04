@@ -40,7 +40,8 @@ const SearchPath = {
 		}		
 		const params = Object.keys(newSearch).map((k) => k + '=' + encodeURIComponent(newSearch[k]));
 		if( params.length > 0 ) {
-			return searchURI + params.join('/');
+			const url = searchURI + params.join('/');
+			return url;
 		} else {
 			return searchURI;
 		}

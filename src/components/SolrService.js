@@ -1,14 +1,19 @@
 const axios = require('axios');
 
 
-// Note: this only escapes spaces and : because I didn't want to deal with
-// the messiness of the entire solr special character set
 // see https://lucene.apache.org/solr/guide/8_4/the-standard-query-parser.html#the-standard-query-parser
 
+const SOLR_SPECIAL_CHARS = /([+&|!(){}\[\]^"~*?:/'-])/;
+
+
+// function escapeSolrQuery(raw) {
+//   return raw.replace(/(\s|:|%20)/g, "%5C$1");
+// }
 
 function escapeSolrQuery(raw) {
-  return raw.replace(/(\s|:|%20)/g, "%5C$1");
+  return raw.replace(/SOLR_SPECIAL_CHARS/g, "\\$1");
 }
+
 
 // now escaping the solr query twice: once for solr, and then for URIs
 
@@ -27,7 +32,6 @@ const SolrService = {
           }
         });
         searchParams = searches.join(' && ');
-      }
       console.log(`Search params: ${searchParams}`);
       var query = `select?q=${encodeURIComponent(searchParams)}&start=${start}&page=${page}`;
 
