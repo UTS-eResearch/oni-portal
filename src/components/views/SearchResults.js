@@ -8,6 +8,8 @@ const Pagination = require('./Pagination');
 const SearchResults = function (data) {
   return `
 
+    <p>HELLO</p>
+
     ${listDocs(data)}
 
     ${Pagination(data)}
@@ -50,6 +52,7 @@ function listDoc (data, d) {
   return `<div class="item">
         <div class="item-link"><a href="${url}">${name}</a></div>
         <div class="item-description">${description}</div>
+        <div>HI THERE</div>
         <div class="item-facets">${facetValues}</div>
         </div>`;
   return html;
