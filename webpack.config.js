@@ -39,6 +39,10 @@ module.exports = {
       "/solr": {
         "target": "http://localhost:8080/",
         "secure": false
+      },
+      "/ocfl": {
+        "target": "http://localhost:8080/",
+        "secure": false
       }
     },
     historyApiFallback: {
