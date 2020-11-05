@@ -5,7 +5,7 @@ const Footer = function (data) {
       <div class="row">
         <div class="col-md-10">
           <div class="copyright">
-            <p class="font-weight-light small">&copy; ${data.footer.text}</p>
+            <p class="font-weight-light small">${data.footer.text}</p>
           </div>
         </div>
       </div>

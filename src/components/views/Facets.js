@@ -11,7 +11,7 @@ const SearchPath = require('../SearchPath');
 // with renderFacet, which feeds the processed facet values to Facet.linkProcessed
 
 // Result facets are done by taking the individual raw (possibly JSON) facet
-// values and rendering them with Facet.link, which calls process and then 
+// values and rendering them with Facet.link, which calls process and then
 // linkProcessed.
 
 // So the two sets of facets use the same code to process and render links,
@@ -32,12 +32,12 @@ function renderFacet(data, facetName, showFocusLink) {
   <div>
     <div class="facetLabel">${facet.label}</div>
         <ul class="list-group">`;
-  if(isIterable(values)) { 
-    for(let f of values ){       
+  if(isIterable(values)) {
+    for(let f of values ){
       html += `<li class="facet">${Facets.linkProcessed(data, facet, f)} (${f['count']})</span></li>\n`;
     }
   }
- 
+
   if( focusLink ) {
     html += `<li class="facet"><a href="${focusLink}">All...</a></li>`;
   }
@@ -67,7 +67,7 @@ function processFacet(cf, raw, count) {
         field: '',
         count: count
       }
-    }  
+    }
   } else {
     return {
       display: raw,
@@ -132,7 +132,7 @@ const Facets = {
     let html = '';
 
     if(isIterable(data.results.searchFacets) ){
-      html = `<ul class="list-group col-3">`;
+      html = `<ul class="list-group col-sm-4">`;
       for(let facetName of data.results.searchFacets ) {
         if( ! data.main.showFacet || facetName !== data.main.showFacet ) {
           html += renderFacet(data, facetName, true);
@@ -195,7 +195,7 @@ const Facets = {
     } else {
       return '';
     }
-  }  
+  }
 
 
 };

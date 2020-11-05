@@ -12,14 +12,12 @@ const SearchResults = function (data) {
 
     ${Pagination(data)}
 
-    <div class="row">
-      <div class="container">
-        <div class="text-center">
-          <p>Results: ${data.main.numFound}</p>
-        </div>
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <p>Results: ${data.main.numFound}</p>
       </div>
     </div>
-  <div><br/></div>
+    <div><br/></div>
   `;
 };
 

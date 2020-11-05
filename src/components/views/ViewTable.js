@@ -5,6 +5,10 @@ const SubDocHorizontal = require('./SubDocHorizontal');
 const SubDocDate = require('./SubDocDate');
 const SubDocIframe = require('./SubDocIframe');
 const SubDoc = require('./SubDoc');
+const SubDocLink = require('./SubDocLink');
+const SubDocJson = require('./SubDocJson');
+const SubDocImage = require('./SubDocImage');
+const SubDocImageArray = require('./SubDocImageArray');
 
 const ViewTable = function (data, doc) {
 
@@ -38,7 +42,8 @@ const ViewTable = function (data, doc) {
               fieldName: sdcf.fieldName,
               id: doc['id'],
               cf: sdcf,
-              api: data.apis.ocfl
+              api: data.apis.ocfl,
+              external: sdcf['external']
             });
           list.append(subDoc);
         }
@@ -46,6 +51,38 @@ const ViewTable = function (data, doc) {
       case 'SubDoc':
         if(doc[sdcf.field]) {
           subDoc = SubDoc({key: sdcf.field, value: doc[sdcf.field], fieldName: sdcf.fieldName, template: sdcf.template});
+          list.append(subDoc);
+        }
+        break;
+      case 'SubDocLink':
+        if(doc[sdcf.field]) {
+          const row = $('<div class="row">');
+          const valueHtml = renderValue(data, sdcf, doc);
+          subDoc = SubDocLink({config: sdcf, value: valueHtml, element: row});
+          list.append(subDoc);
+        }
+        break;
+      case 'SubDocJson':
+        if(doc[sdcf.field]) {
+          const valueHtml = renderValue(data, sdcf, doc);
+          const row = $('<div class="row">');
+          subDoc = SubDocJson({config: sdcf, value: valueHtml, element: row});
+          list.append(subDoc);
+        }
+        break;
+      case 'SubDocImage':
+        if(doc[sdcf.field]) {
+          const valueHtml = renderValue(data, sdcf, doc);
+          const row = $('<div class="row">');
+          subDoc = SubDocImage({config: sdcf, value: valueHtml, element: row});
+          list.append(subDoc);
+        }
+        break;
+      case 'SubDocImageArray':
+        if(doc[sdcf.field]) {
+          const valueHtml = renderValue(data, sdcf, doc);
+          const row = $('<div class="row">');
+          subDoc = SubDocImageArray({config: sdcf, value: valueHtml, element: row});
           list.append(subDoc);
         }
         break;

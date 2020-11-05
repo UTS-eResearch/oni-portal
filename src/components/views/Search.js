@@ -5,7 +5,7 @@ const Facets = require("./Facets");
 const Search = function (data) {
   return `
     <div class="container">
-    <div class="row"><br/></div>
+    <div class="container"><br/></div>
       <div class="row no-gutters align-items-center">
         <div class="col-md-2"></div>
         <div class="col-md-8">

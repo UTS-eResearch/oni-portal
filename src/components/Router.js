@@ -43,7 +43,7 @@ const Router = async function (state) {
   } else if( verb === '#page/' ) {
 
     // Render one of the help pages in the main column and facets
-    // from the most recent search in the sidebar 
+    // from the most recent search in the sidebar
 
     const page = state.pages[query] || state.errors.not_found;
     app.innerHTML = Layout(state, Facets.sidebar(state), Page(page));
@@ -75,12 +75,14 @@ const Router = async function (state) {
       const facets = Facets.processAll(state, state.facetResult['facet_fields']);
       state.facetData = facets['facets'];
       state.filterMaps = facets['filterMaps'];
-
+      state.main.currentStart = parseInt(start);
+      state.main.currentPage = parseInt(page);
+      
       const input = document.getElementById('text-to-search');
       if (input) {
         input.value = search['main_search'] || '';
       }
-      
+
       // if a splash page is configured, show it once in place of the search
       // results. We do this here so that at least one search has been run
       // and there's something to put in the facets sidebar.
