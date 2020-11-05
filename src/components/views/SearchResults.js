@@ -8,8 +8,6 @@ const Pagination = require('./Pagination');
 const SearchResults = function (data) {
   return `
 
-    <p>HELLO</p>
-
     ${listDocs(data)}
 
     ${Pagination(data)}
@@ -44,7 +42,6 @@ function listDocs (data) {
 function listDoc (data, d) {
   const encID = encodeURIComponent(d['id']);
   const url = '/#view/' + encID;
-  console.log(`listDoc: ${url}`);
   const name = d['name'] ? d['name'][0] : '---';
   const facetValues = docFacets(data, d).join(' | ');
   const description = d['description'] || '';
@@ -52,7 +49,6 @@ function listDoc (data, d) {
   return `<div class="item">
         <div class="item-link"><a href="${url}">${name}</a></div>
         <div class="item-description">${description}</div>
-        <div>HI THERE</div>
         <div class="item-facets">${facetValues}</div>
         </div>`;
   return html;
