@@ -7,6 +7,8 @@ const SubDocIframe = require('./SubDocIframe');
 const SubDoc = require('./SubDoc');
 const SubDocLink = require('./SubDocLink');
 const SubDocJson = require('./SubDocJson');
+const SubDocSubgraph = require('./SubDocSubgraph');
+const SubDocSubgraphRecursive = require('./SubDocSubgraphRecursive');
 const SubDocImage = require('./SubDocImage');
 const SubDocImageArray = require('./SubDocImageArray');
 
@@ -19,24 +21,31 @@ const ViewTable = function (data, doc) {
 
   for (let sdcf of fields) {
     const list = $('<div class="table">');
-    let subDoc;
     switch (sdcf.display) {
       case 'SubDocHorizontal':
         if(doc[sdcf.field]) {
-          subDoc = SubDocHorizontal({key: sdcf.field, value: doc[sdcf.field], fieldName: sdcf.fieldName});
+          const subDoc = SubDocHorizontal({
+              key: sdcf.field,
+              value: doc[sdcf.field],
+              fieldName: sdcf.fieldName
+            });
           list.append(subDoc);
         }
         break;
       case 'SubDocDate':
         if(doc[sdcf.field]) {
-          subDoc = SubDocDate({key: sdcf.field, value: doc[sdcf.field], fieldName: sdcf.fieldName});
+          const subDoc = SubDocDate({
+              key: sdcf.field,
+              value: doc[sdcf.field],
+              fieldName: sdcf.fieldName
+            });
           list.append(subDoc);
         }
         break;
       case 'SubDocIframe':
         // passing the config and the document id to the component so it can build the URL
         if(doc[sdcf.field]) {
-          subDoc = SubDocIframe(
+          const subDoc = SubDocIframe(
             { key: sdcf.field,
               value: doc[sdcf.field],
               fieldName: sdcf.fieldName,
@@ -50,7 +59,12 @@ const ViewTable = function (data, doc) {
         break;
       case 'SubDoc':
         if(doc[sdcf.field]) {
-          subDoc = SubDoc({key: sdcf.field, value: doc[sdcf.field], fieldName: sdcf.fieldName, template: sdcf.template});
+          const subDoc = SubDoc({
+            key: sdcf.field,
+            value: doc[sdcf.field],
+            fieldName: sdcf.fieldName,
+            template: sdcf.template
+          });
           list.append(subDoc);
         }
         break;
@@ -58,7 +72,11 @@ const ViewTable = function (data, doc) {
         if(doc[sdcf.field]) {
           const row = $('<div class="row">');
           const valueHtml = renderValue(data, sdcf, doc);
-          subDoc = SubDocLink({config: sdcf, value: valueHtml, element: row});
+          const subDoc = SubDocLink({
+            config: sdcf,
+            value: valueHtml,
+            element: row
+          });
           list.append(subDoc);
         }
         break;
@@ -66,15 +84,29 @@ const ViewTable = function (data, doc) {
         if(doc[sdcf.field]) {
           const valueHtml = renderValue(data, sdcf, doc);
           const row = $('<div class="row">');
-          subDoc = SubDocJson({config: sdcf, value: valueHtml, element: row});
+          const subDoc = SubDocJson({
+            config: sdcf,
+            value: valueHtml,
+            element: row
+          });
           list.append(subDoc);
+        }
+        break;
+      case 'SubDocSubgraph':
+        if(doc[sdcf.field]) {
+          const valueHtml = renderValue(data, sdcf, doc);
+          SubDocSubgraphRecursive({
+            config: sdcf,
+            value: valueHtml,
+            element: list
+          });
         }
         break;
       case 'SubDocImage':
         if(doc[sdcf.field]) {
           const valueHtml = renderValue(data, sdcf, doc);
           const row = $('<div class="row">');
-          subDoc = SubDocImage({config: sdcf, value: valueHtml, element: row});
+          const subDoc = SubDocImage({config: sdcf, value: valueHtml, element: row});
           list.append(subDoc);
         }
         break;
@@ -82,7 +114,7 @@ const ViewTable = function (data, doc) {
         if(doc[sdcf.field]) {
           const valueHtml = renderValue(data, sdcf, doc);
           const row = $('<div class="row">');
-          subDoc = SubDocImageArray({config: sdcf, value: valueHtml, element: row});
+          const subDoc = SubDocImageArray({config: sdcf, value: valueHtml, element: row});
           list.append(subDoc);
         }
         break;
