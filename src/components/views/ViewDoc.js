@@ -8,13 +8,14 @@ const Facets = require('./Facets');
 
 const ViewDoc = {
 
-  main: function (data) {
+  main: async function (data) {
+    const main_content = await ViewTable(data, data.main.doc);
     return `
 
   <div class="col-8">
     <div class="item-title">${data.main.doc.name}</div>
     ${ViewDoc.link(data, data.main.doc)}
-    ${ViewTable(data, data.main.doc).html()}
+    ${main_content}
   </div>
   `;
   },

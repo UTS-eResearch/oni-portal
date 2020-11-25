@@ -8,16 +8,17 @@ const SubDoc = require('./SubDoc');
 const SubDocLink = require('./SubDocLink');
 const SubDocJson = require('./SubDocJson');
 const SubDocSubgraph = require('./SubDocSubgraph');
-const SubDocSubgraphRecursive = require('./SubDocSubgraphRecursive');
 const SubDocImage = require('./SubDocImage');
 const SubDocImageArray = require('./SubDocImageArray');
 
-const ViewTable = function (data, doc) {
+const ViewTable = async function (data, doc) {
 
   const type = data.main.doc['record_type_s'];
   const fields = data.results.view[type].viewFields;
 
   const div = $('<div class="table table-responsive">');
+
+  console.log(`table div = ${div} ${JSON.stringify(div)}`);
 
   for (let sdcf of fields) {
     const list = $('<div class="table">');
@@ -95,11 +96,15 @@ const ViewTable = function (data, doc) {
       case 'SubDocSubgraph':
         if(doc[sdcf.field]) {
           const valueHtml = renderValue(data, sdcf, doc);
-          SubDocSubgraphRecursive({
+          const row = $('<div class="row>');
+          console.log(`in ViewTable row = ${JSON.stringify(row)}`);
+          console.log(`in ViewTable \$ = ${$}`);
+          const subDoc = await SubDocSubgraph({
             config: sdcf,
             value: valueHtml,
-            element: list
+            element: row
           });
+          list.append(subDoc);
         }
         break;
       case 'SubDocImage':

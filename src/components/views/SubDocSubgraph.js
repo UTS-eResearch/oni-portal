@@ -1,8 +1,44 @@
 const $ = require('jquery');
 
+
+
+
+const SubDocSubgraph = async function (data) {
+  //data.element.append($('<p>').html('testing'));
+  return data.element;
+  // try {
+  //   console.log("at start: " + JSON.stringify(data));
+  //   const subgraph = JSON.parse(data.value);
+  //   const html = await subcrate(subgraph, subgraph[0]['@id']);
+  //   console.log(`got subcrate html: ${html.substr(0, 40)}`);
+  //   data.element.append($('<div>').html(html));
+  //   console.log(`returning: ${data.element} which has type ${typeof(data.element)}`);
+  //   console.log(JSON.stringify(data.element));
+  //   return data.element;
+  // } catch (e) {
+  //   console.log("Error rendering subgraph");
+  //   console.log(e);
+  //   data.element.append($('<p>').html('error rendering element'));
+  //   data.element.append($('<pre>').html(e));
+  //   return data.element;
+  // }
+
+};
+
+
+
+
+
+
+
+
+
+
 // first draft of recursive subgraph rendering
 
-const SubDocSubgraphRecursive = function (data) {
+
+
+const SubDocSubgraphOld = function (data) {
   try {
     const subgraph = JSON.parse(data.value);
     renderItem({}, data.element, subgraph, subgraph[0], 2);
@@ -39,12 +75,20 @@ function renderItem(rendered, element, subgraph, item, indent) {
       if( typeof(value) === 'object' ) {
         strvalue = value['name'];
       }
-      const row = $('<div class="row">');
-      row.append($(`<div class="col-sm-${indent}">`).html(field));
-      row.append($(`<div class="col-sm-${8 - indent}">`).html(strvalue));
-      element.append(row);
+      if( isFacet(cf, item, field) ) {
+
+      } else {
+        const row = $('<div class="row">');
+        row.append($(`<div class="col-sm-${indent}">`).html(field));
+        row.append($(`<div class="col-sm-${8 - indent}">`).html(strvalue));
+        element.append(row);
+      }
     }
   }
+}
+
+function isFacet(cf, item, field) {
+  //look for ${item}_${field_facet(multi)? in the config
 }
 
 
@@ -87,4 +131,4 @@ function findRef(subgraph, id) {
 
 
 
-module.exports = SubDocSubgraphRecursive;
+module.exports = SubDocSubgraph;

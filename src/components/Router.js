@@ -35,7 +35,8 @@ const Router = async function (state) {
     });
     if (res.status === 200 && res.data["numFound"] === 1 ) {
       state.main.doc = res.data["docs"][0];
-      app.innerHTML = Layout(state, ViewDoc.summary(state), ViewDoc.main(state));
+      const main_html = await ViewDoc.main(state);
+      app.innerHTML = Layout(state, ViewDoc.summary(state), main_html);
     } else {
       app.innerHTML = Layout(state, '', ViewError(state));
     }
