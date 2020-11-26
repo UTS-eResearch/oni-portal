@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
 
@@ -16,7 +16,7 @@ module.exports = {
   },
 
   externals: {
-    'subcrate': 'https://etc.mikelynch.org/js/oni-subcrate-bundle.js'
+    'subcrate': 'oni-subcrate-bundle.js'
   },
 
   // optimization: {
@@ -33,6 +33,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Data Portal',
       template: 'src/index.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src', 'oni-subcrate-bundle.js')
+        }
+      ]
     })
   ],//Keep this file as is. We should manage html in JS
 

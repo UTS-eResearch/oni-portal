@@ -4,24 +4,17 @@ const $ = require('jquery');
 
 
 const SubDocSubgraph = async function (data) {
-  //data.element.append($('<p>').html('testing'));
-  return data.element;
-  // try {
-  //   console.log("at start: " + JSON.stringify(data));
-  //   const subgraph = JSON.parse(data.value);
-  //   const html = await subcrate(subgraph, subgraph[0]['@id']);
-  //   console.log(`got subcrate html: ${html.substr(0, 40)}`);
-  //   data.element.append($('<div>').html(html));
-  //   console.log(`returning: ${data.element} which has type ${typeof(data.element)}`);
-  //   console.log(JSON.stringify(data.element));
-  //   return data.element;
-  // } catch (e) {
-  //   console.log("Error rendering subgraph");
-  //   console.log(e);
-  //   data.element.append($('<p>').html('error rendering element'));
-  //   data.element.append($('<pre>').html(e));
-  //   return data.element;
-  // }
+  try {
+     console.log("at start: " + JSON.stringify(data));
+    const subgraph = JSON.parse(data.value);
+    const html = await subcrate(subgraph, subgraph[0]['@id']);
+    console.log(`got subcrate html: ${html.substr(0, 40)}`);
+    return html;
+  } catch (e) {
+    console.log("Error rendering subgraph");
+    console.log(e);
+    return `<p>error rendering element</p><pre>${e}</pre>`;
+  }
 
 };
 

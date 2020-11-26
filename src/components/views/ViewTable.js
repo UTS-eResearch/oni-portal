@@ -17,10 +17,8 @@ const ViewTable = async function (data, doc) {
   const fields = data.results.view[type].viewFields;
 
   const div = $('<div class="table table-responsive">');
-
-  console.log(`table div = ${div} ${JSON.stringify(div)}`);
-
   for (let sdcf of fields) {
+    console.log(`ViewTable: ${sdcf.field} -> ${sdcf.display}`);
     const list = $('<div class="table">');
     switch (sdcf.display) {
       case 'SubDocHorizontal':
@@ -97,14 +95,14 @@ const ViewTable = async function (data, doc) {
         if(doc[sdcf.field]) {
           const valueHtml = renderValue(data, sdcf, doc);
           const row = $('<div class="row>');
-          console.log(`in ViewTable row = ${JSON.stringify(row)}`);
-          console.log(`in ViewTable \$ = ${$}`);
-          const subDoc = await SubDocSubgraph({
+          const subDocHtml = await SubDocSubgraph({
             config: sdcf,
             value: valueHtml,
             element: row
           });
-          list.append(subDoc);
+          console.log(`subDocHtml = ${subDocHtml}`)
+          list.append($('<div class="row">').html(subDocHtml));
+          //list.append(subDoc);
         }
         break;
       case 'SubDocImage':
@@ -140,7 +138,7 @@ const ViewTable = async function (data, doc) {
     }
     div.append(list);
   }
-  return div;
+  return div.html();
 };
 
 // FIXME - should use same code as Facets
