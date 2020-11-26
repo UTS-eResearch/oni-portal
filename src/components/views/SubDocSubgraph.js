@@ -1,6 +1,6 @@
 const $ = require('jquery');
 
-
+//const subcrate = require('subcrate');
 
 
 const SubDocSubgraph = async function (data) {
