@@ -1,21 +1,11 @@
 const axios = require('axios');
 
-
-// see https://lucene.apache.org/solr/guide/8_4/the-standard-query-parser.html#the-standard-query-parser
-
-const SOLR_SPECIAL_CHARS = /([+&|!(){}\[\]^"~*?:/'-])/;
-
-
-// function escapeSolrQuery(raw) {
-//   return raw.replace(/(\s|:|%20)/g, "%5C$1");
-// }
-
 function escapeSolrQuery(raw) {
-  return raw.replace(/SOLR_SPECIAL_CHARS/g, "\\$1");
+  // see https://lucene.apache.org/solr/guide/8_4/the-standard-query-parser.html#the-standard-query-parser
+  const SOLR_SPECIAL_CHARS = /([+&|!(){}\[\]^"~*?:/'-])/;
+  const regex = new RegExp(SOLR_SPECIAL_CHARS);
+  return raw.replace(regex, "\\$1");
 }
-
-
-// now escaping the solr query twice: once for solr, and then for URIs
 
 
 const SolrService = {
@@ -31,9 +21,10 @@ const SolrService = {
             return k + ':' + '"' + escapeSolrQuery(search[k]) + '"';
           }
         });
-        searchParams = searches.join(' && ');
+        searchParams = searches.join(' && ')
       }
-      var query = `select?q=${encodeURIComponent(searchParams)}&start=${start}&page=${page}`;
+      searchParams = encodeURIComponent(searchParams);
+      var query = `select?q=${searchParams}&start=${start}&page=${page}`;
 
       if( config.facets ) {
         query += `&facet=true&` + facetParams(config, showFacet);

@@ -18,7 +18,7 @@ const Router = async function (state) {
   if (route) {
     const match = route.match(/(#.*?\/)(.*)/);
     verb = match[1];
-    query = decodeURIComponent(match[2]);
+    query = match[2];
   }
 
 
