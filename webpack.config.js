@@ -15,9 +15,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')//'/Users/moises/source/github-uts/ocfl-nginx/assets/'
   },
 
-  externals: {
-    'subcrate': 'oni-subcrate-bundle.js'
-  },
+  externals: [{
+//    'subcrate': 'oni-subcrate-bundle.js'
+    child_process: require('child_process'),
+    fs: require('fs'),
+    'ejs':require('ejs'),
+    xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}'
+  }],
 
   // optimization: {
   //   minimizer: [new UglifyJsPlugin()]
