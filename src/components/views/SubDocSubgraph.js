@@ -1,5 +1,5 @@
-const rocrate_html = require("ro-crate-html-js");
-const rocrate = require("ro-crate");
+const Preview = require("ro-crate-html-js").Preview;
+const ROCrate = require("ro-crate").ROCrate;
 
 const _ = require('lodash');
 
@@ -12,11 +12,11 @@ async function subcrate(subgraph, rootId) {
         "about": {"@id": rootId }
     });
 
-    const crate = new rocrate.ROCrate({
+    const crate = new ROCrate({
         "@context": [],
         "@graph": graph
     });
-    preview = await new rocrate_html.Preview(crate, {}, rootId);
+    preview = await new Preview(crate, {}, rootId);
     console.log(preview.completeDataset);
     return preview.completeDataset(rootId);
 };
