@@ -16,7 +16,6 @@ module.exports = {
   },
 
   externals: [{
-//    'subcrate': 'oni-subcrate-bundle.js'
     child_process: require('child_process'),
     fs: require('fs'),
     'ejs':require('ejs'),
@@ -37,13 +36,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Data Portal',
       template: 'src/index.html'
-    }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, 'src', 'oni-subcrate-bundle.js')
-        }
-      ]
     })
   ],//Keep this file as is. We should manage html in JS
 
