@@ -5,7 +5,6 @@
   "main": "index.js",
   "repository": "https://github.com/UTS-eResearch/oni-portal",
   "scripts": {
-    "build-subcrate": "browserify -r ./src/oni-subcrate.js > ./src/oni-subcrate-bundle.js",
     "build": "webpack",
     "start:dev": "webpack-dev-server"
   },
