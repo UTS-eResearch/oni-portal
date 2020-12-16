@@ -18,7 +18,7 @@ const Router = async function (state) {
   if (route) {
     const match = route.match(/(#.*?\/)(.*)/);
     verb = match[1];
-    query = decodeURIComponent(match[2]);
+    query = match[2];
   }
 
 
@@ -30,7 +30,7 @@ const Router = async function (state) {
     const res = await solrService.select(state, {
       start: 0,
       page: 1,
-      search: { id: query },
+      search: { id: decodeURIComponent(query) },
       facets: false
     });
     if (res.status === 200 && res.data["numFound"] === 1 ) {
