@@ -4,6 +4,7 @@ const Facets = require('./Facets');
 const SearchPath = require('../SearchPath');
 const Pagination = require('./Pagination');
 
+const Geo = require('./Geo');
 
 const SearchResults = function (data) {
   return `
@@ -26,6 +27,12 @@ function listDocs (data) {
   const docs = data.main.docs;
   html = `<ul class="list-group col-sm-8">`;
   if (docs.length > 0) {
+
+    if( data.results['map'] ) {
+      console.log("adding map holder to list of results");
+      html += `<li class="list-group-item">${Geo.mapHolder()}</li>`;
+    }
+
     docs.forEach((d) => {
       html += `<li class="list-group-item">${listDoc(data, d)}
         </li>`;

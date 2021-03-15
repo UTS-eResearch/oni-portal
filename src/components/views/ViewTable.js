@@ -11,15 +11,26 @@ const SubDocSubgraph = require('./SubDocSubgraph');
 const SubDocImage = require('./SubDocImage');
 const SubDocImageArray = require('./SubDocImageArray');
 
+const Geo = require('./Geo');
+
 const ViewTable = async function (data, doc) {
 
   const type = data.main.doc['record_type_s'];
   const fields = data.results.view[type].viewFields;
 
+
   const div = $('<div class="table table-responsive">');
+
+
+
   for (let sdcf of fields) {
-    console.log(`ViewTable: ${sdcf.field} -> ${sdcf.display}`);
     const list = $('<div class="table">');
+    console.log(`data.results['map'] = ${data.results['map']}`);
+    if( data.results['map'] ) {
+      console.log("adding map container to results table");
+      list.append($(Geo.mapHolder()));
+    }
+
     switch (sdcf.display) {
       case 'SubDocHorizontal':
         if(doc[sdcf.field]) {
@@ -121,6 +132,15 @@ const ViewTable = async function (data, doc) {
           list.append(subDoc);
         }
         break;
+      // case 'SubDocMap':
+      //   if(doc[sdcf.field]) {
+      //     const latlong = renderGeo(data, sdcf, doc);
+      //     const row = $('<div class="row">');
+      //     const subDoc = SubDocMap({state: data, config: sdcf, value: latlong, element: row});
+      //     list.append(subDoc);
+      //   }
+      //   break;
+
       default:
         if(doc[sdcf.field]) {
           const row = $('<div class="row">');
@@ -160,6 +180,7 @@ function renderValue(data, sdcf, doc) {
     return doc[sdcf.field];
   }
 }
+
 
 
 

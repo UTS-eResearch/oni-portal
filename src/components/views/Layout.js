@@ -5,6 +5,7 @@ const Footer = require('./Footer');
 
 
 const Layout = function (data, sidebar, main) {
+
   return `<div class="content-inside">
   ${Header(data)}
   ${Menu(data)}
@@ -17,6 +18,7 @@ const Layout = function (data, sidebar, main) {
   ${sidebar}
 
   ${main}
+
 
   </div>
   </div>

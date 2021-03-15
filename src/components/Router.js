@@ -5,6 +5,7 @@ const Facets = require('./views/Facets');
 const Footer = require('./views/Footer');
 const ViewDoc = require('./views/ViewDoc');
 const ViewError = require('./views/ViewError');
+const Geo = require('./views/Geo');
 
 const solrService = require('./SolrService');
 const SearchPath = require('./SearchPath');
@@ -37,6 +38,17 @@ const Router = async function (state) {
       state.main.doc = res.data["docs"][0];
       const main_html = await ViewDoc.main(state);
       app.innerHTML = Layout(state, ViewDoc.summary(state), main_html);
+      if( state.results['map'] ) {
+        const geodata = Geo.getLocations(state.config.results, res.data["docs"]);
+        if( geodata ) {
+          Geo.renderMap(geodata);
+        }
+      }
+      if( state.callbacks ) {
+        for ( cb of state.callbacks ) {
+          cb(state);
+        }
+      }
     } else {
       app.innerHTML = Layout(state, '', ViewError(state));
     }
@@ -93,8 +105,15 @@ const Router = async function (state) {
         state['splash'] = null;
         app.innerHTML = Layout(state, Facets.sidebar(state), Page(page));
       } else {
+
         const results = showFacet ? Facets.focus(state, showFacet) : SearchResults(state);
         app.innerHTML = Layout(state, Facets.sidebar(state), results);
+        if( ! showFacet && state.results['map'] ) {
+          const geodata = Geo.getLocations(state.config.results, res.data["docs"]);
+          if( geodata ) {
+            Geo.renderMap(geodata);
+          }
+        }
       }
     } else {
       app.innerHTML = Layout(state, '', ViewError(state));
