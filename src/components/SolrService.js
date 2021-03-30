@@ -38,8 +38,10 @@ const SolrService = {
 
       const res = await axios.get(url);
       if (res.data) {
+        console.log(`Got solr data back: ${res.status} ${res.data['response']['numFound']}`);
         return { data: res.data['response'], facets: res.data['facet_counts'], status: res.status};
       } else {
+        console.log(`Got NO solr data back: ${res.status}`);
         return { data: [], status: res.status};
       }
     } catch (e) {

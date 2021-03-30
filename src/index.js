@@ -11,6 +11,8 @@ const RegisterEvents = require('./components/RegisterEvents');
 async function main() {
   // Default state
   // config is passed through from the oni-express app
+
+  console.log('in main()');
   const config = await ConfigService.base();
 
   let state = {

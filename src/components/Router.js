@@ -21,7 +21,8 @@ const Router = async function (state) {
     query = match[2];
   }
 
-
+  console.log(`Router called with verb ${verb}`);
+  console.log(`state.main ${JSON.stringify(state['main'], null, 2)}`);
 
   if (verb === '#view/') {
 
@@ -45,6 +46,7 @@ const Router = async function (state) {
 
     // Render one of the help pages in the main column and facets
     // from the most recent search in the sidebar
+
 
     const page = state.pages[query] || state.errors.not_found;
     app.innerHTML = Layout(state, Facets.sidebar(state), Page(page));
