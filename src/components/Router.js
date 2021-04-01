@@ -21,8 +21,6 @@ const Router = async function (state) {
     query = match[2];
   }
 
-  console.log(`Router called with verb ${verb}`);
-  console.log(`state.main ${JSON.stringify(state['main'], null, 2)}`);
 
   if (verb === '#view/') {
 
