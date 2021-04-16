@@ -100,6 +100,14 @@ module.exports = {
         ]
       },
       {
+        test: /\.css$/,
+        use: [
+          {loader:'style-loader'},
+          {loader:'css-loader'}
+        ]
+      },
+
+      {
         test: /\.(jpe?g|png|gif|svg|ico)$/i,
         use: [{
           loader: 'file-loader',
