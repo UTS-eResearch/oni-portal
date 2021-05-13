@@ -117,9 +117,16 @@ li.facet {
 .col-sum {
   background-color: $summary-col-background-color;
   padding: 2em;
+  box-shadow: 2px 2px #ccc;
 }
-
-.summary:nth-of-type(even) {
+.summary{
+  color: $summary-text-color;
+}
+.summary>a{
+  color: $summary-text-color;
+  text-decoration: underline;
+}
+.summary:nth-of-type(odd) {
   background-color: $summary-background-color;
 }
 

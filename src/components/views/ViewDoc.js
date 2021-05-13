@@ -42,7 +42,7 @@ const ViewDoc = {
         } 
       }
     }
-    html += `<div class="summaryField"><a href="${SearchPath.toURI(data.main.currentSearch)}">&lt; back to search</a></div>
+    html += `<div class="summary summaryField"><a href="${SearchPath.toURI(data.main.currentSearch)}">&lt; back to search</a></div>
     </div>`
     return html;
   },
