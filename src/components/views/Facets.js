@@ -172,9 +172,11 @@ const Facets = {
       }
     }
     if(!f['display']) {
-      f['display'] = 'Not found';
+      return `<span>Not Found</span>`;
+    } else {
+      return `<a href="${url}">${f['display']}</a>`;
     }
-    return `<a href="${url}">${f['display']}</a>`;
+
   },
 
   // link: nicer process/link
