@@ -3,7 +3,7 @@ const isIterable = require('../isIterable');
 
 const SubDoc = function (data) {
   const div = $('<div class="row">');
-  const headerDiv = $('<div class="col-sm-2">').html(data.fieldName);
+  const headerDiv = $('<div class="col-sm-2">').html(`<strong>${data.fieldName}</strong>`);
   div.append(headerDiv);
   if (isIterable(data.value)) {
     for (let key of data.value) {
@@ -12,7 +12,7 @@ const SubDoc = function (data) {
         const dis = $('<span>').html(data.value);
         subDiv.append(dis);
         div.append(subDiv);
-      } catch (e) {
+      }catch (e) {
         console.log("Error rendering field " + e);
       }
     }

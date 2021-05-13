@@ -1,6 +1,6 @@
 {
   "name": "oni-portal",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Frontend SPA for Oni. Best deployed via oni-express",
   "main": "index.js",
   "repository": "https://github.com/UTS-eResearch/oni-portal",

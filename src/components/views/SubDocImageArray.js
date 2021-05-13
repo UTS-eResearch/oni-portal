@@ -10,11 +10,11 @@ const SubDocImageArray = function (data) {
       }
       const valueImage = `<img style="max-height: 300px;" src="${imagePath}" alt="${dataValue['display']}">`
       if (data.config.label) {
-        const label = $('<div class="col-sm-2">').html(data.config.label);
-        const value = $('<div class="col-sm-6">').html(valueImage);
+        const label = $('<div class="col-sm-2">').html(`<strong>${data.fieldName}</strong>`);
+        const value = $('<div class="col-sm-10">').html(valueImage);
         data.element.append(label).append(value);
       } else {
-        const value = $('<div class="col-sm-8">').html(valueImage);
+        const value = $('<div class="col-sm-12">').html(valueImage);
         data.element.append(value);
       }
     });

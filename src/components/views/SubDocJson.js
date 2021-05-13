@@ -8,11 +8,11 @@ const SubDocJson = function (data) {
       text = value[data.config.element];
     }
     if (data.config.label) {
-      const label = $('<div class="col-sm-2">').html(data.config.label);
-      const value = $('<div class="col-sm-6">').html(text);
+      const label = $('<div class="col-sm-2">').html(`<strong>${data.config.label}<strong>`);
+      const value = $('<div class="col-sm-10">').html(text);
       data.element.append(label).append(value);
     } else {
-      const value = $('<div class="col-sm-8">').html(text);
+      const value = $('<div class="col-sm-12">').html(text);
       data.element.append(value);
     }
     return data.element;

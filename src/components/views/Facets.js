@@ -171,6 +171,9 @@ const Facets = {
         console.log("no match!");
       }
     }
+    if(!f['display']) {
+      f['display'] = 'Not found';
+    }
     return `<a href="${url}">${f['display']}</a>`;
   },
 

@@ -6,7 +6,7 @@ const SubDocHorizontal = function (data) {
   let subDiv = $('<div>');
 
   if (data.fieldName) {
-    const headerDiv = $('<div class="col-sm-2">').html(data.fieldName);
+    const headerDiv = $('<div class="col-sm-2">').html(`<strong>${data.fieldName}</strong>`);
     div.append(headerDiv);
     subDiv.addClass('col-sm-10');
   }
