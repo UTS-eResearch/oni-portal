@@ -117,7 +117,8 @@ li.facet {
 .col-sum {
   background-color: $summary-col-background-color;
   padding: 2em;
-  box-shadow: 2px 2px #ccc;
+  box-shadow: 2px 2px;
+  color: #ccc;
 }
 .summary{
   color: $summary-text-color;

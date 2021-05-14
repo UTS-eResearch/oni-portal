@@ -4,6 +4,15 @@ const SubDocImageArray = function (data) {
   if (Array.isArray(data.value)) {
     const dataValue = data.value;
     dataValue.forEach(function (d) {
+      if(data.config.json) {
+        try {
+          const json = JSON.parse(d);
+          d = json[data.config.element || '@id'];
+        } catch(e) {
+          console.error(e);
+          throw ('Error: cannot parse json SubDocImageArray');
+        }
+      }
       let imagePath = '';
       if (data.config.prefix) {
         imagePath = data.config.prefix + d;
