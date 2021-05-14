@@ -118,13 +118,13 @@ li.facet {
   background-color: $summary-col-background-color;
   padding: 2em;
   box-shadow: 2px 2px;
-  color: #ccc;
+  color: $summary-background-shadow-color;
 }
 .summary{
   color: $summary-text-color;
 }
 .summary>a{
-  color: $summary-text-color;
+  color: $summary-a-color;
   text-decoration: underline;
 }
 .summary:nth-of-type(odd) {
