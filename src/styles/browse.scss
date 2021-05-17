@@ -113,3 +113,48 @@ li.facet {
   padding-top: 1em;
   padding-bottom: .5em;
 }
+
+.col-sum {
+  background-color: $summary-col-background-color;
+  padding: 2em;
+  box-shadow: 2px 2px;
+  color: $summary-background-shadow-color;
+}
+.summary{
+  color: $summary-text-color;
+}
+.summary>a{
+  color: $summary-a-color;
+  text-decoration: underline;
+}
+.summary:nth-of-type(odd) {
+  background-color: $summary-background-color;
+}
+
+.summaryHeader {
+  font-size: large;
+}
+
+.summaryField {
+
+}
+.col-desc>div:nth-of-type(odd) {
+  background-color: $description-background-color;
+}
+
+.col-desc>div {
+  padding: 8px;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+.row-desc-json {
+  border-top: 1px solid;
+  border-top-color: $description-json-border-top-color;
+}
+
+.row-desc-json:first-child {
+  border-top: 0;
+}
+
+

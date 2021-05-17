@@ -41,8 +41,7 @@ async function main() {
 
 (async () => {
   const config = await ConfigService.base();
-
-  for( let cf of CFSECTIONS ) {
+   for( let cf of CFSECTIONS ) {
     if( config[cf] ) {
       state[cf] = config[cf];
     }
@@ -53,4 +52,7 @@ async function main() {
   document.title = config.header.title;
 
   await main();
+  if(config.styles) {
+    ConfigService.processStyles(config.styles);
+  }
 })();

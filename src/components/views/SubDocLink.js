@@ -17,11 +17,11 @@ const SubDocLink = function (data) {
     }
     const valueLink = `<a href="${value}" rel="noreferer noopener" target="_blank">${text}</a>`;
     if (data.config.label) {
-      const label = $('<div class="col-sm-2">').html(data.config.label);
-      const value = $('<div class="col-sm-6">').html(valueLink);
+      const label = $('<div class="col-sm-2">').html(`<strong>${data.config.label}<strong>`);
+      const value = $('<div class="col-sm-10">').html(valueLink);
       data.element.append(label).append(value);
     } else {
-      const value = $('<div class="col-sm-8">').html(valueLink);
+      const value = $('<div class="col-sm-12">').html(valueLink);
       data.element.append(value);
     }
     return data.element;

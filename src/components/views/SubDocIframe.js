@@ -3,7 +3,7 @@ const isIterable = require('../isIterable');
 
 const SubDocIframe = function (data) {
   const div = $('<div class="row">');
-  const headerDiv = $('<div class="col-sm-2">').html(data.fieldName);
+  const headerDiv = $('<div class="col-sm-2">').html(`<strong>${data.fieldName}</strong>`);
   div.append(headerDiv);
 
   try {

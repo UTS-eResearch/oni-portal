@@ -171,7 +171,12 @@ const Facets = {
         console.log("no match!");
       }
     }
-    return `<a href="${url}">${f['display']}</a>`;
+    if(!f['display']) {
+      return `<span>Not Found</span>`;
+    } else {
+      return `<a href="${url}">${f['display']}</a>`;
+    }
+
   },
 
   // link: nicer process/link

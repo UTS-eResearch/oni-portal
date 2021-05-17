@@ -12,7 +12,7 @@ const ViewDoc = {
     const main_content = await ViewTable(data, data.main.doc);
     return `
 
-  <div class="col-8">
+  <div class="col-8 col-desc">
     <div class="item-title">${data.main.doc.name}</div>
     ${ViewDoc.link(data, data.main.doc)}
     ${main_content}
@@ -21,7 +21,7 @@ const ViewDoc = {
   },
 
   summary: function (data) {
-    let html = '<div class="col-3">';
+    let html = '<div class="col-3 col-sum">';
     let doc = data.main.doc;
     let type = data.main.doc['record_type_s'];
     let fields = data.results.view[type].summaryFields;
@@ -30,19 +30,19 @@ const ViewDoc = {
       const field = fieldcf['field'];
       const values = Array.isArray(doc[field]) ? doc[field]: [ doc[field] ];
       if( fieldcf['label'] ) {
-        html += `<div class="summaryHeader">${fieldcf['label']}</div>`;
+        html += `<div class="summary summaryHeader">${fieldcf['label']}</div>`;
       }
       if( fieldcf['facet'] ) {
         for( let facetLink of values.map((v) => Facets.link(data, fieldcf['facet'], v)) ) {
-          html += `<div class="summaryField">${facetLink}</div>`
+          html += `<div class="summary summaryField">${facetLink}</div>`;
         }
       } else {
         for( let v of values ) {
-          html += `<div class="summaryField">${v}</div>`;
+          html += `<div class="summary summaryField">${v}</div>`;
         } 
       }
     }
-    html += `<div class="summaryField"><a href="${SearchPath.toURI(data.main.currentSearch)}">&lt; back to search</a></div>
+    html += `<div class="summary summaryField"><a href="${SearchPath.toURI(data.main.currentSearch)}">&lt; back to search</a></div>
     </div>`
     return html;
   },
