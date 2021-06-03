@@ -22,36 +22,24 @@ const CFSECTIONS = [
   'apis', 'header', 'footer', 'pages', 'splash', 'search', 'results', 'facets', 'errors'
 ];
 
-  let state = {
-    apis: config.apis,
-    header: config.header,
-    footer: config.footer,
-    pages: config.pages,
-    search: config.search,
-    results: config.results,
-    errors: config.errors,
-    
-    main: {
-      docs: [],
-      doc: {},
-      start: 0,
-      page: 1,
-      numFound: 0,
-      pageSize: 10,
-      searchText: '',
-      currentSearch: {},
-      related: [],
-    },
-    facets: config.facets,
 
-    facetData: [],
-    facetLimit: 5,
-    config: config
-  };
+const state = {
+  main: {
+    docs: [],
+    doc: {},
+    start: 0,
+    page: 1,
+    numFound: 0,
+    pageSize: 10,
+    searchText: '',
+    currentSearch: {},
+    related: [],
+  },
+  facetData: [],
+  facetLimit: 5
+};
 
-  if( config.splash ) {
-    state.splash = config.splash;
-  }
+
 
 window.onhashchange = main;
 
