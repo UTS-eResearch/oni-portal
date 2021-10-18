@@ -12,10 +12,15 @@ const SubDocImage = function (data) {
         imagePath = data.config.prefix + dataValue;
       }
     } else {
-      dataValue = data.value;
+      dataValue = data.value;      
       if (data.config.prefix) {
         imagePath = data.config.prefix + dataValue;
-      } else {
+      } 
+      else if (data.config.inCrate) {
+        imagePath = data.ocfl_path + "/" + data.crate_uri[0] + "/" + data.value;
+        console.log(imagePath)
+      }
+      else {
         imagePath = dataValue
       }
     }
