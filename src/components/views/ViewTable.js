@@ -139,7 +139,7 @@ const ViewTable = async function (data, doc) {
           const valueHtml = renderValue(data, sdcf, doc);
           if (valueHtml) {
             const row = $('<div class="row">');
-            const subDoc = SubDocImage({config: sdcf, value: valueHtml, element: row});
+            const subDoc = SubDocImage({config: sdcf, value: valueHtml, element: row, ocfl_path: data.config.apis.ocfl, crate_uri: data.main.doc.uri_id});
             nonEmptyDiv = true;
             list.append(subDoc);
           }
